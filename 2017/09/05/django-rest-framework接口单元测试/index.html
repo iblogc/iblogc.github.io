@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#4BAD4F">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=7.4.0">
+  <link rel="mask-icon" href="/logo.png?v=7.4.0" color="#4BAD4F">
+  <link rel="alternate" href="/atom.xml" title="iblogc's blog" type="application/atom+xml">
+  <meta name="google-site-verification" content="qG7T6aqK8Yc9wkYFQZSYbiHnFjGresFJrmQ3GILJA80">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-flash.min.css?v=1.0.2">
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":true,"style":"default"},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: true,
+    lazyload: true,
+    pangu: true,
+    algolia: {
+      appID: 'PGLEOEFW66',
+      apiKey: '9e021ceac0fcb29be0a75df5b157218b',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="keywords" content="Django,restful api,接口,单元测试,测试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django REST framework单元测试「Unit Testing」">
+<meta property="og:url" content="http://me.iblogc.com/2017/09/05/django-rest-framework接口单元测试/index.html">
+<meta property="og:site_name" content="iblogc&#39;s blog">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-17T07:57:22.316Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Django REST framework单元测试「Unit Testing」">
+  <link rel="canonical" href="http://me.iblogc.com/2017/09/05/django-rest-framework接口单元测试/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Django REST framework单元测试「Unit Testing」 | iblogc's blog</title>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54784650-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-54784650-1');
+    }
+  </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dbe5ded201831a4b07cca26d70e498b6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">iblogc's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">Just do it.</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+      
+    
+
+    <a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">49</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+      
+    
+
+    <a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">92</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-guestbook">
+      
+    
+      
+    
+
+    <a href="/guestbook" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>留言版</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+      
+    
+
+    <a href="/about" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-sitemap">
+      
+    
+      
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>站点地图</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-commonweal">
+      
+    
+      
+    
+
+    <a href="/404.html" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://me.iblogc.com/2017/09/05/django-rest-framework接口单元测试/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="沙丁鱼🇨🇳">
+      <meta itemprop="description" content="iblogc">
+      <meta itemprop="image" content="/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="iblogc's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">Django REST framework单元测试「Unit Testing」
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2017-09-05 23:23:41" itemprop="dateCreated datePublished" datetime="2017-09-05T23:23:41+08:00">2017-09-05</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-17 15:57:22" itemprop="dateModified" datetime="2020-01-17T15:57:22+08:00">2020-01-17</time>
+              </span>
+            
+          
+
+          
+            <span id="/2017/09/05/django-rest-framework接口单元测试/" class="post-meta-item leancloud_visitors" data-flag-title="Django REST framework单元测试「Unit Testing」" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2017/09/05/django-rest-framework接口单元测试/#comments" itemprop="discussionUrl"><span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/09/05/django-rest-framework接口单元测试/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>6.1k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>6 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><br><br><a id="more"></a></p>
+<h2 id="settings"><a href="#settings" class="headerlink" title="settings"></a><code>settings</code></h2><p><code>Django</code>运行单元测试时，会以<code>settings</code>里的数据库配置里的<code>NAME</code>新建一个以<code>test_</code>开关的临时数据库，并在测试结束后删除，默认的测试数据库会以当前的<code>migrations</code>文件来创建数据表并进行迁移，但如果<code>migrations</code>文件很多，每次运行时间将很久，所以可以跳过迁移，直接以当前<code>Model</code>结果来创建表以提升测试效率，如果想进一步加快测试时创建数据库的速度，可以使用<code>SQLite</code>数据库引擎，当使用<code>SQLite</code>数据库引擎时，测试将默认使用内存数据库。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">TESTING = len(sys.argv) &gt; <span class="number">1</span> <span class="keyword">and</span> sys.argv[<span class="number">1</span>] == <span class="string">'test'</span></span><br><span class="line"><span class="keyword">if</span> TESTING:</span><br><span class="line">    <span class="comment"># 当使用SQLite数据库引擎时，测试将默认使用内存数据库</span></span><br><span class="line">    DATABASES[<span class="string">'default'</span>] = &#123;</span><br><span class="line">        <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.sqlite3'</span>,</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment"># 单元测试时, 跳过migrate, 极 的提升测试运 效率</span></span><br><span class="line">    <span class="comment"># 具体可以查看</span></span><br><span class="line">    <span class="comment"># https://simpleisbetterthancomplex.com/tips/2016/08/19/django-tip-12-disabl ing-migrations-to-speed-up-unit-tests.html</span></span><br><span class="line">    <span class="comment"># https://stackoverflow.com/questions/36487961/django-unit-testing-taking-a- very-long-time-to-create-test-database</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">DisableMigrations</span><span class="params">(object)</span>:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">__contains__</span><span class="params">(self, item)</span>:</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">    </span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self, item)</span>:</span></span><br><span class="line">            <span class="keyword">return</span> <span class="string">"notmigrations"</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    MIGRATION_MODULES = DisableMigrations()</span><br></pre></td></tr></table></figure></p>
+<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> absolute_import</span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> unicode_literals</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> rest_framework <span class="keyword">import</span> status</span><br><span class="line"><span class="keyword">from</span> rest_framework.test <span class="keyword">import</span> APITestCase</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> apps.account.models <span class="keyword">import</span> User</span><br><span class="line"><span class="keyword">from</span> apps.account.tests.test_utils <span class="keyword">import</span> TestCaseUtils</span><br><span class="line"></span><br><span class="line">__author__ = <span class="string">'jeff'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserAPITests</span><span class="params">(APITestCase, TestCaseUtils)</span>:</span></span><br><span class="line">    <span class="comment"># 初始数据加载，可使用manage.py dumpdata [app_label app_label app_label.Model]生成</span></span><br><span class="line">    <span class="comment"># xml/yaml/json格式的数据</span></span><br><span class="line">    <span class="comment"># 一般放在每个应用的fixtures目录下, 只需要填写json文件名即可，django会自动查找</span></span><br><span class="line">    <span class="comment"># 此测试类运行结束后，会自动从数据库里销毁这份数据</span></span><br><span class="line">    <span class="comment"># fixtures = ['user.json']</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setUp</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 在类里每个测试方法执行前会运行</span></span><br><span class="line">        <span class="comment"># 在此方法执行前，django会运行以下操作</span></span><br><span class="line">        <span class="comment"># 1. 重置数据库，数据库恢复到执行migrate后的状态</span></span><br><span class="line">        <span class="comment"># 2. 加载fixtures数据</span></span><br><span class="line">        <span class="comment"># 所以每个测试方法里对数据库的操作都是独立的，不会相互影响</span></span><br><span class="line">        kwargs = dict(mobile_phone=<span class="string">'15999999999'</span>, password=<span class="string">'111111'</span>)</span><br><span class="line">        self.user = User.app_user_objects.create(**kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">tearDown</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 在类里每个方法结束执行后会运行</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setUpClass</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="comment"># 在类初始化时执行，必须调用super</span></span><br><span class="line">        super(UserAPITests, cls).setUpClass()</span><br><span class="line">        cls.token = <span class="string">''</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">tearDownClass</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="comment"># 在整个测试类运行结束时执行，必须调用super</span></span><br><span class="line">        super(UserAPITests, cls).tearDownClass()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_app_user_login_success</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""APP用户登录接口成功情况"""</span></span><br><span class="line">        <span class="comment"># path使用硬编码，不要使用reverse反解析url，以便在修改url之后能及时发现接口地址变化，并通知接口使用人员</span></span><br><span class="line">        path = <span class="string">'/api/api-token-auth/'</span></span><br><span class="line">        data = &#123;<span class="string">'mobile_phone'</span>: <span class="string">'15999999999'</span>, <span class="string">'password'</span>: <span class="string">'111111'</span>&#125;</span><br><span class="line">        response = self.client.post(path, data)</span><br><span class="line">        <span class="comment"># response.data是字典对象</span></span><br><span class="line">        <span class="comment"># response.content是json字符串对象</span></span><br><span class="line">        self.assertEquals(response.status_code,</span><br><span class="line">                          status.HTTP_200_OK,</span><br><span class="line">                          <span class="string">'登录接口返回状态码错误: 错误信息: &#123;&#125;'</span>.format(response.content))</span><br><span class="line">        self.assertIn(<span class="string">'token'</span>, response.data, <span class="string">'登录成功后无token返回'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_app_user_login_with_error_pwd</span><span class="params">(self)</span>:</span></span><br><span class="line">        path = <span class="string">'/api/api-token-auth/'</span></span><br><span class="line">        data = &#123;<span class="string">'mobile_phone'</span>: <span class="string">'15999999999'</span>, <span class="string">'password'</span>: <span class="string">'123456'</span>&#125;</span><br><span class="line">        response = self.client.post(path, data)</span><br><span class="line">        self.assertEquals(response.status_code, status.HTTP_400_BAD_REQUEST)</span><br><span class="line">        self.assertJSONEqual(<span class="string">'&#123;"errors":["用户名或密码错误。"]&#125;'</span>, response.content)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_get_app_user_profile_success</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""成功获取app用户个人信息接口"""</span></span><br><span class="line">        path = <span class="string">'/api/account/user/profile/'</span></span><br><span class="line">        headers = self.get_headers(user=self.user)</span><br><span class="line">        response = self.client.get(path, **headers)</span><br><span class="line">        <span class="comment"># 校验一些关键数据即可</span></span><br><span class="line">        <span class="comment"># 如果是创建新数据，不仅要校验返回的状态码和数据，</span></span><br><span class="line">        <span class="comment"># 还需要到使用Django ORM去数据库查询数据是否创建成功</span></span><br><span class="line">        self.assertEqual(response.status_code, status.HTTP_200_OK)</span><br><span class="line">        self.assertEqual(<span class="number">6</span>, len(response.data))</span><br><span class="line">        self.assertIn(<span class="string">'url'</span>, response.data)</span><br><span class="line">        self.assertIn(<span class="string">'mobile_phone'</span>, response.data)</span><br><span class="line">        self.assertIn(<span class="string">'avatar'</span>, response.data)</span><br><span class="line">        self.assertIn(<span class="string">'company_name'</span>, response.data)</span><br><span class="line">        self.assertIn(<span class="string">'username'</span>, response.data)</span><br><span class="line">        self.assertIn(<span class="string">'is_inviter'</span>, response.data)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_get_app_user_profile_without_token</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""不传token请求获取用户信息接口"""</span></span><br><span class="line">        path = <span class="string">'/api/account/user/profile/'</span></span><br><span class="line">        response = self.client.get(path)</span><br><span class="line">        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)</span><br></pre></td></tr></table></figure>
+<h2 id="断言"><a href="#断言" class="headerlink" title="断言"></a>断言</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 来自unittest.case.TestCase</span></span><br><span class="line">assertFalse(expr, msg=<span class="keyword">None</span>)</span><br><span class="line">assertTrue(expr, msg=<span class="keyword">None</span>)</span><br><span class="line">assertEqual(first, second, msg=<span class="keyword">None</span>)</span><br><span class="line">assertNotEqual(first, second, msg=<span class="keyword">None</span>)</span><br><span class="line">assertAlmostEqual(first, second, places=<span class="keyword">None</span>, msg=<span class="keyword">None</span>, delta=<span class="keyword">None</span>)</span><br><span class="line">assertNotAlmostEqual(first, second, places=<span class="keyword">None</span>, msg=<span class="keyword">None</span>, delta=<span class="keyword">None</span>)</span><br><span class="line">assertSequenceEqual(seq1, seq2, msg=<span class="keyword">None</span>, seq_type=<span class="keyword">None</span>)</span><br><span class="line">assertListEqual(list1, list2, msg=<span class="keyword">None</span>)</span><br><span class="line">assertTupleEqual(tuple1, tuple2, msg=<span class="keyword">None</span>)</span><br><span class="line">assertSetEqual(set1, set2, msg=<span class="keyword">None</span>)</span><br><span class="line">assertIn(member, container, msg=<span class="keyword">None</span>)</span><br><span class="line">assertNotIn(member, container, msg=<span class="keyword">None</span>)</span><br><span class="line">assertIs(expr1, expr2, msg=<span class="keyword">None</span>)</span><br><span class="line">assertIsNot(expr1, expr2, msg=<span class="keyword">None</span>)</span><br><span class="line">assertDictEqual(d1, d2, msg=<span class="keyword">None</span>)</span><br><span class="line">assertDictContainsSubset(expected, actual, msg=<span class="keyword">None</span>)</span><br><span class="line">assertItemsEqual(expected_seq, actual_seq, msg=<span class="keyword">None</span>)</span><br><span class="line">assertMultiLineEqual(first, second, msg=<span class="keyword">None</span>)</span><br><span class="line">assertLess(a, b, msg=<span class="keyword">None</span>)</span><br><span class="line">assertLessEqual(a, b, msg=<span class="keyword">None</span>)</span><br><span class="line">assertGreater(a, b, msg=<span class="keyword">None</span>)</span><br><span class="line">assertGreaterEqual(a, b, msg=<span class="keyword">None</span>)</span><br><span class="line">assertIsNone(obj, msg=<span class="keyword">None</span>)</span><br><span class="line">assertIsInstance(obj, cls, msg=<span class="keyword">None</span>)</span><br><span class="line">assertNotIsInstance(obj, cls, msg=<span class="keyword">None</span>)</span><br><span class="line">assertRaisesRegexp(expected_exception, expected_regexp,</span><br><span class="line">                           callable_obj=<span class="keyword">None</span>, *args, **kwargs)</span><br><span class="line">assertRegexpMatches(text, expected_regexp, msg=<span class="keyword">None</span>)</span><br><span class="line">assertNotRegexpMatches(text, unexpected_regexp, msg=<span class="keyword">None</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="测试接口地址"><a href="#测试接口地址" class="headerlink" title="测试接口地址"></a>测试接口地址</h2><p>测试接口地址建议使用硬编码，不要使用<code>reverse</code>反解析url，原因是接口地址尽量避免改变，如果必须修改，需要以很明显的方式来提醒开发人员以便开发人员通知接口使用人员。</p>
+<h2 id="测试数据准备"><a href="#测试数据准备" class="headerlink" title="测试数据准备"></a>测试数据准备</h2><p>有如下两种方法准备测试数据</p>
+<ol>
+<li>简单的数据可以在<code>setUp()</code>里来创建；</li>
+<li>复杂数据可以使用fixtures来写，并在赋值给测试类的<code>fixtures</code>属性；<br>fixtures数据示例<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">"model"</span>: <span class="string">"myapp.person"</span>,</span><br><span class="line">    <span class="attr">"pk"</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">"fields"</span>: &#123;</span><br><span class="line">      <span class="attr">"first_name"</span>: <span class="string">"John"</span>,</span><br><span class="line">      <span class="attr">"last_name"</span>: <span class="string">"Lennon"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">"model"</span>: <span class="string">"myapp.person"</span>,</span><br><span class="line">    <span class="attr">"pk"</span>: <span class="number">2</span>,</span><br><span class="line">    <span class="attr">"fields"</span>: &#123;</span><br><span class="line">      <span class="attr">"first_name"</span>: <span class="string">"Paul"</span>,</span><br><span class="line">      <span class="attr">"last_name"</span>: <span class="string">"McCartney"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="测试覆盖率（coverage）"><a href="#测试覆盖率（coverage）" class="headerlink" title="测试覆盖率（coverage）"></a>测试覆盖率（coverage）</h2><p>在<code>Pycharm</code>里可以通用右键项目，选择<code>Run &#39;Test:&#39; with Coverage</code>来查看测试的覆盖率。也可以通过其它第三方包查看测试覆盖率，具体请自己查询。</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>沙丁鱼🇨🇳</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://me.iblogc.com/2017/09/05/django-rest-framework接口单元测试/" title="Django REST framework单元测试「Unit Testing」">http://me.iblogc.com/2017/09/05/django-rest-framework接口单元测试/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/django/" rel="tag"># Django</a>
+            
+              <a href="/tags/restful-api/" rel="tag"># restful api</a>
+            
+              <a href="/tags/接口/" rel="tag"># 接口</a>
+            
+              <a href="/tags/单元测试/" rel="tag"># 单元测试</a>
+            
+              <a href="/tags/测试/" rel="tag"># 测试</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2017/08/24/在macos上更改jenkins默认用户解决权限问题/" rel="next" title="在macOS上更改Jenkins的默认用户，解决权限问题">
+                  <i class="fa fa-chevron-left"></i> 在macOS上更改Jenkins的默认用户，解决权限问题
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2018/09/13/使用alembic进行数据库版本管理/" rel="prev" title="使用alembic进行数据库版本管理">
+                  使用alembic进行数据库版本管理 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    
+  <div class="comments" id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/avatar.png"
+      alt="沙丁鱼🇨🇳">
+  <p class="site-author-name" itemprop="name">沙丁鱼🇨🇳</p>
+  <div class="site-description" itemprop="description">iblogc</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags">
+          
+        
+        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/iblogc" title="GitHub &rarr; https://github.com/iblogc" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">沙丁鱼🇨🇳</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">143k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">2:10</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.4.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+  
+  <script>
+  function leancloudSelector(url) {
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = visitors.getAttribute('id').trim();
+      var title = visitors.getAttribute('data-flag-title').trim();
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+              leancloudSelector(url).innerText = counter.time + 1;
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .catch(error => {
+                console.log('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return element.getAttribute('id').trim();
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.url;
+            var time = item.time;
+            leancloudSelector(url).innerText = time;
+          }
+          for (var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=iSVaGDh3pvPppn4ATzdswCRj-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'iSVaGDh3pvPppn4ATzdswCRj-gzGzoHsz',
+            'X-LC-Key': 'FneGhBeiPNdFAiN9elNeFAxc',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        const localhost = /http:\/\/(localhost|127.0.0.1|0.0.0.0)/;
+        if (localhost.test(document.URL)) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://iblogc.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  function disqus_config() {
+    this.page.url = "http://me.iblogc.com/2017/09/05/django-rest-framework接口单元测试/";
+    this.page.identifier = "2017/09/05/django-rest-framework接口单元测试/";
+    this.page.title = 'Django REST framework单元测试「Unit Testing」';};
+  function loadComments() {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://iblogc.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  }
+    (function() {
+      var offsetTop = document.getElementById('comments').offsetTop - window.innerHeight;
+      if (offsetTop <= 0) {
+        // load directly when there's no a scrollbar
+        window.addEventListener('load', loadComments, false);
+      } else {
+        var disqus_scroll = () => {
+          // offsetTop may changes because of manually resizing browser window or lazy loading images.
+          var offsetTop = document.getElementById('comments').offsetTop - window.innerHeight;
+          var scrollTop = window.scrollY;
+
+          // pre-load comments a bit? (margin or anything else)
+          if (offsetTop - scrollTop < 60) {
+            window.removeEventListener('scroll', disqus_scroll);
+            loadComments();
+          }
+        };
+        window.addEventListener('scroll', disqus_scroll);
+      }
+    })();
+  
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+<style type="text/css">
+// html{
+//   -webkit-filter: grayscale(100%); 
+//   -moz-filter: grayscale(100%); 
+//   -ms-filter: grayscale(100%); 
+//   -o-filter: grayscale(100%); 
+//   filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);  
+//   _filter:none; 
+// }
+</style>
+</html>

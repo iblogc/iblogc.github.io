@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#4BAD4F">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/logo.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=7.4.0">
+  <link rel="mask-icon" href="/logo.png?v=7.4.0" color="#4BAD4F">
+  <link rel="alternate" href="/atom.xml" title="iblogc's blog" type="application/atom+xml">
+  <meta name="google-site-verification" content="qG7T6aqK8Yc9wkYFQZSYbiHnFjGresFJrmQ3GILJA80">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-flash.min.css?v=1.0.2">
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":true,"style":"default"},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: true,
+    lazyload: true,
+    pangu: true,
+    algolia: {
+      appID: 'PGLEOEFW66',
+      apiKey: '9e021ceac0fcb29be0a75df5b157218b',
+      indexName: 'blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="团队的代码托管管理平台之前一直用Gitee的企业版本，但除了代码pull/push操作外，基本不用平台上其它功能，除了要新建一个仓库要打开下网页版，其它时间基本不会访问网页版本，所以经过半天的调研，从GitLab/Gogs/Gitea中选择了Gitea，把迁移过程记录如下。">
+<meta name="keywords" content="Python,Git,Gitee,GitLab,Gite,Gogs,迁移,代码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代码托管平台码云(Gitee)到Gitea迁移记">
+<meta property="og:url" content="http://me.iblogc.com/2020/03/01/Gitee2Gitea/index.html">
+<meta property="og:site_name" content="iblogc&#39;s blog">
+<meta property="og:description" content="团队的代码托管管理平台之前一直用Gitee的企业版本，但除了代码pull/push操作外，基本不用平台上其它功能，除了要新建一个仓库要打开下网页版，其它时间基本不会访问网页版本，所以经过半天的调研，从GitLab/Gogs/Gitea中选择了Gitea，把迁移过程记录如下。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-03-24T06:15:27.492Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="代码托管平台码云(Gitee)到Gitea迁移记">
+<meta name="twitter:description" content="团队的代码托管管理平台之前一直用Gitee的企业版本，但除了代码pull/push操作外，基本不用平台上其它功能，除了要新建一个仓库要打开下网页版，其它时间基本不会访问网页版本，所以经过半天的调研，从GitLab/Gogs/Gitea中选择了Gitea，把迁移过程记录如下。">
+  <link rel="canonical" href="http://me.iblogc.com/2020/03/01/Gitee2Gitea/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>代码托管平台码云(Gitee)到Gitea迁移记 | iblogc's blog</title>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54784650-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-54784650-1');
+    }
+  </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?dbe5ded201831a4b07cca26d70e498b6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">iblogc's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">Just do it.</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+      
+    
+
+    <a href="/archives" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">49</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+      
+    
+
+    <a href="/tags" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">92</span></a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-guestbook">
+      
+    
+      
+    
+
+    <a href="/guestbook" rel="section"><i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>留言版</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+      
+    
+
+    <a href="/about" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-sitemap">
+      
+    
+      
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>站点地图</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-commonweal">
+      
+    
+      
+    
+
+    <a href="/404.html" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://me.iblogc.com/2020/03/01/Gitee2Gitea/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="沙丁鱼🇨🇳">
+      <meta itemprop="description" content="iblogc">
+      <meta itemprop="image" content="/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="iblogc's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">代码托管平台码云(Gitee)到Gitea迁移记
+
+          
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-03-01 19:42:34" itemprop="dateCreated datePublished" datetime="2020-03-01T19:42:34+08:00">2020-03-01</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-24 14:15:27" itemprop="dateModified" datetime="2020-03-24T14:15:27+08:00">2020-03-24</time>
+              </span>
+            
+          
+
+          
+            <span id="/2020/03/01/Gitee2Gitea/" class="post-meta-item leancloud_visitors" data-flag-title="代码托管平台码云(Gitee)到Gitea迁移记" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/03/01/Gitee2Gitea/#comments" itemprop="discussionUrl"><span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/03/01/Gitee2Gitea/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>7.8k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>7 分钟</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>团队的代码托管管理平台之前一直用Gitee的企业版本，但除了代码pull/push操作外，基本不用平台上其它功能，除了要新建一个仓库要打开下网页版，其它时间基本不会访问网页版本，所以经过半天的调研，从GitLab/Gogs/Gitea中选择了Gitea，把迁移过程记录如下。</p>
+<a id="more"></a>
+<h3 id="安装Gitea"><a href="#安装Gitea" class="headerlink" title="安装Gitea"></a>安装Gitea</h3><p>因为服务器上刚好装有docker，按照<a href="https://docs.gitea.io/zh-cn/install-with-docker/" target="_blank" rel="noopener">官方文档</a>选择了最简单的docker安装。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker pull gitea/gitea:latest</span><br><span class="line">sudo mkdir -p /data/gitea</span><br><span class="line">docker run -d --name=gitea -p 10022:22 -p 10080:3000 -v /data/gitea:/data gitea/gitea:latest</span><br><span class="line">// 重启gitea</span><br><span class="line">docker restart gitea</span><br></pre></td></tr></table></figure>
+<p>安装完成后遇到了页面有三个静态文件（css/js）加载不成功，导致页面排版混乱，F12查看控制台报错net::ERR_CONTENT_LENGTH_MISMATCH，google之，找到这篇文章</p>
+<p><a href="https://github.com/xhlwill/blog/issues/17" target="_blank" rel="noopener">Nginx 做代理时浏览器报错 net::ERR_CONTENT_LENGTH_MISMATCH</a>，按照此方法解决。</p>
+<h3 id="配置Nginx"><a href="#配置Nginx" class="headerlink" title="配置Nginx"></a>配置Nginx</h3><p>在服务器Nginx上配置反向代理</p>
+<p>vi /etc/nginx/conf.d/gitea.conf</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">upstream gitea &#123;</span><br><span class="line">    server 127.0.0.1:10080;</span><br><span class="line">    keepalive 2000;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  git.i.example.com;</span><br><span class="line">    client_max_body_size 1024M;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http://gitea/;</span><br><span class="line">        proxy_set_header Host $host:$server_port;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>重新加载配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -s reload</span><br></pre></td></tr></table></figure>
+<h3 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h3><p>git.i.example.com解析到当前服务器ip，并把服务器防火墙入方向的10022 tcp端口打开，以便使用ssh方式clone仓库时使用。</p>
+<h3 id="Gitea初始化"><a href="#Gitea初始化" class="headerlink" title="Gitea初始化"></a>Gitea初始化</h3><p>打开http://.i.example.com，进入初始化界面（如果没进随便点注册或登录就会进），除了数据库根据需要配置，几个域名和网址要修改下，邮箱和其它选项按需配置。以后如果想修改配置，可以直接修改/data/gitea/gitea/conf/app.ini文件<a href="https://docs.gitea.io/zh-cn/config-cheat-sheet/" target="_blank" rel="noopener">配置说明</a>，修改完成后重启下gitea即可生效。</p>
+<h3 id="仓库迁移"><a href="#仓库迁移" class="headerlink" title="仓库迁移"></a>仓库迁移</h3><p>因为我迁移的是团队项目，所以先通过Gitea提供的API把所有仓库以镜像方式（镜像方式同步过来仓库对成员为只读，并且可以设置间隔时间，默认8小时，定时从原始地址Gitee同步最新代码）同步过来<strong>[操作1]</strong>，然后为每个项目配置好协作者/团队/权限等设置，在这期间，团队成员还是往Gitee上提交代码，待全部设置完成后取消告知团队成员不要往Gitee提交代码，并调用Giea api把所有仓库从Gitee上同步一下最新代码<strong>[操作2]</strong>，然后每个仓库从镜像仓库转为普通仓库，并让团队的所有在自己仓库根目录执行修改本地仓库Git远程仓库地址替换操作<strong>[操作3]</strong></p>
+<p><strong>[操作1]</strong>：登录Gitea后，界面右上角有一个加号，点开了后有一个迁移外部仓库的功能，只要填入外部仓库URL，授权验证信息等信息就可以一键把外部仓库的所有代码（包括所有branch和commit）迁移到Gitea，如果要迁移的仓库比较多，可以使用Gitea提供的Api来操作。对应此迁移操作的api是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">POST /repos/migrate?access_token=&lt;your gitea admin access token&gt;</span><br><span class="line"></span><br><span class="line">Request body</span><br><span class="line">&#123;</span><br><span class="line">    description: MigrateRepoForm form for migrating repository</span><br><span class="line">    auth_password: string</span><br><span class="line">    auth_username: string</span><br><span class="line">    clone_addr*: string</span><br><span class="line">    description: string</span><br><span class="line">    issues: boolean</span><br><span class="line">    labels: boolean</span><br><span class="line">    milestones: boolean</span><br><span class="line">    mirror: boolean</span><br><span class="line">    private: boolean</span><br><span class="line">    pull_requests: boolean</span><br><span class="line">    releases: boolean</span><br><span class="line">    repo_name*: string</span><br><span class="line">    uid*: integer($int64)</span><br><span class="line">    wiki: boolean</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><em>注：</em></strong></p>
+<ol>
+<li><p>access_token 请在有管理员权限的账号的设置&gt;应用中创建；</p>
+</li>
+<li><p>Request body 中的uid即管理后台&gt;账户管理/组织管理中的ID列值；</p>
+</li>
+</ol>
+<p>找了Gitee没找到可以获取账户下所有仓库信息的API，所以只好手写了一个Gitee仓库地址的文件，类似</p>
+<p>vi gitee-url.txt</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https://gitee.com/example/project_a.git</span><br><span class="line">https://gitee.com/example/project_b.git</span><br></pre></td></tr></table></figure>
+<p>使用shell脚本逐行读取url，并调用Gitea api迁移仓库。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">for line in $(&lt;gitee-url.txt);</span><br><span class="line">do</span><br><span class="line"><span class="meta">		#</span><span class="bash"> Windows注释下面这行</span></span><br><span class="line">    line=$(echo $line | sed -e 's/\r//g');</span><br><span class="line">    tmp=$&#123;line#https://gitee.com/xxx/&#125;;</span><br><span class="line">    project_name=$&#123;tmp%.git&#125;;</span><br><span class="line">    curl -X POST "http://git.i.example.com/api/v1/repos/migrate?access_token=&lt;your gitea admin access token&gt;" -H "accept: application/json" -H "Content-Type: application/json" -d "&#123; \"auth_password\": \"NDY2&amp;F*K!hL75y*z\", \"auth_username\": \"korvin101@gmail.com\", \"clone_addr\": \"$line\", \"issues\": true, \"labels\": true, \"milestones\": true, \"mirror\": true, \"private\": true, \"pull_requests\": true, \"releases\": true, \"repo_name\": \"$project_name\", \"uid\": 2, \"wiki\": true&#125;";</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<p><strong>[操作2]</strong>：从Gitee上同步最新代码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for line in $(&lt;gitee-url.txt);</span><br><span class="line">do</span><br><span class="line">    line=$(echo $line | sed -e 's/\r//g');</span><br><span class="line">    tmp=$&#123;line#https://gitee.com/xxx/&#125;;</span><br><span class="line">    project_name=$&#123;tmp%.git&#125;;</span><br><span class="line">    curl -X POST "http://git.i.example.com/api/v1/repos/&#123;owner&#125;/$project_name/mirror-sync?access_token=&lt;your gitea admin access token&gt;" -H "accept: application/json"</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<p><strong><em>注：</em></strong>owner为项目拥有者用户名/组织名</p>
+<p><strong>[操作3]</strong>：原本地仓库Git远程仓库地址替换</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// http地址</span><br><span class="line">// 原代码仓库http地址：https://gitee.com/example/project_a.git</span><br><span class="line">// 新代码仓库http地址：http://git.i.example.com/JIANSU/project_a.git</span><br><span class="line">// https://gitee.com/example &gt; http://git.i.example.com/JIANSU</span><br><span class="line">// 本地仓库使用此命令替换，可在包含所有项目的外层文件夹路径下执行批量替换</span><br><span class="line">// Windows删除'.bak'</span><br><span class="line">sed -i '.bak' 's/https:\/\/gitee\.com\/example/http:\/\/git\.i\.example.com\/JIANSU/g' */.git/config</span><br><span class="line"></span><br><span class="line">// ssh地址</span><br><span class="line">// 原代码仓库ssh地址：git@gitee.com:example/project_a.git</span><br><span class="line">// 新代码仓库地址：ssh://git@git.i.example.com:10022/JIANSU/project_a.git</span><br><span class="line">// git@gitee.com:example &gt; ssh://git@git.i.example.com:10022/JIANSU</span><br><span class="line">// 本地仓库使用此命令替换，可在包含所有项目的外层文件夹路径下执行批量替换</span><br><span class="line">// Windows删除'.bak'</span><br><span class="line">sed -i '.bak' 's/git@gitee\.com:example/ssh:\/\/git@git\.i\.example\.com:10022\/JIANSU/g' */.git/config</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>如果之前是用http地址进行克隆的仓库的话，现在就是在进行pull和push操作时，把账户密码换成Gitea的就可以了；</p>
+</li>
+<li><p>如果以前是用ssh克隆的仓库的话，现在在Gitea的设置&gt;SSH / GPG 密钥里添加一下公钥就可以进行git pull/git push等操作了；</p>
+</li>
+</ol>
+<h3 id="仓库备份"><a href="#仓库备份" class="headerlink" title="仓库备份"></a>仓库备份</h3><p>Gitea有自己的备份与恢复功能<a href="https://docs.gitea.io/zh-cn/backup-and-restore/#%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D" target="_blank" rel="noopener">备份与恢复</a>，这个备份比较全面，数据/代码/日志都可以备份，正是因为这样，如果仓库比较多这个备份的文件肯定会有点大，而且每次都是全量备份，所以频率肯定不能太高，而我只是想对仓库代码做一个高频率备份，所以写了一个Python3脚本调用Gitea api和 Git命令来进行所有仓库的所有分支代码备份，因为这个备份基于Git机制，所以虽然频率高，但备份始终只有一份。脚本如下：</p>
+<p>backup.py</p>
+<blockquote>
+<p>如果使用python2运行，分支名里有中文的话，请自行处理字符编码问题。</p>
+</blockquote>
+<p>** python<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> platform</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">current_dir = os.path.abspath(os.path.dirname(__file__))</span><br><span class="line">access_token = <span class="string">"&lt;your access token&gt;"</span></span><br><span class="line">repos_url = <span class="string">'http://git.i.example.com/api/v1/repos/search?access_token=&#123;&#125;&amp;page=&#123;&#125;&amp;limit=&#123;&#125;'</span></span><br><span class="line">branches_url = <span class="string">'http://git.i.example.com/api/v1/repos/&#123;&#125;/branches?access_token=&#123;&#125;'</span></span><br><span class="line">repo_key_url = <span class="string">'http://git.i.example.com/api/v1/repos/&#123;&#125;/&#123;&#125;/keys?access_token=&#123;&#125;'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">repos</span><span class="params">()</span>:</span></span><br><span class="line">    page = <span class="number">1</span></span><br><span class="line">    limit = <span class="number">50</span></span><br><span class="line">    has_next = <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">while</span> has_next:</span><br><span class="line">        r = requests.get(repos_url.format(access_token, page, limit))</span><br><span class="line">        <span class="keyword">for</span> repo <span class="keyword">in</span> r.json()[<span class="string">'data'</span>]:</span><br><span class="line">            <span class="keyword">yield</span> repo</span><br><span class="line">        page += <span class="number">1</span></span><br><span class="line">        has_next = len(r.json()[<span class="string">'data'</span>]) == limit</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">"""拉取项目所有分支代码到本地"""</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sync_repo</span><span class="params">()</span>:</span></span><br><span class="line">    repo_index = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> repo <span class="keyword">in</span> repos():</span><br><span class="line">        repo_index += <span class="number">1</span></span><br><span class="line">        <span class="comment"># 克隆仓库</span></span><br><span class="line">        os.chdir(current_dir)</span><br><span class="line">        print(<span class="string">'克隆第 &#123;&#125; 个仓库 &#123;&#125; '</span>.format(repo_index, repo[<span class="string">'name'</span>]))</span><br><span class="line">        os.system(<span class="string">"git clone &#123;&#125;"</span>.format(repo[<span class="string">'ssh_url'</span>]))</span><br><span class="line">        os.chdir(os.path.join(current_dir, repo[<span class="string">'name'</span>]))</span><br><span class="line">        <span class="comment"># 更新仓库</span></span><br><span class="line">        print(<span class="string">'同步 &#123;&#125; 仓库所有分支'</span>.format(repo[<span class="string">'name'</span>]))</span><br><span class="line">        os.system(<span class="string">'git fetch --all'</span>)</span><br><span class="line">        <span class="comment"># if platform.system() == 'Windows':</span></span><br><span class="line">        <span class="comment"># Windows</span></span><br><span class="line">        branches = requests.get(branches_url.format(</span><br><span class="line">            repo[<span class="string">'full_name'</span>], access_token)).json()</span><br><span class="line">        <span class="keyword">for</span> branch <span class="keyword">in</span> branches:</span><br><span class="line">            branch_name = branch[<span class="string">'name'</span>]</span><br><span class="line">            os.system(<span class="string">'git branch --track &#123;&#125; origin/&#123;&#125;'</span>.format(branch_name, branch_name))</span><br><span class="line">            <span class="comment"># 用reset而不用pull是因为如果分支被强推了pull下来会有合并冲突，用rest就不会有冲突问题</span></span><br><span class="line">            os.system(<span class="string">'git checkout &#123;&#125; &amp;&amp; git reset --hard origin/&#123;&#125;'</span>.format(branch_name, branch_name))</span><br><span class="line">        <span class="comment"># else:</span></span><br><span class="line">        <span class="comment">#     # Linux/macOS</span></span><br><span class="line">        <span class="comment">#     # git branch -r | grep -v '\-&gt;' | while read remote; do git branch --track $&#123;remote#origin/&#125; $remote; done &amp;&amp; git fetch --all &amp;&amp; git pull --all</span></span><br><span class="line">        <span class="comment">#     # os.system("git branch -r | grep -v '\-&gt;' | while read remote; do git branch --track $&#123;remote#origin/&#125; $remote; done &amp;&amp; git fetch --all &amp;&amp; git pull --all")</span></span><br><span class="line">        <span class="comment">#     # # 用reset而不用pull是因为如果分支被强推了pull下来会有合并冲突，用rest就不会有冲突问题</span></span><br><span class="line">        <span class="comment">#     os.system("git branch -r | grep -v '\-&gt;' | while read remote; do git branch --track $&#123;remote#origin/&#125; $remote; git checkout $&#123;remote#origin/&#125;; git reset --hard $remote; done")</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">"""设置项目部署公钥"""</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">set_pub_key</span><span class="params">()</span>:</span></span><br><span class="line">    repo_index = <span class="number">0</span></span><br><span class="line">    body = &#123;</span><br><span class="line">        <span class="string">"key"</span>: <span class="string">"ssh-rsa aabbcc"</span>,</span><br><span class="line">        <span class="string">"read_only"</span>: <span class="keyword">True</span>,</span><br><span class="line">        <span class="string">"title"</span>: <span class="string">"SandBox"</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> repo <span class="keyword">in</span> repos():</span><br><span class="line">        repo_index += <span class="number">1</span></span><br><span class="line">        print(<span class="string">'===&#123;&#125;. &#123;&#125;==='</span>.format(repo_index, repo[<span class="string">'name'</span>]))</span><br><span class="line">        r = requests.post(repo_key_url.format(</span><br><span class="line">            repo[<span class="string">'owner'</span>][<span class="string">'username'</span>], repo[<span class="string">'name'</span>], access_token), data=body)</span><br><span class="line">        print(r.json())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    sync_repo()</span><br><span class="line">    <span class="comment"># set_pub_key()</span></span><br></pre></td></tr></table></figure></p>
+<p>可以把脚本放在本地，使用cron(Linux/macOS)/计划任务(Windows)定时运行<code>python backup.py</code></p>
+<p><em><a href="https://blog.csdn.net/flydragon0815/article/details/46006473" target="_blank" rel="noopener">Windows计划任务运行cmd命令时，可使用非当前登录用户运行，这样就不会弹出小黑窗。</a></em></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>沙丁鱼🇨🇳</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://me.iblogc.com/2020/03/01/Gitee2Gitea/" title="代码托管平台码云(Gitee)到Gitea迁移记">http://me.iblogc.com/2020/03/01/Gitee2Gitea/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/python/" rel="tag"># Python</a>
+            
+              <a href="/tags/git/" rel="tag"># Git</a>
+            
+              <a href="/tags/gitee/" rel="tag"># Gitee</a>
+            
+              <a href="/tags/gitlab/" rel="tag"># GitLab</a>
+            
+              <a href="/tags/gite/" rel="tag"># Gite</a>
+            
+              <a href="/tags/gogs/" rel="tag"># Gogs</a>
+            
+              <a href="/tags/迁移/" rel="tag"># 迁移</a>
+            
+              <a href="/tags/代码/" rel="tag"># 代码</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2020/01/17/WebFlux中mongo操作-Transaction/" rel="next" title="WebFlux中mongo操作-Transaction">
+                  <i class="fa fa-chevron-left"></i> WebFlux中mongo操作-Transaction
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    
+  <div class="comments" id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Gitea"><span class="nav-number">1.</span> <span class="nav-text">安装Gitea</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Nginx"><span class="nav-number">2.</span> <span class="nav-text">配置Nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#域名解析"><span class="nav-number">3.</span> <span class="nav-text">域名解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gitea初始化"><span class="nav-number">4.</span> <span class="nav-text">Gitea初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#仓库迁移"><span class="nav-number">5.</span> <span class="nav-text">仓库迁移</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#仓库备份"><span class="nav-number">6.</span> <span class="nav-text">仓库备份</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/avatar.png"
+      alt="沙丁鱼🇨🇳">
+  <p class="site-author-name" itemprop="name">沙丁鱼🇨🇳</p>
+  <div class="site-description" itemprop="description">iblogc</div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags">
+          
+        
+        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/iblogc" title="GitHub &rarr; https://github.com/iblogc" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">沙丁鱼🇨🇳</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">143k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">2:10</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.4.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+  
+  <script>
+  function leancloudSelector(url) {
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = visitors.getAttribute('id').trim();
+      var title = visitors.getAttribute('data-flag-title').trim();
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+              leancloudSelector(url).innerText = counter.time + 1;
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .catch(error => {
+                console.log('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return element.getAttribute('id').trim();
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.url;
+            var time = item.time;
+            leancloudSelector(url).innerText = time;
+          }
+          for (var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=iSVaGDh3pvPppn4ATzdswCRj-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': 'iSVaGDh3pvPppn4ATzdswCRj-gzGzoHsz',
+            'X-LC-Key': 'FneGhBeiPNdFAiN9elNeFAxc',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        const localhost = /http:\/\/(localhost|127.0.0.1|0.0.0.0)/;
+        if (localhost.test(document.URL)) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://iblogc.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  function disqus_config() {
+    this.page.url = "http://me.iblogc.com/2020/03/01/Gitee2Gitea/";
+    this.page.identifier = "2020/03/01/Gitee2Gitea/";
+    this.page.title = '代码托管平台码云(Gitee)到Gitea迁移记';};
+  function loadComments() {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://iblogc.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  }
+    (function() {
+      var offsetTop = document.getElementById('comments').offsetTop - window.innerHeight;
+      if (offsetTop <= 0) {
+        // load directly when there's no a scrollbar
+        window.addEventListener('load', loadComments, false);
+      } else {
+        var disqus_scroll = () => {
+          // offsetTop may changes because of manually resizing browser window or lazy loading images.
+          var offsetTop = document.getElementById('comments').offsetTop - window.innerHeight;
+          var scrollTop = window.scrollY;
+
+          // pre-load comments a bit? (margin or anything else)
+          if (offsetTop - scrollTop < 60) {
+            window.removeEventListener('scroll', disqus_scroll);
+            loadComments();
+          }
+        };
+        window.addEventListener('scroll', disqus_scroll);
+      }
+    })();
+  
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+<style type="text/css">
+// html{
+//   -webkit-filter: grayscale(100%); 
+//   -moz-filter: grayscale(100%); 
+//   -ms-filter: grayscale(100%); 
+//   -o-filter: grayscale(100%); 
+//   filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);  
+//   _filter:none; 
+// }
+</style>
+</html>
