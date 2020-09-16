@@ -1,0 +1,240 @@
+# Hexo Configuration
+## Docs: http://hexo.io/docs/configuration.html
+## Source: https://github.com/hexojs/hexo/
+
+# Site #整站的基本信息
+title: iblogc's blog #网站标题
+subtitle: Just do it. #网站副标题
+description: iblogc #网站描述，给搜索引擎用的，在生成html中的head->meta中可看到
+author: 沙丁鱼🇨🇳 #网站作者，在下方显示
+email: me@iblogc.com #联系邮箱
+# email: me@iblogc.com #联系邮箱
+language: zh-CN #语言
+timezone:
+
+# URL #域名和文件结构
+## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
+url: http://me.iblogc.com/ #你的域名
+root: /
+permalink: :year/:month/:day/:title/
+permalink_defaults:
+
+# Directory
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
+
+# Writing #写文章选项
+new_post_name: :title.md # File name of new posts
+default_layout: post
+titlecase: false # Transform title into titlecase
+external_link: true # Open external links in new tab
+filename_case: 1
+render_drafts: false
+post_asset_folder: false
+relative_link: false
+future: true
+highlight: #代码高亮
+  enable: true
+  line_number: true
+  auto_detect: false
+  tab_replace: ture
+
+# Category & Tag #分类与标签
+default_category: uncategorized
+category_map:
+tag_map:
+
+# Date / Time format #日期显示格式
+## Hexo uses Moment.js to parse and display date
+## You can customize the date format as defined in
+## http://momentjs.com/docs/#/displaying/format/
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+
+# Pagination #分页设置
+## Set per_page to 0 to disable pagination
+per_page: 10 #每页10篇文章
+pagination_dir: page
+
+# Extensions
+## Plugins: http://hexo.io/plugins/
+#plugins:
+#- hexo-qiniu-sync
+#- hexo-generator-feed
+#- hexo-generator-sitemap
+#- hexo-generator-baidu-sitemap
+#- hexo-tag-video
+#sitemap:
+#    path: sitemap.xml
+#
+#baidusitemap:
+#    path: baidusitemap.xml
+
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+
+## Themes: http://hexo.io/themes/
+# theme: yilia
+theme: next
+
+# Deployment
+## Docs: http://hexo.io/docs/deployment.html
+#deploy:
+#  type: git
+#  message: "更新于: {{ now('YYYY-MM-DD HH:mm:ss') }}"
+#  repo:
+#    coding: git@git.coding.net:iblogc/iblogc.git,coding-pages
+#    github: git@github.com:iblogc/iblogc.github.io.git
+
+# deploy: 
+#     type: git
+#     repo: git@github.com:iblogc/iblogc.github.io.git
+#     branch: master
+
+deploy:
+  - type: leancloud_counter_security_sync
+  - type: git
+    message: "更新于: {{ now('YYYY-MM-DD HH:mm:ss') }}"
+    repo:
+      coding: git@e.coding.net:iblogc/iblogc.git,coding-pages
+      github: git@github.com:iblogc/iblogc.github.io.git,master
+  - type: git
+    message: "更新于: {{ now('YYYY-MM-DD HH:mm:ss') }}"
+    repo: 
+      coding: git@e.coding.net:iblogc/iblogc.git,src
+      github: git@github.com:iblogc/iblogc.github.io.git,src
+    extend_dirs: /
+    ignore_hidden: true
+    ignore_pattern:
+      public: .  # or you could specify the ignore_pattern under a certain directory
+
+
+qiniu:
+  offline: false
+  sync: true
+  bucket: iblogc
+  access_key: 3l5lCfWJ7eeuYQ5d2M0D4dnkKEA36DIrRH-WZiNc
+  secret_key: WObcp7-DIh9svGMKlik3qEDWSotm7hezZ-ysxWlY
+  dirPrefix: static
+  urlPrefix: http://iblogc.qiniudn.com/static
+  local_dir: static
+  update_exist: true
+  image:
+    folder: images
+    extend: '?imageView2/2/w/800'
+  js:
+    folder: js
+  css:
+    folder: css
+
+
+leancloud_counter_security:
+  enable_sync: true
+  app_id: iSVaGDh3pvPppn4ATzdswCRj-gzGzoHsz
+  app_key: FneGhBeiPNdFAiN9elNeFAxc
+  username: korvin # Will be asked while deploying if is left blank
+  password:  # Recommmended to be left blank. Will be asked while deploying if is left blank
+
+# title, chinese available
+links_title: 友情链接
+# links
+links:
+#  MacTalk: http://macshuo.com/
+
+
+algolia:
+  applicationID: 'PGLEOEFW66'
+  apiKey: '9e021ceac0fcb29be0a75df5b157218b'
+  adminApiKey: '019788a21c858690b41f049cc50867b6'
+  indexName: 'blog'
+  chunkSize: 5000
+
+search:
+  path: search.xml
+  field: post
+  content: true
+  limit: 10000
+
+# Swiftype Search API Key
+# swiftype_key: iG9HBtbvs2VW4sX9rFcC
+
+index_generator:
+  per_page: 10
+
+archive_generator:
+  per_page: 1000
+  yearly: true
+  monthly: true
+
+tag_generator:
+  per_page: 1000
+
+symbols_count_time:
+  symbols: true
+  time: true
+  total_symbols: true
+  total_time: true
+  exclude_codeblock: false
+
+restful:
+  # site 可配置为数组选择性生成某些属性
+  site: ['title', 'subtitle', 'description', 'author', 'since', email', 'favicon', 'avatar']
+  # site: true        # hexo.config mix theme.config
+  posts_size: 10    # 文章列表分页，0 表示不分页
+  posts_props:      # 文章列表项的需要生成的属性
+    title: true
+    slug: true
+    date: true
+    updated: true
+    comments: true
+    path: true
+    excerpt: true
+    cover: true      # 封面图，取文章第一张图片
+    content: true
+    keywords: true
+    categories: true
+    tags: true
+  categories: true         # 分类数据
+  use_category_slug: true # Use slug for filename of category data
+  tags: true               # 标签数据
+  use_tag_slug: true      # Use slug for filename of tag data
+  post: true               # 文章数据
+  pages: true             # 额外的 Hexo 页面数据, 如 About
+
+
+  sequence:
+    webfont: https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js
+    raphael: https://cdn.bootcss.com/raphael/2.2.7/raphael.min.js
+    underscore: https://cdn.bootcss.com/underscore.js/1.8.3/underscore-min.js
+    sequence: https://cdn.bootcss.com/js-sequence-diagrams/1.0.6/sequence-diagram-min.js
+    css: # optional, the url for css, such as hand drawn theme 
+    options: 
+      theme: simple
+      css_class:
+
+live2d:
+  enable: true
+  scriptFrom: local
+  pluginRootPath: live2dw/
+  pluginJsPath: lib/
+  pluginModelPath: assets/
+  tagMode: false
+  debug: false
+  model:
+    use: live2d-widget-model-tororo
+  display:
+    position: right
+    width: 150
+    height: 300
+  mobile:
+    show: true
+  react:
+    opacity: 0.7
