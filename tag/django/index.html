@@ -1,0 +1,321 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>iblogc</title>
+<link rel="shortcut icon" href="https://me.iblogc.com/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://me.iblogc.com/media/css/tailwind.css">
+<link rel="stylesheet" href="https://me.iblogc.com/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="iblogc - Atom Feed" href="https://me.iblogc.com/atom.xml">
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54784650-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-54784650-1');
+  </script>
+    
+
+  <meta name="description" content="Just do it~" />
+</head>
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+
+    <div class="nav py-3 md:py-8 fixed w-full z-10 bg-gray-50 dark:bg-gray-700 transition-all duration-300" :class="{ 'scroll': scrolled }">
+  <div class="flex justify-end px-4">
+    <div class="w-8 h-8 flex justify-center items-center rounded-full md:hidden" @click="showMenu = !showMenu">
+      <i class="ri-close-line" v-show="showMenu"></i>
+      <i class="ri-menu-3-line" v-show="!showMenu"></i>
+    </div>
+  </div>
+  <nav class="max-w-4xl w-full mx-auto text-center flex flex-col md:flex-row justify-center md:block" :class="`${ showMenu ? 'block' : 'hidden' }`">
+    
+      <a href="/" target="" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+        首页
+      </a>
+    
+      <a href="/archives" target="" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+        归档
+      </a>
+    
+      <a href="/tags" target="" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+        标签
+      </a>
+    
+      <a href="/post/about" target="" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+        关于
+      </a>
+    
+      <a href="https://olb.iblogc.com" target="_blank" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+        OLB
+      </a>
+    
+      <a href="https://read.iblogc.com" target="_blank" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+        READ
+      </a>
+    
+    <a href="https://me.iblogc.com/atom.xml" target="_blank" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+      RSS
+    </a>
+  </nav>
+</div>
+
+    <div class="max-w-4xl w-full mx-auto pt-32">
+      <h1 class="text-2xl font-bold pb-8 flex justify-center items-center">
+        <i class="ri-hashtag"></i>
+        Django
+      </h1>
+      <div class="shadow-box bg-white dark:bg-gray-600 border-gray-300 rounded-none md:rounded-lg -mx-1 md:mx-0 md:px-0">
+        
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/django-rest-framework接口单元测试/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          Django REST framework 单元测试「Unit Testing」
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2017-09-05</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        <br />
+      </div>
+      <a href="https://me.iblogc.com/post/django-rest-framework接口单元测试/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/django-biao-dan-zi-ding-yi-yan-zheng/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          Django 表单自定义验证
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2017-07-23</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        Model
+第一种
+def validate_begins(value):
+    if not value.startswith(u'new'):
+        raise ValidationError(u'Must start wi...
+      </div>
+      <a href="https://me.iblogc.com/post/django-biao-dan-zi-ding-yi-yan-zheng/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/django-rest-framework入门笔记及跳坑记录/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          Django Rest framework 入门笔记及跳坑记录
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2016-12-17</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        <br />
+      </div>
+      <a href="https://me.iblogc.com/post/django-rest-framework入门笔记及跳坑记录/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/django-rest-framework使用问题及解决方法/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          Django Rest framework 使用问题及解决方法
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2016-12-17</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        <br />
+      </div>
+      <a href="https://me.iblogc.com/post/django-rest-framework使用问题及解决方法/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/django-rest-framework里的api请求频率控制/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          Django Rest framework 里的 API 请求频率控制
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2016-12-17</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        <br />
+      </div>
+      <a href="https://me.iblogc.com/post/django-rest-framework里的api请求频率控制/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/在centos7使用mysql-nginx-gunicorn+supervisor部署django/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          在 CentOS7 上用 MySQL+Nginx+Gunicorn+Supervisor 部署 Django
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2016-12-08</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        <p>本文记录下在CentOS下部署Django项目的步骤。</p>
+
+      </div>
+      <a href="https://me.iblogc.com/post/在centos7使用mysql-nginx-gunicorn+supervisor部署django/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/django-18-shi-wu/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          Django 1.8 事务
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2016-07-12</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        ATOMIC_REQUESTS
+将每个HTTP 请求封装在一个数据库事务中
+DATABASES = {
+    'default': {
+      'ENGINE': 'django.db.backends.postgresql_psyc...
+      </div>
+      <a href="https://me.iblogc.com/post/django-18-shi-wu/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/django-admin-bi-ji/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          Django admin 笔记
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2016-05-20</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        管理站点
+注册模型到admin
+from django.contrib import admin
+from myproject.myapp.models import Author
+ 
+admin.site.register(Author)...
+      </div>
+      <a href="https://me.iblogc.com/post/django-admin-bi-ji/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/django1-9文档阅读笔记/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          Django 1.9 文档阅读笔记
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2016-04-04</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        更新记录
+2016-04-04 初稿
+2016-06-30 更新内容
+模型
+Model _meta API
+限制普通字段的选择范围
+choices ，value-text，
+显示get_foo_display()
+模型继承
+
+抽象基类
+
+
+...
+      </div>
+      <a href="https://me.iblogc.com/post/django1-9文档阅读笔记/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/django-filter/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          django-filter
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2016-03-30</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        作用
+django-filter提供一种简单的方式为用户提供的参数（url传参）来过滤queryset
+写法
+model 
+from django.db import models
+ 
+class Product(models.Model)...
+      </div>
+      <a href="https://me.iblogc.com/post/django-filter/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+  
+      </div>
+
+      
+  <div class="my-4 flex justify-between px-4 md:px-0">
+    
+    
+      <a href="https://me.iblogc.com/tag/django/page/2" class="btn btn-white">
+        下一页
+        <i class="ri-arrow-right-line ml-4"></i>
+      </a>
+    
+  </div>
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> && Deployed by <a href="https://app.netlify.com/sites/iblogc/deploys"><img src="https://api.netlify.com/api/v1/badges/54ffcfc8-016f-4735-9832-8050c4b2a68d/deploy-status" alt="部署状态" style="display: inline;"></a>
+</footer>
+
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://me.iblogc.com/media/scripts/main.js"></script>
+</body>
+</html>

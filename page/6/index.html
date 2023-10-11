@@ -1,0 +1,283 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>iblogc</title>
+<link rel="shortcut icon" href="https://me.iblogc.com/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://me.iblogc.com/media/css/tailwind.css">
+<link rel="stylesheet" href="https://me.iblogc.com/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="iblogc - Atom Feed" href="https://me.iblogc.com/atom.xml">
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54784650-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-54784650-1');
+  </script>
+    
+
+  <meta name="description" content="Just do it~" />
+</head>
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+
+    <div class="nav py-3 md:py-8 fixed w-full z-10 bg-gray-50 dark:bg-gray-700 transition-all duration-300" :class="{ 'scroll': scrolled }">
+  <div class="flex justify-end px-4">
+    <div class="w-8 h-8 flex justify-center items-center rounded-full md:hidden" @click="showMenu = !showMenu">
+      <i class="ri-close-line" v-show="showMenu"></i>
+      <i class="ri-menu-3-line" v-show="!showMenu"></i>
+    </div>
+  </div>
+  <nav class="max-w-4xl w-full mx-auto text-center flex flex-col md:flex-row justify-center md:block" :class="`${ showMenu ? 'block' : 'hidden' }`">
+    
+      <a href="/" target="" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+        首页
+      </a>
+    
+      <a href="/archives" target="" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+        归档
+      </a>
+    
+      <a href="/tags" target="" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+        标签
+      </a>
+    
+      <a href="/post/about" target="" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+        关于
+      </a>
+    
+      <a href="https://olb.iblogc.com" target="_blank" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+        OLB
+      </a>
+    
+      <a href="https://read.iblogc.com" target="_blank" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+        READ
+      </a>
+    
+    <a href="https://me.iblogc.com/atom.xml" target="_blank" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+      RSS
+    </a>
+  </nav>
+</div>
+
+    <div class="max-w-4xl w-full mx-auto pt-32">
+      
+
+      <div class="shadow-box bg-white dark:bg-gray-600 border-gray-300 rounded-none md:rounded-lg -mx-1 md:mx-0 md:px-0">
+        
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/ubuntu更新NV显卡驱动/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          ubuntu 更新 NV 显卡驱动
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2015-03-27</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        昨天在笔记本上新安装了ubuntu14.04LTS，顺便更新了下NV驱动，这里做下记录。
+下载驱动
+首页在http://www.geforce.cn/drivers选择相应的显卡型号下载对应的驱动，下载完成后重命令为NVIDIA.run
+关...
+      </div>
+      <a href="https://me.iblogc.com/post/ubuntu更新NV显卡驱动/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/使用ngrok配置微信公众号本地开发环境（ADSL屏蔽80端口问题）/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          使用 ngrok 配置微信公众号本地开发环境（ADSL 屏蔽 80 端口问题）
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2015-02-04</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        更新记录
+2016-03-04 更新教程
+2015-09-16 添加旧版软件下载
+2015-02-04 初稿
+鉴于国内大部分ADSL屏蔽80端口，而微信公众号开发只支持80端口，所以在本地开发测试微信公众号就是一个问题了，这里我们可以使用软...
+      </div>
+      <a href="https://me.iblogc.com/post/使用ngrok配置微信公众号本地开发环境（ADSL屏蔽80端口问题）/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/Git命令使用指南/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          Git 命令使用指南
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2015-01-16</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        <p>Git是软件开发人员在开发中常用的一种工具,是开发之利器。</p>
+<blockquote>
+<p>Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。</p>
+</blockquote>
+
+      </div>
+      <a href="https://me.iblogc.com/post/Git命令使用指南/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+      <img class="flex-shrink-0 self-start md:ml-4 mb-4 md:mb-0 rounded-sm object-cover featured-img order-1 md:order-2 w-full h-40 md:w-56 md:h-32" loading="lazy" src="https://me.iblogc.com/post-images/Git命令使用指南.jpg" alt="Git 命令使用指南">
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/pip常用命令/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          pip 常用命令
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2015-01-01</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        <h2 id="列出已安装的包">列出已安装的包</h2>
+<p><code>pip freeze</code> or <code>pip list</code></p>
+
+      </div>
+      <a href="https://me.iblogc.com/post/pip常用命令/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/使用virtualenv创建独立的python运行环境/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          使用 Virtualenv 创建独立的 Python 运行环境
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2015-01-01</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        <h2 id="准备工作">准备工作</h2>
+<ul>
+<li>python环境</li>
+<li>pip</li>
+</ul>
+<h2 id="安装">安装</h2>
+<pre><code>pip install virtualenv
+</code></pre>
+<p>或</p>
+<pre><code>pip install https://github.com/pypa/virtualenv/tarball/develop
+</code></pre>
+
+      </div>
+      <a href="https://me.iblogc.com/post/使用virtualenv创建独立的python运行环境/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/电影《小黄人》中文预告片/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          电影《小黄人》中文预告片
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2014-11-09</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        
+导演: 凯尔·巴尔达 / 皮埃尔·科芬
+编剧: 布莱恩·林奇
+主演: 迈克尔·基顿 / 桑德拉·布洛克 / 乔恩·哈姆 / 凯蒂·米克松 / 真田广之 / 珍妮弗·桑德斯 / 皮埃尔·科芬 / 克里斯·雷纳德 / Dave Rosenba...
+      </div>
+      <a href="https://me.iblogc.com/post/电影《小黄人》中文预告片/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/Github-Pages-Gitcafe-Pages绑定自定义域名/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          GitHub Pages/GitCafe Pages 绑定自定义域名
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2014-11-09</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        <h2 id="更新记录">更新记录</h2>
+<p>2015-01-01 更新 GitCafe-Page IP地址<br>
+2014-11-09 初稿</p>
+<p>虽然GitHub Pages和GitCafe Pages默认为每个用户分配了一个二级域名（GitHub为<code>username.github.io</code>或<code>username.github.com</code>,GitCafe为<code>username.gitcafe.com</code>），但如果你对这个二级域名不满意也可以申请一个自己的域名进行绑定。下面就说说GitHub和GitCafe的绑定过程。</p>
+
+      </div>
+      <a href="https://me.iblogc.com/post/Github-Pages-Gitcafe-Pages绑定自定义域名/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/hello-world/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          Hello World
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2014-09-15</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        <p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">trobuleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+
+      </div>
+      <a href="https://me.iblogc.com/post/hello-world/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+  
+      </div>
+
+      
+  <div class="my-4 flex justify-between px-4 md:px-0">
+    
+      <a href="https://me.iblogc.com/page/5/" class="btn btn-white">
+        <i class="ri-arrow-left-line mr-4"></i>
+        上一页
+      </a>
+    
+    
+  </div>
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> && Deployed by <a href="https://app.netlify.com/sites/iblogc/deploys"><img src="https://api.netlify.com/api/v1/badges/54ffcfc8-016f-4735-9832-8050c4b2a68d/deploy-status" alt="部署状态" style="display: inline;"></a>
+</footer>
+
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://me.iblogc.com/media/scripts/main.js"></script>
+</body>
+
+</html>

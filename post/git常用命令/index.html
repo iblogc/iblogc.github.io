@@ -1,0 +1,428 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Git 常用命令 - iblogc</title>
+<link rel="shortcut icon" href="https://me.iblogc.com/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://me.iblogc.com/media/css/tailwind.css">
+<link rel="stylesheet" href="https://me.iblogc.com/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Git 常用命令 - iblogc - Atom Feed" href="https://me.iblogc.com/atom.xml">
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54784650-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-54784650-1');
+  </script>
+    
+
+  <meta name="description" content="之前写过一篇Git命令使用指南，但感觉那个写的太乱，不接地气，有时我自己找一个命令都难找，所以今天写一篇文章整理一些比较基础的，但又不常用的一些命令，后面会慢慢更新。
+
+查看修改
+# 查看文件修改/变动情况
+git status -s
+
+提..." />
+  <meta property="og:title" content="Git 常用命令 - iblogc">
+  <meta property="og:description" content="之前写过一篇Git命令使用指南，但感觉那个写的太乱，不接地气，有时我自己找一个命令都难找，所以今天写一篇文章整理一些比较基础的，但又不常用的一些命令，后面会慢慢更新。
+
+查看修改
+# 查看文件修改/变动情况
+git status -s
+
+提..." />
+  <meta property="og:type" content="articles">
+  <meta property="og:url" content="https://me.iblogc.com/post/git常用命令/" />
+  <meta property="og:image" content="https://me.iblogc.com/post-images/git常用命令.jpg">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:title" content="Git 常用命令 - iblogc">
+  <meta name="twitter:description" content="之前写过一篇Git命令使用指南，但感觉那个写的太乱，不接地气，有时我自己找一个命令都难找，所以今天写一篇文章整理一些比较基础的，但又不常用的一些命令，后面会慢慢更新。
+
+查看修改
+# 查看文件修改/变动情况
+git status -s
+
+提...">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://me.iblogc.com/post/git常用命令/">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+ 
+  
+    <link rel="stylesheet" href="https://me.iblogc.com/media/css/prism-atom-dark.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://me.iblogc.com" class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      iblogc
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          Git 常用命令
+        </h1>
+        
+          <img src="https://me.iblogc.com/post-images/git常用命令.jpg" alt="Git 常用命令" class="block w-full mb-8">
+        
+        <div class="mb-8 flex flex-wrap">
+          <div class="text-gray-400 text-sm mr-4">2015-09-11 · 3 min read</div>
+          
+            <a href="https://me.iblogc.com/tag/git/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              Git
+            </a>
+          
+        </div>
+        <div class="markdown mb-8" v-pre>
+          <p>之前写过一篇<a href="/post/git%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">Git命令使用指南</a>，但感觉那个写的太乱，不接地气，有时我自己找一个命令都难找，所以今天写一篇文章整理一些比较基础的，但又不常用的一些命令，后面会慢慢更新。</p>
+<!--more-->
+<h2 id="查看修改">查看修改</h2>
+<pre><code class="language-shell"># 查看文件修改/变动情况
+git status -s
+</code></pre>
+<h2 id="提交">提交</h2>
+<pre><code class="language-shell"># 把所有已跟踪的文件添加到暂存区
+git add -u
+# 把所有已跟踪并有更新的文件提交到本地仓库
+git commit -am &quot;update message&quot;
+</code></pre>
+<h2 id="列出分支">列出分支</h2>
+<pre><code># 列出本地分支
+git branch
+或
+git branch -v
+
+# 列出本地和远程所有分支
+git branch -a
+或
+git branch -va
+</code></pre>
+<h2 id="删除分支">删除分支</h2>
+<pre><code># 删除本地分支
+git branck -D/-d &lt;branch&gt;
+
+# 删除远程分支，注意冒号前有空格
+git push origin :&lt;分支名&gt;
+# 等价于
+git push origin -d &lt;branch&gt;
+</code></pre>
+<h2 id="推送分支">推送分支</h2>
+<pre><code># 推送当前分支到默认remote上，remote上没有对应分支则自动创建
+git push
+
+# 推送当前分支到指定remote，remote上没有对应分支则自动创建
+git push &lt;remote&gt;
+
+# 推送到指定分支到remote的指定分支上
+git push &lt;remote&gt; &lt;remote_branch&gt;:&lt;loclal_branch&gt;
+</code></pre>
+<h2 id="重命名分支">重命名分支</h2>
+<pre><code>git branch (-m | -M) [&lt;old-branch&gt;] &lt;new-branch&gt;
+</code></pre>
+<h2 id="拉取远程分支到本地">拉取远程分支到本地</h2>
+<pre><code>git checkout -b &lt;branch&gt; &lt;remote&gt;/&lt;branch&gt;
+</code></pre>
+<p>或</p>
+<pre><code>git checkout --track &lt;remote&gt;/&lt;branch&gt;
+</code></pre>
+<h2 id="撤消提交未push情况下">撤消提交（未<code>push</code>情况下）</h2>
+<pre><code>git reset --mixed &lt;SHA1&gt; # 此SHA1之后的commit全部撤消，并回退index，工作空间代码不变，--mixed可省略
+git reset --soft &lt;SHA1&gt; # 此SHA1之后的commit全部撤消，工作空间代码和index不变
+git reset --hard &lt;SHA1&gt; # 此SHA1之后的commit全部撤消，工作空间代码和index全部退回
+</code></pre>
+<h2 id="查看commit记录">查看<code>commit</code>记录</h2>
+<pre><code>git log --oneline -n # 单行显示最后n个commit的记录
+</code></pre>
+<h2 id="本地分支和远程分支做关联">本地分支和远程分支做关联</h2>
+<pre><code>git branch --set-upstream-to=&lt;remote&gt;/&lt;remote_branch&gt; &lt;loclal_branch&gt;
+</code></pre>
+<h2 id="推送本地当前新分支到远程">推送本地当前新分支到远程</h2>
+<pre><code>git push -u origin &lt;branch_name&gt;
+</code></pre>
+<h2 id="列出tag">列出tag</h2>
+<pre><code>git tag -l
+</code></pre>
+<h2 id="删除tag">删除tag</h2>
+<pre><code># 删除本地tag
+git tag -d &lt;tag_name&gt;
+# 删除远程tag
+git push origin :refs/tags/&lt;tag_name&gt;
+</code></pre>
+<h2 id="推送本地tag到远程">推送本地tag到远程</h2>
+<pre><code># 推送单个tag
+git push origin &lt;tag_name&gt;
+# 推送所有tag
+git push origin --tags
+</code></pre>
+<h2 id="查看日志">查看日志</h2>
+<pre><code># 当前分支日志
+git log
+# 所有本地分支日志
+git log --all
+# 指定本地分支日志
+git log &lt;branch_name&gt;
+# 指定远程分支日志
+git log origin/&lt;branch_name&gt;
+# 所有远程分支日志
+git log --all origin
+</code></pre>
+
+        </div>
+        <!-- Share to Twitter, Weibo, Telegram -->
+        <div class="flex items-center">
+          <div class="mr-4 flex items-center">
+            <i class="ri-share-forward-line text-gray-500"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTwitter">
+            <i class="ri-twitter-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex" @click="shareToWeibo">
+            <i class="ri-weibo-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTelegram">
+            <i class="ri-telegram-line"></i>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+        <div id="vlaine-comment"></div>
+      
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> && Deployed by <a href="https://app.netlify.com/sites/iblogc/deploys"><img src="https://api.netlify.com/api/v1/badges/54ffcfc8-016f-4735-9832-8050c4b2a68d/deploy-status" alt="部署状态" style="display: inline;"></a>
+</footer>
+    </div>
+
+    <!-- TOC Container -->
+    <div class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight" @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast" :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast" @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E6%9F%A5%E7%9C%8B%E4%BF%AE%E6%94%B9">查看修改</a></li>
+<li><a href="#%E6%8F%90%E4%BA%A4">提交</a></li>
+<li><a href="#%E5%88%97%E5%87%BA%E5%88%86%E6%94%AF">列出分支</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4%E5%88%86%E6%94%AF">删除分支</a></li>
+<li><a href="#%E6%8E%A8%E9%80%81%E5%88%86%E6%94%AF">推送分支</a></li>
+<li><a href="#%E9%87%8D%E5%91%BD%E5%90%8D%E5%88%86%E6%94%AF">重命名分支</a></li>
+<li><a href="#%E6%8B%89%E5%8F%96%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF%E5%88%B0%E6%9C%AC%E5%9C%B0">拉取远程分支到本地</a></li>
+<li><a href="#%E6%92%A4%E6%B6%88%E6%8F%90%E4%BA%A4%E6%9C%AApush%E6%83%85%E5%86%B5%E4%B8%8B">撤消提交（未<code>push</code>情况下）</a></li>
+<li><a href="#%E6%9F%A5%E7%9C%8Bcommit%E8%AE%B0%E5%BD%95">查看<code>commit</code>记录</a></li>
+<li><a href="#%E6%9C%AC%E5%9C%B0%E5%88%86%E6%94%AF%E5%92%8C%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF%E5%81%9A%E5%85%B3%E8%81%94">本地分支和远程分支做关联</a></li>
+<li><a href="#%E6%8E%A8%E9%80%81%E6%9C%AC%E5%9C%B0%E5%BD%93%E5%89%8D%E6%96%B0%E5%88%86%E6%94%AF%E5%88%B0%E8%BF%9C%E7%A8%8B">推送本地当前新分支到远程</a></li>
+<li><a href="#%E5%88%97%E5%87%BAtag">列出tag</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4tag">删除tag</a></li>
+<li><a href="#%E6%8E%A8%E9%80%81%E6%9C%AC%E5%9C%B0tag%E5%88%B0%E8%BF%9C%E7%A8%8B">推送本地tag到远程</a></li>
+<li><a href="#%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97">查看日志</a></li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200" @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://me.iblogc.com/media/scripts/main.js"></script>
+  
+  <!-- Code Highlight -->
+  
+    <script src="https://me.iblogc.com/media/prism.js"></script>
+    <script>
+      Prism.highlightAll()
+    </script>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+  <script>
+    //拿到预览框架，也就是上面的html代码
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    //定义图片数组变量
+    var imgitems;
+    /**
+    * 用于显示预览界面
+    * @param index 图片数组下标
+    */
+    function viewImg(index) {
+      //其它选项这里不做过多阐述，详情见官网
+      var pswpoptions = {
+        index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+        bgOpacity: 0.7, // 背景透明度，0-1
+        maxSpreadZoom: 3, // 缩放级别，不要太大
+      };
+      //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+      gallery.init()
+    }
+    /**
+    * 用于添加图片点击事件
+    * @param img 图片元素
+    * @param index 所属下标（在imgitems中的位置）
+    */
+    function addImgClick(img, index) {
+      img.onclick = function() {
+        viewImg(index)
+      }
+    }
+    /**
+    * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+    * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+    * 异步加载图片可在图片元素创建完成后调用此方法
+    */
+    function initImg() {
+      //重置图片数组
+      imgitems = [];
+      //查找class:markdown 下的所有img元素并遍历
+      var imgs = document.querySelectorAll('.markdown img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        //本站相册初始为loading图片，真实图片放在data-src
+        var ds = img.getAttribute("data-src");
+        //创建image对象，用于获取图片宽高
+        var imgtemp = new Image();
+        //判断是否存在data-src
+        if (ds != null && ds.length > 0) {
+          imgtemp.src = ds
+        } else {
+          imgtemp.src = img.src
+        }
+        //判断是否存在缓存
+        if (imgtemp.complete) {
+          var imgobj = {
+            "src": imgtemp.src,
+            "w": imgtemp.width,
+            "h": imgtemp.height,
+          };
+          imgitems[i] = imgobj;
+          addImgClick(img, i);
+        } else {
+          console.log('进来了2')
+          imgtemp.index = i;
+          imgtemp.img = img;
+          imgtemp.onload = function() {
+            var imgobj = {
+              "src": this.src,
+              "w": this.width,
+              "h": this.height,
+            };
+            //不要使用push，因为onload前后顺序会不同
+            imgitems[this.index] = imgobj
+            //添加点击事件
+            addImgClick(this.img, this.index);
+          }
+        }
+      }
+    }
+    //初始化
+    initImg();
+  </script>
+  
+    <script type="application/javascript" src="https://unpkg.com/valine"></script>
+<script type="application/javascript">
+  new Valine({
+    el: '#vlaine-comment',
+    appId: '987iVPRcMd7Mr7zod45n3Lkr-gzGzoHsz',
+    appKey: 'hfMvTINJ8W5sE840u91af9K6',
+    pageSize: 10,
+    notify: true,
+    avatar: 'retro',
+    verify: true,
+    placeholder: '来都来了，不妨评论一下',
+    visitor: true,
+    highlight: true,
+    recordIP: true,
+  })
+</script>
+  
+  
+</body>
+
+</html>

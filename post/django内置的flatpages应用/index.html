@@ -1,0 +1,474 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Django 内置的 flatpages 应用 - iblogc</title>
+<link rel="shortcut icon" href="https://me.iblogc.com/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://me.iblogc.com/media/css/tailwind.css">
+<link rel="stylesheet" href="https://me.iblogc.com/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Django 内置的 flatpages 应用 - iblogc - Atom Feed" href="https://me.iblogc.com/atom.xml">
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54784650-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-54784650-1');
+  </script>
+    
+
+  <meta name="description" content="不知道大家平时写网站时类似「关于页面」，「用户协议」这类页面是如何处理的。这里列出了这类页面的两个特点：
+
+页面数据简单（不会有很多动态数据展示）;
+有更新但频率不高;
+
+如果要为这类页面展示建立多个数据表，显然是很浪费的行为，但如果直接写..." />
+  <meta property="og:title" content="Django 内置的 flatpages 应用 - iblogc">
+  <meta property="og:description" content="不知道大家平时写网站时类似「关于页面」，「用户协议」这类页面是如何处理的。这里列出了这类页面的两个特点：
+
+页面数据简单（不会有很多动态数据展示）;
+有更新但频率不高;
+
+如果要为这类页面展示建立多个数据表，显然是很浪费的行为，但如果直接写..." />
+  <meta property="og:type" content="articles">
+  <meta property="og:url" content="https://me.iblogc.com/post/django内置的flatpages应用/" />
+  <meta property="og:image" content="https://me.iblogc.com/images/avatar.png">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:title" content="Django 内置的 flatpages 应用 - iblogc">
+  <meta name="twitter:description" content="不知道大家平时写网站时类似「关于页面」，「用户协议」这类页面是如何处理的。这里列出了这类页面的两个特点：
+
+页面数据简单（不会有很多动态数据展示）;
+有更新但频率不高;
+
+如果要为这类页面展示建立多个数据表，显然是很浪费的行为，但如果直接写...">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://me.iblogc.com/post/django内置的flatpages应用/">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+ 
+  
+    <link rel="stylesheet" href="https://me.iblogc.com/media/css/prism-atom-dark.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://me.iblogc.com" class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      iblogc
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          Django 内置的 flatpages 应用
+        </h1>
+        
+        <div class="mb-8 flex flex-wrap">
+          <div class="text-gray-400 text-sm mr-4">2015-09-08 · 6 min read</div>
+          
+            <a href="https://me.iblogc.com/tag/python/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              Python
+            </a>
+          
+            <a href="https://me.iblogc.com/tag/django/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              Django
+            </a>
+          
+        </div>
+        <div class="markdown mb-8" v-pre>
+          <p>不知道大家平时写网站时类似「关于页面」，「用户协议」这类页面是如何处理的。这里列出了这类页面的两个特点：</p>
+<ol>
+<li>页面数据简单（不会有很多动态数据展示）;</li>
+<li>有更新但频率不高;</li>
+</ol>
+<p>如果要为这类页面展示建立多个数据表，显然是很浪费的行为，但如果直接写成静态页面文件，更新又比较很麻烦，这时候就可以使用<code>flatpages </code>来解决这类问题了。</p>
+<!--more-->
+<p><code>django.contrib.flatpages</code>是<code>Django </code>的内置app，用于添加更新的一些简单的页面，具体设置，请继续查看以下步骤。</p>
+<h2 id="安装">安装</h2>
+<p>首先确保<code>INSTALLED_APPS</code>中已经存在<code>django.contrib.sites</code>，因为<code>django.contrib.flatpages</code>依赖于此包。<br>
+<code>settings.py</code></p>
+<pre><code class="language-python">INSTALLED_APPS = (
+    # ...
+    'django.contrib.sites',
+    'django.contrib.flatpages',
+)
+# ...
+# 如果没有设置`SITE_ID`值，则需要设置，这里直接设置为1
+SITE_ID = 1
+</code></pre>
+<p>执行<code>python manage.py migrate</code>建表</p>
+<h2 id="配置">配置</h2>
+<p>路由配置可先以有多种形式<br>
+<code>urls.py</code><br>
+第一种（需放在最后，推荐）</p>
+<pre><code>from django.contrib.flatpages import views
+urlpatterns += [
+    url(r'^(?P&lt;url&gt;.*/)$', views.flatpage),
+]
+</code></pre>
+<p>第二种（每个页面都需要写一个url，推荐）</p>
+<pre><code>from django.contrib.flatpages import views
+urlpatterns = [
+    url(r'^about-us/$', views.flatpage, {'url': '/about-us/'}, name='about'),
+    url(r'^license/$', views.flatpage, {'url': '/license/'}, name='license'),
+]
+</code></pre>
+<p>或者，如果你不想配置路由，还有一种更简单的方法，直接在<code>settings.py</code>的里添加中间件</p>
+<pre><code>MIDDLEWARE_CLASSES = (
+    # ...
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+)
+</code></pre>
+<p><em>为确保配置生效，保险的方法是把<code>django.contrib.flatpages.middleware.FlatpageFallbackMiddleware</code>放在最后一行</em></p>
+<h2 id="管理flatpages">管理<code>flatpages</code></h2>
+<p>默认的你可以登录超级管理员后台（如果开启），找到<code>Flat pages</code>，进去点击添加，可以看到可配置的选项有，<code>URL</code> <code>Title</code> <code>Content</code> <code>Site</code> <code>Enable comments</code> <code>Registration required</code> <code>Template name</code></p>
+<h3 id="数据项说明">数据项说明</h3>
+<ul>
+<li><code>URL</code>:  页面所处的 URL，不包括域名，但是包含前导斜杠 (例如 /about/contact/ )</li>
+<li><code>Title</code>: 页面的标题，框架不对它作任何特殊处理。由你通过模板来显示它</li>
+<li><code>Content</code>: 页面的内容 (即 HTML 页面)，框架不会对它作任何特别处理。由你负责使用模板来显示</li>
+<li><code>Site</code>: 页面放置的站点，该项设置集成了 Django 多站点框架</li>
+<li><code>Enable comments</code>: 是否允许该简单页面使用评论，框架不对此做任何特别处理。你可在模板中检查该值并根据需要显示评论窗体</li>
+<li><code>Registration required</code>: 是否注册用户才能查看此简单页面，该设置项集成了 Djangos 验证/用户框架，该框架于第十二章详述。</li>
+<li><code>Template name</code>: 用来解析该简单页面的模板名称，这是一个可选项，如果未指定模板或该模板不存在，系统会退而使用默认模板 <code>flatpages/default.html</code>（我在<code>Django1.8.4</code>里死活没找到，只好自己写好一个扔进去）</li>
+</ul>
+<p>当添加相应的数据后，剩下工作就交给<code>flatpages</code>吧，如果你是使用中间件形式的，则<code>flatpages </code>会在配置完所有<code>urls.py</code>后，没有找到配置到对应的<code>URL</code>，才会到<code>flatpages </code>中查找，如果还是找不到，则会引发<code>Http404</code>异常，即<code>FlatpageFallbackMiddleware </code>只在<code>404</code>时会被激活，而不会在<code>500</code>或其它错误响应时被激活。</p>
+<p>如果你需要自己定制，则可以针对<code>django/contrib/flatpages/models.py</code>自己写增删改方法就可以。<br>
+<code>models.py</code></p>
+<pre><code class="language-python">class FlatPage(models.Model):
+    url = models.CharField(_('URL'), max_length=100, db_index=True)
+    title = models.CharField(_('title'), max_length=200)
+    content = models.TextField(_('content'), blank=True)
+    enable_comments = models.BooleanField(_('enable comments'), default=False)
+    template_name = models.CharField(_('template name'), max_length=70, blank=True,
+        help_text=_(
+            &quot;Example: 'flatpages/contact_page.html'. If this isn't provided, &quot;
+            &quot;the system will use 'flatpages/default.html'.&quot;
+        ),
+    )
+    registration_required = models.BooleanField(_('registration required'),
+        help_text=_(&quot;If this is checked, only logged-in users will be able to view the page.&quot;),
+        default=False)
+    sites = models.ManyToManyField(Site)
+ 
+    class Meta:
+        db_table = 'django_flatpage'
+        verbose_name = _('flat page')
+        verbose_name_plural = _('flat pages')
+        ordering = ('url',)
+ 
+    def __str__(self):
+        return &quot;%s -- %s&quot; % (self.url, self.title)
+ 
+    def get_absolute_url(self):
+        # Handle script prefix manually because we bypass reverse()
+        return iri_to_uri(get_script_prefix().rstrip('/') + self.url)
+</code></pre>
+<h2 id="模板">模板</h2>
+<p>默认模板路径为<code>flatpages/default.html</code></p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;{{ flatpage.title }}&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+{{ flatpage.content }}
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<blockquote>
+<p>在实际应用中，我们不太可能会使用默认的模板，你可能需要自己写一个漂亮模板，比如有一个头部和底部，头部可能还需要添加<code>requeset.user</code>显示用户信息等。</p>
+</blockquote>
+<h2 id="高级应用">高级应用</h2>
+<p>获取<code>flatpages</code>实例列表</p>
+<pre><code>{% load flatpages %}
+{% get_flatpages as flatpages %}
+</code></pre>
+<p>获取当前用户能打开的<code>flatpages</code>实例列表</p>
+<pre><code>{% load flatpages %}
+{% get_flatpages for request.user as about_pages %}
+</code></pre>
+<p>获取链接以<code>/about/</code>为开头的<code>flatpages</code>实例列表</p>
+<pre><code>{% load flatpages %}
+{% get_flatpages '/about/' as about_pages %}
+</code></pre>
+<p>上面两种也可以组合使用</p>
+<pre><code>{% load flatpages %}
+{% get_flatpages '/about/' for someuser as about_pages %}
+</code></pre>
+<h2 id="生成sitemapsxml">生成<code>sitemaps.xml</code></h2>
+<pre><code>from django.conf.urls import url
+from django.contrib.flatpages.sitemaps import FlatPageSitemap
+from django.contrib.sitemaps.views import sitemap
+ 
+urlpatterns = [
+    # ...
+ 
+    # the sitemap
+    url(r'^sitemap\.xml$', sitemap,
+        {'sitemaps': {'flatpages': FlatPageSitemap}},
+        name='django.contrib.sitemaps.views.sitemap'),
+]
+</code></pre>
+<h2 id="容易踩的坑">容易踩的坑</h2>
+<p>最好把<code>settings.py</code>里的<code>APPEND_SLASH</code>设置为<code>Ture</code>， 这样不管是<code>/about-us</code>还是<code>/about-us/</code>都可以访问到。</p>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li>https://docs.djangoproject.com/en/1.8/ref/contrib/flatpages/</li>
+<li>http://djangobook.py3k.cn/2.0/chapter16/</li>
+</ul>
+
+        </div>
+        <!-- Share to Twitter, Weibo, Telegram -->
+        <div class="flex items-center">
+          <div class="mr-4 flex items-center">
+            <i class="ri-share-forward-line text-gray-500"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTwitter">
+            <i class="ri-twitter-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex" @click="shareToWeibo">
+            <i class="ri-weibo-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTelegram">
+            <i class="ri-telegram-line"></i>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+        <div id="vlaine-comment"></div>
+      
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> && Deployed by <a href="https://app.netlify.com/sites/iblogc/deploys"><img src="https://api.netlify.com/api/v1/badges/54ffcfc8-016f-4735-9832-8050c4b2a68d/deploy-status" alt="部署状态" style="display: inline;"></a>
+</footer>
+    </div>
+
+    <!-- TOC Container -->
+    <div class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight" @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast" :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast" @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85">安装</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE">配置</a></li>
+<li><a href="#%E7%AE%A1%E7%90%86flatpages">管理<code>flatpages</code></a>
+<ul>
+<li><a href="#%E6%95%B0%E6%8D%AE%E9%A1%B9%E8%AF%B4%E6%98%8E">数据项说明</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A8%A1%E6%9D%BF">模板</a></li>
+<li><a href="#%E9%AB%98%E7%BA%A7%E5%BA%94%E7%94%A8">高级应用</a></li>
+<li><a href="#%E7%94%9F%E6%88%90sitemapsxml">生成<code>sitemaps.xml</code></a></li>
+<li><a href="#%E5%AE%B9%E6%98%93%E8%B8%A9%E7%9A%84%E5%9D%91">容易踩的坑</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200" @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://me.iblogc.com/media/scripts/main.js"></script>
+  
+  <!-- Code Highlight -->
+  
+    <script src="https://me.iblogc.com/media/prism.js"></script>
+    <script>
+      Prism.highlightAll()
+    </script>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+  <script>
+    //拿到预览框架，也就是上面的html代码
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    //定义图片数组变量
+    var imgitems;
+    /**
+    * 用于显示预览界面
+    * @param index 图片数组下标
+    */
+    function viewImg(index) {
+      //其它选项这里不做过多阐述，详情见官网
+      var pswpoptions = {
+        index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+        bgOpacity: 0.7, // 背景透明度，0-1
+        maxSpreadZoom: 3, // 缩放级别，不要太大
+      };
+      //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+      gallery.init()
+    }
+    /**
+    * 用于添加图片点击事件
+    * @param img 图片元素
+    * @param index 所属下标（在imgitems中的位置）
+    */
+    function addImgClick(img, index) {
+      img.onclick = function() {
+        viewImg(index)
+      }
+    }
+    /**
+    * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+    * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+    * 异步加载图片可在图片元素创建完成后调用此方法
+    */
+    function initImg() {
+      //重置图片数组
+      imgitems = [];
+      //查找class:markdown 下的所有img元素并遍历
+      var imgs = document.querySelectorAll('.markdown img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        //本站相册初始为loading图片，真实图片放在data-src
+        var ds = img.getAttribute("data-src");
+        //创建image对象，用于获取图片宽高
+        var imgtemp = new Image();
+        //判断是否存在data-src
+        if (ds != null && ds.length > 0) {
+          imgtemp.src = ds
+        } else {
+          imgtemp.src = img.src
+        }
+        //判断是否存在缓存
+        if (imgtemp.complete) {
+          var imgobj = {
+            "src": imgtemp.src,
+            "w": imgtemp.width,
+            "h": imgtemp.height,
+          };
+          imgitems[i] = imgobj;
+          addImgClick(img, i);
+        } else {
+          console.log('进来了2')
+          imgtemp.index = i;
+          imgtemp.img = img;
+          imgtemp.onload = function() {
+            var imgobj = {
+              "src": this.src,
+              "w": this.width,
+              "h": this.height,
+            };
+            //不要使用push，因为onload前后顺序会不同
+            imgitems[this.index] = imgobj
+            //添加点击事件
+            addImgClick(this.img, this.index);
+          }
+        }
+      }
+    }
+    //初始化
+    initImg();
+  </script>
+  
+    <script type="application/javascript" src="https://unpkg.com/valine"></script>
+<script type="application/javascript">
+  new Valine({
+    el: '#vlaine-comment',
+    appId: '987iVPRcMd7Mr7zod45n3Lkr-gzGzoHsz',
+    appKey: 'hfMvTINJ8W5sE840u91af9K6',
+    pageSize: 10,
+    notify: true,
+    avatar: 'retro',
+    verify: true,
+    placeholder: '来都来了，不妨评论一下',
+    visitor: true,
+    highlight: true,
+    recordIP: true,
+  })
+</script>
+  
+  
+</body>
+
+</html>

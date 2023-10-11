@@ -1,0 +1,523 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Django 关联对象字段 - iblogc</title>
+<link rel="shortcut icon" href="https://me.iblogc.com/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://me.iblogc.com/media/css/tailwind.css">
+<link rel="stylesheet" href="https://me.iblogc.com/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Django 关联对象字段 - iblogc - Atom Feed" href="https://me.iblogc.com/atom.xml">
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54784650-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-54784650-1');
+  </script>
+    
+
+  <meta name="description" content="关联字段
+ForeignKey多对一关系
+class ForeignKey(othermodel[, **options])
+
+如果关联模型还没有创建，可以使用该模型的名字而不是模型本身来指定
+
+options
+limit_chices_t..." />
+  <meta property="og:title" content="Django 关联对象字段 - iblogc">
+  <meta property="og:description" content="关联字段
+ForeignKey多对一关系
+class ForeignKey(othermodel[, **options])
+
+如果关联模型还没有创建，可以使用该模型的名字而不是模型本身来指定
+
+options
+limit_chices_t..." />
+  <meta property="og:type" content="articles">
+  <meta property="og:url" content="https://me.iblogc.com/post/django-guan-lian-dui-xiang-zi-duan/" />
+  <meta property="og:image" content="https://me.iblogc.com/images/avatar.png">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:title" content="Django 关联对象字段 - iblogc">
+  <meta name="twitter:description" content="关联字段
+ForeignKey多对一关系
+class ForeignKey(othermodel[, **options])
+
+如果关联模型还没有创建，可以使用该模型的名字而不是模型本身来指定
+
+options
+limit_chices_t...">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://me.iblogc.com/post/django-guan-lian-dui-xiang-zi-duan/">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+ 
+  
+    <link rel="stylesheet" href="https://me.iblogc.com/media/css/prism-atom-dark.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://me.iblogc.com" class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      iblogc
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          Django 关联对象字段
+        </h1>
+        
+        <div class="mb-8 flex flex-wrap">
+          <div class="text-gray-400 text-sm mr-4">2015-12-10 · 7 min read</div>
+          
+            <a href="https://me.iblogc.com/tag/django/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              Django
+            </a>
+          
+        </div>
+        <div class="markdown mb-8" v-pre>
+          <h2 id="关联字段">关联字段</h2>
+<h3 id="foreignkey多对一关系"><code>ForeignKey</code>多对一关系</h3>
+<p>class ForeignKey(othermodel[, **options])</p>
+<blockquote>
+<p>如果关联模型还没有创建，可以使用该模型的名字而不是模型本身来指定</p>
+</blockquote>
+<p><em><strong>options</strong></em></p>
+<h4 id="limit_chices_to"><code>limit_chices_to</code></h4>
+<p>对关联对象进行过滤，可以是一个字典, 一个 Q 对象, 或者一个可调用的返回字典或者Q对象的对象</p>
+<p><code>related_name</code><br>
+在关联对象上返回这个对象的名称，替代默认的<code>xxx_set</code><br>
+django字段选项related_name和related_query_name.md</p>
+<h4 id="related_query_name"><code>related_query_name</code></h4>
+<p>在关联对象上进行查询时使用的名称</p>
+<h4 id="to_field"><code>to_field</code></h4>
+<p>指定关联到关联对象的字段名称，默认使用关联对象主键</p>
+<h4 id="db_constraint"><code>db_constraint</code></h4>
+<p>是否在数据库中为这个外键创建约束的控制。默认值为 True, 而且这几乎一定是你想要的效果。如果设置成 False 对数据集成来说是很糟糕的。即便如此，有一些场景你也许想要这么设置：</p>
+<ul>
+<li>你有遗留的无效数据。</li>
+<li>你正在对数据库缩容。<br>
+如果被设置成 False, 访问一个不存在的关联对象将抛出 DoesNotExist 异常。</li>
+</ul>
+<h4 id="on_delete"><code>on_delete</code></h4>
+<p>当此外键引用的对象被删除时，这个字段的行为</p>
+<ul>
+<li>CASCADE 级联删除，默认</li>
+<li>PROTECT 抛出ProtectedError，阻止被引用对象删除，django.db.IntegrityError的一个子类</li>
+<li>SET_NULL 把此字段设置为null，null必须为True</li>
+<li>SET_DEFAULT 设置成默认值， default必须设置</li>
+<li>SET() 设置一个自定义的值，可以是一个返回相应值的方法</li>
+<li>DO_NOTHING 不做任务操作，不过可能会抛出IntegrityError异常，需要捕获异常并手动删除约束</li>
+</ul>
+<h4 id="swappable"><code>swappable</code></h4>
+<h4 id="allow_unsaved_instance_assignment"><code>allow_unsaved_instance_assignment</code></h4>
+<h3 id="manytomanyfield多对多关系"><code>ManyToManyField</code>多对多关系</h3>
+<p>class ManyToManyField(othermodel[, **options])</p>
+<h4 id="related_name"><code>related_name</code></h4>
+<p>同ForeignKey.related_name</p>
+<h4 id="related_query_name-2"><code>related_query_name</code></h4>
+<p>同ForeignKey.related_query_name</p>
+<h4 id="limit_choices_to"><code>limit_choices_to</code></h4>
+<p>同ForeignKey.limit_choices_to</p>
+<h4 id="symmetrical"><code>symmetrical</code></h4>
+<p>只有在关联自身情况下使用，默认是对称的，即如果a是b的好友，默认b也是a的好友，要取消对称设置symmetrical为False</p>
+<pre><code>from django.db import models
+ 
+class Person(models.Model):
+    friends = models.ManyToManyField(&quot;self&quot;)
+</code></pre>
+<h4 id="through"><code>through</code></h4>
+<p>djagno默认会自动创建一个表来管理多对多的关系，但是你可以自己建立中介表，然后来手动指定。<a href="http://python.usyiyi.cn/django/ref/models/fields.html#django.db.models.ManyToManyField.through_fields">详细</a><br>
+<strong>注意：手动指定中间表后，关联表的<code>add</code> <code>create</code> <code>remove</code>将不可用，但<code>clear</code>还是可以用的</strong><br>
+(http://python.usyiyi.cn/django/ref/models/fields.html#django.db.models.ManyToManyField.through)</p>
+<h4 id="through_fields"><code>through_fields</code></h4>
+<p>在中间表中对应的字段名，只能在自定义中间表时使用[详细]</p>
+<h4 id="db_table"><code>db_table</code></h4>
+<p>指定中间表名称</p>
+<h4 id="db_constraint-2"><code>db_constraint</code></h4>
+<p>是否为外键创建约束，默认为True</p>
+<h4 id="swappable-2"><code>swappable</code></h4>
+<h4 id="allow_unsaved_instance_assignment-2"><code>allow_unsaved_instance_assignment</code></h4>
+<h3 id="onetoonefield一对一关系"><code>OneToOneField</code>一对一关系</h3>
+<p>这个是一个对一关联关系。总体上，这个字段类很像是ForeignKey设置了unique=True, 不同的是它会直接返回关系的另一边的对象。</p>
+<pre><code>from django.conf import settings
+from django.db import models
+ 
+class MySpecialUser(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    supervisor = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='supervisor_of')
+
+&gt;&gt;&gt; user = User.objects.get(pk=1)
+&gt;&gt;&gt; hasattr(user, 'myspecialuser')
+True
+&gt;&gt;&gt; hasattr(user, 'supervisor_of')
+True
+</code></pre>
+<h2 id="关联对象参考">关联对象参考</h2>
+<pre><code>import datetime
+from django.db import models
+ 
+class Blog(models.Model):
+    ...
+ 
+class Entry(models.Model):
+    blog = models.ForeignKey(Blog)
+    published = models.DateTimeField(default=datetime.datetime.now)
+    ...
+</code></pre>
+<p>有以下方法<br>
+blog.entry_set<br>
+entry.blog</p>
+<pre><code>class Topping(models.Model):
+    # ...
+    pass
+ 
+class Pizza(models.Model):
+    toppings = models.ManyToManyField(Topping)
+</code></pre>
+<p>有以下方法<br>
+topping.pizza_set<br>
+pizza.toppings</p>
+<h4 id="addobj1-obj2">add(obj1[, obj2, ...])</h4>
+<p>把指定的模型对象添加到关联对象集中。</p>
+<pre><code>&gt;&gt;&gt; b = Blog.objects.get(id=1)
+&gt;&gt;&gt; e = Entry.objects.get(id=234)
+&gt;&gt;&gt; b.entry_set.add(e) # Associates Entry e with Blog b.
+</code></pre>
+<p>不需要调用save()方法</p>
+<h3 id="createkwargs">create(**kwargs)</h3>
+<p>创建一个新的对象，保存对象，并将它添加到关联对象集之中。返回新创建的对象：</p>
+<pre><code>&gt;&gt;&gt; b = Blog.objects.get(id=1)
+&gt;&gt;&gt; e = b.entry_set.create(
+...     headline='Hello',
+...     body_text='Hi',
+...     pub_date=datetime.date(2005, 1, 1)
+... )
+# No need to call e.save() at this point -- it's already been saved.
+</code></pre>
+<p>这完全等价于（不过更加简洁于）：</p>
+<pre><code>&gt;&gt;&gt; b = Blog.objects.get(id=1)
+&gt;&gt;&gt; e = Entry(
+...     blog=b,
+...     headline='Hello',
+...     body_text='Hi',
+...     pub_date=datetime.date(2005, 1, 1)
+... )
+&gt;&gt;&gt; e.save(force_insert=True)
+</code></pre>
+<p>要注意我们并不需要指定模型中用于定义关系的关键词参数。在上面的例子中，我们并没有传入blog参数给create()。Django会明白新的 Entry对象blog 应该添加到b中。</p>
+<h4 id="removeobj1-obj2">remove(obj1[, obj2, ...])</h4>
+<p>从关联对象集中移除执行的模型对象（不是删除）</p>
+<pre><code>&gt;&gt;&gt; b = Blog.objects.get(id=1)
+&gt;&gt;&gt; e = Entry.objects.get(id=234)
+&gt;&gt;&gt; b.entry_set.remove(e) # Disassociates Entry e from Blog b.
+</code></pre>
+<p>和add()相似，上面的例子中，e.save()可会执行更新操作。但是，多对多关系上的remove()，会使用QuerySet.delete()删除关系，意思是并不会有任何模型调用save()方法：如果你想在一个关系被删除时执行自定义的代码，请监听m2m_changed信号。</p>
+<p>对于ForeignKey对象，这个方法仅在null=True时存在。如果关联的字段不能设置为None (NULL)，则这个对象在添加到另一个关联之前不能移除关联。在上面的例子中，从b.entry_set()移除e等价于让e.blog = None，由于blog的ForeignKey没有设置null=True，这个操作是无效的。</p>
+<p>对于ForeignKey对象，该方法接受一个bulk参数来控制它如果执行操作。如果为True（默认值），QuerySet.update()会被使用。而如果bulk=False，会在每个单独的模型实例上调用save()方法。这会触发pre_save和post_save，它们会消耗一定的性能。</p>
+<h4 id="clear">clear()</h4>
+<p>从关联对象集中移除一切对象（不是删除）</p>
+<pre><code>&gt;&gt;&gt; b = Blog.objects.get(id=1)
+&gt;&gt;&gt; b.entry_set.clear()
+</code></pre>
+<p>注意这样不会删除对象 —— 只会删除他们之间的关联。<br>
+就像 remove() 方法一样，clear()只能在 null=True的ForeignKey上被调用，也可以接受bulk关键词参数。</p>
+<blockquote>
+<p>注意<br>
+注意对于所有类型的关联字段，add()、create()、remove()和clear()都会马上更新数据库。换句话说，在关联的任何<br>
+端，都不需要再调用save()方法。<br>
+同样，如果你再多对多关系中使用了中间模型，一些关联管理的方法会被禁用。</p>
+</blockquote>
+<h4 id="直接赋值">直接赋值</h4>
+<p>通过赋值一个新的可迭代的对象，关联对象集可以被整体替换掉。</p>
+<pre><code>&gt;&gt;&gt; new_list = [obj1, obj2, obj3]
+&gt;&gt;&gt; e.related_set = new_list 
+</code></pre>
+<p>如果外键关系满足null=True，关联管理器会在添加new_list中的内容之前，首先调用clear()方法来解除关联集中一切已存在对象的关联。否则， new_list中的对象会在已存在的关联的基础上被添加。</p>
+
+        </div>
+        <!-- Share to Twitter, Weibo, Telegram -->
+        <div class="flex items-center">
+          <div class="mr-4 flex items-center">
+            <i class="ri-share-forward-line text-gray-500"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTwitter">
+            <i class="ri-twitter-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex" @click="shareToWeibo">
+            <i class="ri-weibo-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTelegram">
+            <i class="ri-telegram-line"></i>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+        <div id="vlaine-comment"></div>
+      
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> && Deployed by <a href="https://app.netlify.com/sites/iblogc/deploys"><img src="https://api.netlify.com/api/v1/badges/54ffcfc8-016f-4735-9832-8050c4b2a68d/deploy-status" alt="部署状态" style="display: inline;"></a>
+</footer>
+    </div>
+
+    <!-- TOC Container -->
+    <div class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight" @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast" :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast" @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%85%B3%E8%81%94%E5%AD%97%E6%AE%B5">关联字段</a>
+<ul>
+<li><a href="#foreignkey%E5%A4%9A%E5%AF%B9%E4%B8%80%E5%85%B3%E7%B3%BB"><code>ForeignKey</code>多对一关系</a>
+<ul>
+<li><a href="#limit_chices_to"><code>limit_chices_to</code></a></li>
+<li><a href="#related_query_name"><code>related_query_name</code></a></li>
+<li><a href="#to_field"><code>to_field</code></a></li>
+<li><a href="#db_constraint"><code>db_constraint</code></a></li>
+<li><a href="#on_delete"><code>on_delete</code></a></li>
+<li><a href="#swappable"><code>swappable</code></a></li>
+<li><a href="#allow_unsaved_instance_assignment"><code>allow_unsaved_instance_assignment</code></a></li>
+</ul>
+</li>
+<li><a href="#manytomanyfield%E5%A4%9A%E5%AF%B9%E5%A4%9A%E5%85%B3%E7%B3%BB"><code>ManyToManyField</code>多对多关系</a>
+<ul>
+<li><a href="#related_name"><code>related_name</code></a></li>
+<li><a href="#related_query_name-2"><code>related_query_name</code></a></li>
+<li><a href="#limit_choices_to"><code>limit_choices_to</code></a></li>
+<li><a href="#symmetrical"><code>symmetrical</code></a></li>
+<li><a href="#through"><code>through</code></a></li>
+<li><a href="#through_fields"><code>through_fields</code></a></li>
+<li><a href="#db_table"><code>db_table</code></a></li>
+<li><a href="#db_constraint-2"><code>db_constraint</code></a></li>
+<li><a href="#swappable-2"><code>swappable</code></a></li>
+<li><a href="#allow_unsaved_instance_assignment-2"><code>allow_unsaved_instance_assignment</code></a></li>
+</ul>
+</li>
+<li><a href="#onetoonefield%E4%B8%80%E5%AF%B9%E4%B8%80%E5%85%B3%E7%B3%BB"><code>OneToOneField</code>一对一关系</a></li>
+</ul>
+</li>
+<li><a href="#%E5%85%B3%E8%81%94%E5%AF%B9%E8%B1%A1%E5%8F%82%E8%80%83">关联对象参考</a><br>
+*
+<ul>
+<li><a href="#addobj1-obj2">add(obj1[, obj2, ...])</a></li>
+<li><a href="#createkwargs">create(**kwargs)</a>
+<ul>
+<li><a href="#removeobj1-obj2">remove(obj1[, obj2, ...])</a></li>
+<li><a href="#clear">clear()</a></li>
+<li><a href="#%E7%9B%B4%E6%8E%A5%E8%B5%8B%E5%80%BC">直接赋值</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200" @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://me.iblogc.com/media/scripts/main.js"></script>
+  
+  <!-- Code Highlight -->
+  
+    <script src="https://me.iblogc.com/media/prism.js"></script>
+    <script>
+      Prism.highlightAll()
+    </script>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+  <script>
+    //拿到预览框架，也就是上面的html代码
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    //定义图片数组变量
+    var imgitems;
+    /**
+    * 用于显示预览界面
+    * @param index 图片数组下标
+    */
+    function viewImg(index) {
+      //其它选项这里不做过多阐述，详情见官网
+      var pswpoptions = {
+        index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+        bgOpacity: 0.7, // 背景透明度，0-1
+        maxSpreadZoom: 3, // 缩放级别，不要太大
+      };
+      //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+      gallery.init()
+    }
+    /**
+    * 用于添加图片点击事件
+    * @param img 图片元素
+    * @param index 所属下标（在imgitems中的位置）
+    */
+    function addImgClick(img, index) {
+      img.onclick = function() {
+        viewImg(index)
+      }
+    }
+    /**
+    * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+    * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+    * 异步加载图片可在图片元素创建完成后调用此方法
+    */
+    function initImg() {
+      //重置图片数组
+      imgitems = [];
+      //查找class:markdown 下的所有img元素并遍历
+      var imgs = document.querySelectorAll('.markdown img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        //本站相册初始为loading图片，真实图片放在data-src
+        var ds = img.getAttribute("data-src");
+        //创建image对象，用于获取图片宽高
+        var imgtemp = new Image();
+        //判断是否存在data-src
+        if (ds != null && ds.length > 0) {
+          imgtemp.src = ds
+        } else {
+          imgtemp.src = img.src
+        }
+        //判断是否存在缓存
+        if (imgtemp.complete) {
+          var imgobj = {
+            "src": imgtemp.src,
+            "w": imgtemp.width,
+            "h": imgtemp.height,
+          };
+          imgitems[i] = imgobj;
+          addImgClick(img, i);
+        } else {
+          console.log('进来了2')
+          imgtemp.index = i;
+          imgtemp.img = img;
+          imgtemp.onload = function() {
+            var imgobj = {
+              "src": this.src,
+              "w": this.width,
+              "h": this.height,
+            };
+            //不要使用push，因为onload前后顺序会不同
+            imgitems[this.index] = imgobj
+            //添加点击事件
+            addImgClick(this.img, this.index);
+          }
+        }
+      }
+    }
+    //初始化
+    initImg();
+  </script>
+  
+    <script type="application/javascript" src="https://unpkg.com/valine"></script>
+<script type="application/javascript">
+  new Valine({
+    el: '#vlaine-comment',
+    appId: '987iVPRcMd7Mr7zod45n3Lkr-gzGzoHsz',
+    appKey: 'hfMvTINJ8W5sE840u91af9K6',
+    pageSize: 10,
+    notify: true,
+    avatar: 'retro',
+    verify: true,
+    placeholder: '来都来了，不妨评论一下',
+    visitor: true,
+    highlight: true,
+    recordIP: true,
+  })
+</script>
+  
+  
+</body>
+
+</html>

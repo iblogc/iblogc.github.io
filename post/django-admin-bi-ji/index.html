@@ -1,0 +1,460 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Django admin 笔记 - iblogc</title>
+<link rel="shortcut icon" href="https://me.iblogc.com/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://me.iblogc.com/media/css/tailwind.css">
+<link rel="stylesheet" href="https://me.iblogc.com/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Django admin 笔记 - iblogc - Atom Feed" href="https://me.iblogc.com/atom.xml">
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54784650-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-54784650-1');
+  </script>
+    
+
+  <meta name="description" content="管理站点
+注册模型到admin
+from django.contrib import admin
+from myproject.myapp.models import Author
+ 
+admin.site.register(Author)..." />
+  <meta property="og:title" content="Django admin 笔记 - iblogc">
+  <meta property="og:description" content="管理站点
+注册模型到admin
+from django.contrib import admin
+from myproject.myapp.models import Author
+ 
+admin.site.register(Author)..." />
+  <meta property="og:type" content="articles">
+  <meta property="og:url" content="https://me.iblogc.com/post/django-admin-bi-ji/" />
+  <meta property="og:image" content="https://me.iblogc.com/images/avatar.png">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:title" content="Django admin 笔记 - iblogc">
+  <meta name="twitter:description" content="管理站点
+注册模型到admin
+from django.contrib import admin
+from myproject.myapp.models import Author
+ 
+admin.site.register(Author)...">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://me.iblogc.com/post/django-admin-bi-ji/">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+ 
+  
+    <link rel="stylesheet" href="https://me.iblogc.com/media/css/prism-atom-dark.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://me.iblogc.com" class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      iblogc
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          Django admin 笔记
+        </h1>
+        
+        <div class="mb-8 flex flex-wrap">
+          <div class="text-gray-400 text-sm mr-4">2016-05-20 · 4 min read</div>
+          
+            <a href="https://me.iblogc.com/tag/django/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              Django
+            </a>
+          
+        </div>
+        <div class="markdown mb-8" v-pre>
+          <h1 id="管理站点"><a href="http://python.usyiyi.cn/django/index.html">管理站点</a></h1>
+<h2 id="注册模型到admin">注册模型到<code>admin</code></h2>
+<pre><code class="language-python">from django.contrib import admin
+from myproject.myapp.models import Author
+ 
+admin.site.register(Author)
+</code></pre>
+<p>或是使用装饰器</p>
+<pre><code class="language-python">from django.contrib import admin
+from myproject.myqll.models import Author
+ 
+@admin.register(Author[, Reader, Editor])
+class PersonAdmin(admn.ModelAdmin):
+    pass
+# 或
+@admin.register
+class PersonAdmin(admn.ModelAdmin):
+   model = Author
+</code></pre>
+<h2 id="定制选项">定制选项</h2>
+<h3 id="list_display"><code>list_display</code></h3>
+<p>控制在管理的列表页面显示的字段</p>
+<h3 id="fields"><code>fields</code></h3>
+<p>控制在表单页面显示的字段、字段顺序及行内分组，如果字段在<code>model</code>里设置了<code>editable=False</code>，则只有当此字段在<code>readonly_fields</code>中时，才能包含在<code>fields</code>中；</p>
+<h3 id="exclude"><code>exclude</code></h3>
+<p>控制在表单页面不需要显示的字段</p>
+<h3 id=""></h3>
+<p>在<code>apps.py</code>里</p>
+<pre><code class="language-python">from django.apps import AppConfig
+from django.utils.translation import ugettext_lazy as _
+ 
+ 
+class AuthorConfig(AppConfig):
+    name = 'myapp'
+    verbose_name = u'管理后台显示的名称'
+    ```
+在`__init__.py`加入
+```python
+default_app_config = 'myapp.apps.AuthorConfig'
+</code></pre>
+<h3 id="modeladmin-options"><code>ModelAdmin options</code></h3>
+<p><code>ModelAdmin.actions</code><br>
+列表， 列表页操作，详见下章</p>
+<p><code>ModelAdmin.actions_on_top</code><br>
+<code>ModelAdmin.actions_on_bottom</code><br>
+布尔值，列表页操作控件显示的位置，上面可同时显示</p>
+<p><code>ModelAdmin.actions_selection_counter</code><br>
+布尔值，是否在列表页操作控件显示选中数量</p>
+<p><code>ModelAdmin.date_hierarchy</code><br>
+时间类型字段名字符，列表页顶部可根据指定日期字段生成一个智能过滤条</p>
+<p><code>ModelAdmin.empty_value_display</code><br>
+当字段值为<code>None</code>、空字符时显示的替代内容，默认为    <code>-</code></p>
+<p><code>ModelAdmin.exclude</code><br>
+哪些字段在列表页中不显示</p>
+<p><code>ModelAdmin.view_on_site</code><br>
+在站点上查看当前编辑的对象<br>
+默认使用<code>get_absolute_url()</code>或可重写<code>view_on_site(self, obj)</code>方法返回url</p>
+<h2 id="管理操作"><a href="http://python.usyiyi.cn/django/ref/contrib/admin/actions.html">管理操作</a></h2>
+<p>列表页批量操作</p>
+<pre><code class="language-python">from django.contrib import admin
+from myapp.models import Article
+ 
+def make_published(modeladmin, request, queryset):
+    # queryset为用户所选的对象集合
+    queryset.update(status='p')   
+make_published.short_description = u'发布文章'
+ 
+class ArticleAdmin(admin.ModelAdmin):
+    list_display = ['title', 'status']
+    ordering = ['title']
+    # 使用actions注册操作
+    actions = [make_published]
+ 
+admin.site.register(Article, ArticleAdmin)
+</code></pre>
+<p>因为<code>make_published</code>方法和<code>Article</code>模型是紧密耦合的，所以为了更好的设计，应该把<code>make_published</code>绑定到<code>ArticleAdmin</code>里面去。</p>
+<pre><code class="language-python">class ArticleAdmin(admin.ModelAdmin):
+    ...
+ 
+    def make_published(self, request, queryset):
+        rows_updated = queryset.update(status='p')
+        if rows_updated == 1:
+            message_bit = &quot;1 story was&quot;
+        else:
+            message_bit = &quot;%s stories were&quot; % rows_updated
+        self.message_user(request, &quot;%s successfully marked as published.&quot; % message_bit)
+</code></pre>
+<p>操作的中间页面<br>
+只要从你的操作返回HttpResponse（或其子类）就可以了。</p>
+<pre><code class="language-python">from django.http import HttpResponse
+from django.core import serializers
+ 
+def export_as_json(modeladmin, request, queryset):
+    response = HttpResponse(content_type=&quot;application/json&quot;)
+    serializers.serialize(&quot;json&quot;, queryset, stream=response)
+    return response
+</code></pre>
+<pre><code class="language-python">from django.contrib import admin
+from django.contrib.contenttypes.models import ContentType
+from django.http import HttpResponseRedirect
+ 
+def export_selected_objects(modeladmin, request, queryset):
+    selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
+    ct = ContentType.objects.get_for_model(queryset.model)
+    return HttpResponseRedirect(&quot;/export/?ct=%s&amp;ids=%s&quot; % (ct.pk, &quot;,&quot;.join(selected)))
+</code></pre>
+<p>全站操作</p>
+<pre><code class="language-python">from django.contrib import admin
+ 
+# 第二个参数为禁用时使用的名字，如果方法没有short_description，也会使用这个名字
+admin.site.add_action(export_selected_objects，u'导出')
+</code></pre>
+<p><code>export_selected_objects</code>方法同前面相同</p>
+<p>禁用全站操作</p>
+<pre><code class="language-python">from django.contrib import admin
+# 禁用时使用add_action时的name，如果没有，直接使用方法名字字符串
+admin.site.disable_action(u'导出')
+</code></pre>
+<p>如果想要局部启用被全局禁用的操作可以显示的放到<code>ModelAdmin.actions</code>列表中就可以</p>
+<p>如果想要在某个<code>ModelAdmin</code>上禁用所有操作，可以把<code>ModelAdmin.actions</code>设置为<code>None</code>，这会所有列表上的批量操作全部禁用，包括<code>django</code>自带的操作，设置<code>ModelAdmin.actions</code>为空<code>list</code>并不能禁用全站级操作</p>
+<p>根据每个请求来动态的开启或禁用操作</p>
+<pre><code class="language-python">class MyModelAdmin(admin.ModelAdmin):
+    ...
+ 
+    def get_actions(self, request):
+        actions = super(MyModelAdmin, self).get_actions(request)
+        if request.user.username[0].upper() != 'J':
+            if 'delete_selected' in actions:
+                del actions['delete_selected']
+        return actions
+</code></pre>
+<p><code>ModelAdmin.get_actions()</code>会返回当前<code>ModelAdmin</code>上的所有操作的有序字典，<code>key</code>为<code>action</code>的<code>name</code>（不是<code>short_description</code>），<code>value</code>为<code>(function, name, short_description)</code>元组<br>
+<em><code>short_description</code>只是用来给人类看的，所以不太会用作参数</em></p>
+
+        </div>
+        <!-- Share to Twitter, Weibo, Telegram -->
+        <div class="flex items-center">
+          <div class="mr-4 flex items-center">
+            <i class="ri-share-forward-line text-gray-500"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTwitter">
+            <i class="ri-twitter-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex" @click="shareToWeibo">
+            <i class="ri-weibo-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTelegram">
+            <i class="ri-telegram-line"></i>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+        <div id="vlaine-comment"></div>
+      
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> && Deployed by <a href="https://app.netlify.com/sites/iblogc/deploys"><img src="https://api.netlify.com/api/v1/badges/54ffcfc8-016f-4735-9832-8050c4b2a68d/deploy-status" alt="部署状态" style="display: inline;"></a>
+</footer>
+    </div>
+
+    <!-- TOC Container -->
+    <div class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight" @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast" :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast" @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li><a href="#%E7%AE%A1%E7%90%86%E7%AB%99%E7%82%B9">管理站点</a>
+<ul>
+<li><a href="#%E6%B3%A8%E5%86%8C%E6%A8%A1%E5%9E%8B%E5%88%B0admin">注册模型到<code>admin</code></a></li>
+<li><a href="#%E5%AE%9A%E5%88%B6%E9%80%89%E9%A1%B9">定制选项</a>
+<ul>
+<li><a href="#list_display"><code>list_display</code></a></li>
+<li><a href="#fields"><code>fields</code></a></li>
+<li><a href="#exclude"><code>exclude</code></a></li>
+<li></li>
+<li><a href="#modeladmin-options"><code>ModelAdmin options</code></a></li>
+</ul>
+</li>
+<li><a href="#%E7%AE%A1%E7%90%86%E6%93%8D%E4%BD%9C">管理操作</a></li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200" @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://me.iblogc.com/media/scripts/main.js"></script>
+  
+  <!-- Code Highlight -->
+  
+    <script src="https://me.iblogc.com/media/prism.js"></script>
+    <script>
+      Prism.highlightAll()
+    </script>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+  <script>
+    //拿到预览框架，也就是上面的html代码
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    //定义图片数组变量
+    var imgitems;
+    /**
+    * 用于显示预览界面
+    * @param index 图片数组下标
+    */
+    function viewImg(index) {
+      //其它选项这里不做过多阐述，详情见官网
+      var pswpoptions = {
+        index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+        bgOpacity: 0.7, // 背景透明度，0-1
+        maxSpreadZoom: 3, // 缩放级别，不要太大
+      };
+      //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+      gallery.init()
+    }
+    /**
+    * 用于添加图片点击事件
+    * @param img 图片元素
+    * @param index 所属下标（在imgitems中的位置）
+    */
+    function addImgClick(img, index) {
+      img.onclick = function() {
+        viewImg(index)
+      }
+    }
+    /**
+    * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+    * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+    * 异步加载图片可在图片元素创建完成后调用此方法
+    */
+    function initImg() {
+      //重置图片数组
+      imgitems = [];
+      //查找class:markdown 下的所有img元素并遍历
+      var imgs = document.querySelectorAll('.markdown img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        //本站相册初始为loading图片，真实图片放在data-src
+        var ds = img.getAttribute("data-src");
+        //创建image对象，用于获取图片宽高
+        var imgtemp = new Image();
+        //判断是否存在data-src
+        if (ds != null && ds.length > 0) {
+          imgtemp.src = ds
+        } else {
+          imgtemp.src = img.src
+        }
+        //判断是否存在缓存
+        if (imgtemp.complete) {
+          var imgobj = {
+            "src": imgtemp.src,
+            "w": imgtemp.width,
+            "h": imgtemp.height,
+          };
+          imgitems[i] = imgobj;
+          addImgClick(img, i);
+        } else {
+          console.log('进来了2')
+          imgtemp.index = i;
+          imgtemp.img = img;
+          imgtemp.onload = function() {
+            var imgobj = {
+              "src": this.src,
+              "w": this.width,
+              "h": this.height,
+            };
+            //不要使用push，因为onload前后顺序会不同
+            imgitems[this.index] = imgobj
+            //添加点击事件
+            addImgClick(this.img, this.index);
+          }
+        }
+      }
+    }
+    //初始化
+    initImg();
+  </script>
+  
+    <script type="application/javascript" src="https://unpkg.com/valine"></script>
+<script type="application/javascript">
+  new Valine({
+    el: '#vlaine-comment',
+    appId: '987iVPRcMd7Mr7zod45n3Lkr-gzGzoHsz',
+    appKey: 'hfMvTINJ8W5sE840u91af9K6',
+    pageSize: 10,
+    notify: true,
+    avatar: 'retro',
+    verify: true,
+    placeholder: '来都来了，不妨评论一下',
+    visitor: true,
+    highlight: true,
+    recordIP: true,
+  })
+</script>
+  
+  
+</body>
+
+</html>

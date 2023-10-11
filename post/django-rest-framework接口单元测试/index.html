@@ -1,0 +1,511 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Django REST framework 单元测试「Unit Testing」 - iblogc</title>
+<link rel="shortcut icon" href="https://me.iblogc.com/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://me.iblogc.com/media/css/tailwind.css">
+<link rel="stylesheet" href="https://me.iblogc.com/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Django REST framework 单元测试「Unit Testing」 - iblogc - Atom Feed" href="https://me.iblogc.com/atom.xml">
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54784650-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-54784650-1');
+  </script>
+    
+
+  <meta name="description" content="
+
+## `settings`
+`Django`运行单元测试时，会以`settings`里的数据库配置里的`NAME`新建一个以`test_`开关的临时数据库，并在测试结束后删除，默认的测试数据库会以当前的`migrations`文件来创建..." />
+  <meta property="og:title" content="Django REST framework 单元测试「Unit Testing」 - iblogc">
+  <meta property="og:description" content="
+
+## `settings`
+`Django`运行单元测试时，会以`settings`里的数据库配置里的`NAME`新建一个以`test_`开关的临时数据库，并在测试结束后删除，默认的测试数据库会以当前的`migrations`文件来创建..." />
+  <meta property="og:type" content="articles">
+  <meta property="og:url" content="https://me.iblogc.com/post/django-rest-framework接口单元测试/" />
+  <meta property="og:image" content="https://me.iblogc.com/images/avatar.png">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:title" content="Django REST framework 单元测试「Unit Testing」 - iblogc">
+  <meta name="twitter:description" content="
+
+## `settings`
+`Django`运行单元测试时，会以`settings`里的数据库配置里的`NAME`新建一个以`test_`开关的临时数据库，并在测试结束后删除，默认的测试数据库会以当前的`migrations`文件来创建...">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://me.iblogc.com/post/django-rest-framework接口单元测试/">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+ 
+  
+    <link rel="stylesheet" href="https://me.iblogc.com/media/css/prism-atom-dark.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://me.iblogc.com" class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      iblogc
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          Django REST framework 单元测试「Unit Testing」
+        </h1>
+        
+        <div class="mb-8 flex flex-wrap">
+          <div class="text-gray-400 text-sm mr-4">2017-09-05 · 7 min read</div>
+          
+            <a href="https://me.iblogc.com/tag/restful-api/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              restful api
+            </a>
+          
+            <a href="https://me.iblogc.com/tag/jie-kou/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              接口
+            </a>
+          
+            <a href="https://me.iblogc.com/tag/dan-yuan-ce-shi/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              单元测试
+            </a>
+          
+            <a href="https://me.iblogc.com/tag/ce-shi/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              测试
+            </a>
+          
+            <a href="https://me.iblogc.com/tag/django/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              Django
+            </a>
+          
+        </div>
+        <div class="markdown mb-8" v-pre>
+          <br />
+<!--more-->
+## `settings`
+`Django`运行单元测试时，会以`settings`里的数据库配置里的`NAME`新建一个以`test_`开关的临时数据库，并在测试结束后删除，默认的测试数据库会以当前的`migrations`文件来创建数据表并进行迁移，但如果`migrations`文件很多，每次运行时间将很久，所以可以跳过迁移，直接以当前`Model`结果来创建表以提升测试效率，如果想进一步加快测试时创建数据库的速度，可以使用`SQLite`数据库引擎，当使用`SQLite`数据库引擎时，测试将默认使用内存数据库。
+```python
+TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
+if TESTING:
+    # 当使用SQLite数据库引擎时，测试将默认使用内存数据库
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+    }
+    # 单元测试时, 跳过migrate, 极 的提升测试运 效率
+    # 具体可以查看
+    # https://simpleisbetterthancomplex.com/tips/2016/08/19/django-tip-12-disabl ing-migrations-to-speed-up-unit-tests.html
+    # https://stackoverflow.com/questions/36487961/django-unit-testing-taking-a- very-long-time-to-create-test-database
+<pre><code>class DisableMigrations(object):
+    def __contains__(self, item):
+        return True
+
+    def __getitem__(self, item):
+        return &quot;notmigrations&quot;
+
+
+MIGRATION_MODULES = DisableMigrations()
+</code></pre>
+<pre><code>
+## 示例代码
+```python
+# -*- coding: utf-8 -*-
+from __future__ import absolute_import
+from __future__ import unicode_literals
+
+from rest_framework import status
+from rest_framework.test import APITestCase
+
+from apps.account.models import User
+from apps.account.tests.test_utils import TestCaseUtils
+
+__author__ = 'jeff'
+
+
+class UserAPITests(APITestCase, TestCaseUtils):
+    # 初始数据加载，可使用manage.py dumpdata [app_label app_label app_label.Model]生成
+    # xml/yaml/json格式的数据
+    # 一般放在每个应用的fixtures目录下, 只需要填写json文件名即可，django会自动查找
+    # 此测试类运行结束后，会自动从数据库里销毁这份数据
+    # fixtures = ['user.json']
+
+    def setUp(self):
+        # 在类里每个测试方法执行前会运行
+        # 在此方法执行前，django会运行以下操作
+        # 1. 重置数据库，数据库恢复到执行migrate后的状态
+        # 2. 加载fixtures数据
+        # 所以每个测试方法里对数据库的操作都是独立的，不会相互影响
+        kwargs = dict(mobile_phone='15999999999', password='111111')
+        self.user = User.app_user_objects.create(**kwargs)
+
+    def tearDown(self):
+        # 在类里每个方法结束执行后会运行
+        pass
+
+    @classmethod
+    def setUpClass(cls):
+        # 在类初始化时执行，必须调用super
+        super(UserAPITests, cls).setUpClass()
+        cls.token = ''
+
+    @classmethod
+    def tearDownClass(cls):
+        # 在整个测试类运行结束时执行，必须调用super
+        super(UserAPITests, cls).tearDownClass()
+
+    def test_app_user_login_success(self):
+        &quot;&quot;&quot;APP用户登录接口成功情况&quot;&quot;&quot;
+        # path使用硬编码，不要使用reverse反解析url，以便在修改url之后能及时发现接口地址变化，并通知接口使用人员
+        path = '/api/api-token-auth/'
+        data = {'mobile_phone': '15999999999', 'password': '111111'}
+        response = self.client.post(path, data)
+        # response.data是字典对象
+        # response.content是json字符串对象
+        self.assertEquals(response.status_code,
+                          status.HTTP_200_OK,
+                          '登录接口返回状态码错误: 错误信息: {}'.format(response.content))
+        self.assertIn('token', response.data, '登录成功后无token返回')
+
+    def test_app_user_login_with_error_pwd(self):
+        path = '/api/api-token-auth/'
+        data = {'mobile_phone': '15999999999', 'password': '123456'}
+        response = self.client.post(path, data)
+        self.assertEquals(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertJSONEqual('{&quot;errors&quot;:[&quot;用户名或密码错误。&quot;]}', response.content)
+
+    def test_get_app_user_profile_success(self):
+        &quot;&quot;&quot;成功获取app用户个人信息接口&quot;&quot;&quot;
+        path = '/api/account/user/profile/'
+        headers = self.get_headers(user=self.user)
+        response = self.client.get(path, **headers)
+        # 校验一些关键数据即可
+        # 如果是创建新数据，不仅要校验返回的状态码和数据，
+        # 还需要到使用Django ORM去数据库查询数据是否创建成功
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(6, len(response.data))
+        self.assertIn('url', response.data)
+        self.assertIn('mobile_phone', response.data)
+        self.assertIn('avatar', response.data)
+        self.assertIn('company_name', response.data)
+        self.assertIn('username', response.data)
+        self.assertIn('is_inviter', response.data)
+
+    def test_get_app_user_profile_without_token(self):
+        &quot;&quot;&quot;不传token请求获取用户信息接口&quot;&quot;&quot;
+        path = '/api/account/user/profile/'
+        response = self.client.get(path)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+</code></pre>
+<h2 id="断言">断言</h2>
+<pre><code class="language-python"># 来自unittest.case.TestCase
+assertFalse(expr, msg=None)
+assertTrue(expr, msg=None)
+assertEqual(first, second, msg=None)
+assertNotEqual(first, second, msg=None)
+assertAlmostEqual(first, second, places=None, msg=None, delta=None)
+assertNotAlmostEqual(first, second, places=None, msg=None, delta=None)
+assertSequenceEqual(seq1, seq2, msg=None, seq_type=None)
+assertListEqual(list1, list2, msg=None)
+assertTupleEqual(tuple1, tuple2, msg=None)
+assertSetEqual(set1, set2, msg=None)
+assertIn(member, container, msg=None)
+assertNotIn(member, container, msg=None)
+assertIs(expr1, expr2, msg=None)
+assertIsNot(expr1, expr2, msg=None)
+assertDictEqual(d1, d2, msg=None)
+assertDictContainsSubset(expected, actual, msg=None)
+assertItemsEqual(expected_seq, actual_seq, msg=None)
+assertMultiLineEqual(first, second, msg=None)
+assertLess(a, b, msg=None)
+assertLessEqual(a, b, msg=None)
+assertGreater(a, b, msg=None)
+assertGreaterEqual(a, b, msg=None)
+assertIsNone(obj, msg=None)
+assertIsInstance(obj, cls, msg=None)
+assertNotIsInstance(obj, cls, msg=None)
+assertRaisesRegexp(expected_exception, expected_regexp,
+                           callable_obj=None, *args, **kwargs)
+assertRegexpMatches(text, expected_regexp, msg=None)
+assertNotRegexpMatches(text, unexpected_regexp, msg=None)
+</code></pre>
+<h2 id="测试接口地址">测试接口地址</h2>
+<p>测试接口地址建议使用硬编码，不要使用<code>reverse</code>反解析url，原因是接口地址尽量避免改变，如果必须修改，需要以很明显的方式来提醒开发人员以便开发人员通知接口使用人员。</p>
+<h2 id="测试数据准备">测试数据准备</h2>
+<p>有如下两种方法准备测试数据</p>
+<ol>
+<li>简单的数据可以在<code>setUp()</code>里来创建；</li>
+<li>复杂数据可以使用fixtures来写，并在赋值给测试类的<code>fixtures</code>属性；<br>
+fixtures数据示例</li>
+</ol>
+<pre><code class="language-json">[
+  {
+    &quot;model&quot;: &quot;myapp.person&quot;,
+    &quot;pk&quot;: 1,
+    &quot;fields&quot;: {
+      &quot;first_name&quot;: &quot;John&quot;,
+      &quot;last_name&quot;: &quot;Lennon&quot;
+    }
+  },
+  {
+    &quot;model&quot;: &quot;myapp.person&quot;,
+    &quot;pk&quot;: 2,
+    &quot;fields&quot;: {
+      &quot;first_name&quot;: &quot;Paul&quot;,
+      &quot;last_name&quot;: &quot;McCartney&quot;
+    }
+  }
+]
+</code></pre>
+<h2 id="测试覆盖率coverage">测试覆盖率（coverage）</h2>
+<p>在<code>Pycharm</code>里可以通用右键项目，选择<code>Run 'Test:' with Coverage</code>来查看测试的覆盖率。也可以通过其它第三方包查看测试覆盖率，具体请自己查询。</p>
+
+        </div>
+        <!-- Share to Twitter, Weibo, Telegram -->
+        <div class="flex items-center">
+          <div class="mr-4 flex items-center">
+            <i class="ri-share-forward-line text-gray-500"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTwitter">
+            <i class="ri-twitter-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex" @click="shareToWeibo">
+            <i class="ri-weibo-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTelegram">
+            <i class="ri-telegram-line"></i>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+        <div id="vlaine-comment"></div>
+      
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> && Deployed by <a href="https://app.netlify.com/sites/iblogc/deploys"><img src="https://api.netlify.com/api/v1/badges/54ffcfc8-016f-4735-9832-8050c4b2a68d/deploy-status" alt="部署状态" style="display: inline;"></a>
+</footer>
+    </div>
+
+    <!-- TOC Container -->
+    <div class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight" @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast" :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast" @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E6%96%AD%E8%A8%80">断言</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95%E6%8E%A5%E5%8F%A3%E5%9C%B0%E5%9D%80">测试接口地址</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87">测试数据准备</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95%E8%A6%86%E7%9B%96%E7%8E%87coverage">测试覆盖率（coverage）</a></li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200" @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://me.iblogc.com/media/scripts/main.js"></script>
+  
+  <!-- Code Highlight -->
+  
+    <script src="https://me.iblogc.com/media/prism.js"></script>
+    <script>
+      Prism.highlightAll()
+    </script>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+  <script>
+    //拿到预览框架，也就是上面的html代码
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    //定义图片数组变量
+    var imgitems;
+    /**
+    * 用于显示预览界面
+    * @param index 图片数组下标
+    */
+    function viewImg(index) {
+      //其它选项这里不做过多阐述，详情见官网
+      var pswpoptions = {
+        index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+        bgOpacity: 0.7, // 背景透明度，0-1
+        maxSpreadZoom: 3, // 缩放级别，不要太大
+      };
+      //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+      gallery.init()
+    }
+    /**
+    * 用于添加图片点击事件
+    * @param img 图片元素
+    * @param index 所属下标（在imgitems中的位置）
+    */
+    function addImgClick(img, index) {
+      img.onclick = function() {
+        viewImg(index)
+      }
+    }
+    /**
+    * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+    * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+    * 异步加载图片可在图片元素创建完成后调用此方法
+    */
+    function initImg() {
+      //重置图片数组
+      imgitems = [];
+      //查找class:markdown 下的所有img元素并遍历
+      var imgs = document.querySelectorAll('.markdown img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        //本站相册初始为loading图片，真实图片放在data-src
+        var ds = img.getAttribute("data-src");
+        //创建image对象，用于获取图片宽高
+        var imgtemp = new Image();
+        //判断是否存在data-src
+        if (ds != null && ds.length > 0) {
+          imgtemp.src = ds
+        } else {
+          imgtemp.src = img.src
+        }
+        //判断是否存在缓存
+        if (imgtemp.complete) {
+          var imgobj = {
+            "src": imgtemp.src,
+            "w": imgtemp.width,
+            "h": imgtemp.height,
+          };
+          imgitems[i] = imgobj;
+          addImgClick(img, i);
+        } else {
+          console.log('进来了2')
+          imgtemp.index = i;
+          imgtemp.img = img;
+          imgtemp.onload = function() {
+            var imgobj = {
+              "src": this.src,
+              "w": this.width,
+              "h": this.height,
+            };
+            //不要使用push，因为onload前后顺序会不同
+            imgitems[this.index] = imgobj
+            //添加点击事件
+            addImgClick(this.img, this.index);
+          }
+        }
+      }
+    }
+    //初始化
+    initImg();
+  </script>
+  
+    <script type="application/javascript" src="https://unpkg.com/valine"></script>
+<script type="application/javascript">
+  new Valine({
+    el: '#vlaine-comment',
+    appId: '987iVPRcMd7Mr7zod45n3Lkr-gzGzoHsz',
+    appKey: 'hfMvTINJ8W5sE840u91af9K6',
+    pageSize: 10,
+    notify: true,
+    avatar: 'retro',
+    verify: true,
+    placeholder: '来都来了，不妨评论一下',
+    visitor: true,
+    highlight: true,
+    recordIP: true,
+  })
+</script>
+  
+  
+</body>
+
+</html>

@@ -1,0 +1,616 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Git 命令使用指南 - iblogc</title>
+<link rel="shortcut icon" href="https://me.iblogc.com/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://me.iblogc.com/media/css/tailwind.css">
+<link rel="stylesheet" href="https://me.iblogc.com/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Git 命令使用指南 - iblogc - Atom Feed" href="https://me.iblogc.com/atom.xml">
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54784650-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-54784650-1');
+  </script>
+    
+
+  <meta name="description" content="Git是软件开发人员在开发中常用的一种工具,是开发之利器。
+
+Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。
+
+
+工作流图示
+
+命令
+配置
+
+
+git config --global user.na..." />
+  <meta property="og:title" content="Git 命令使用指南 - iblogc">
+  <meta property="og:description" content="Git是软件开发人员在开发中常用的一种工具,是开发之利器。
+
+Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。
+
+
+工作流图示
+
+命令
+配置
+
+
+git config --global user.na..." />
+  <meta property="og:type" content="articles">
+  <meta property="og:url" content="https://me.iblogc.com/post/Git命令使用指南/" />
+  <meta property="og:image" content="https://me.iblogc.com/post-images/Git命令使用指南.jpg">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:title" content="Git 命令使用指南 - iblogc">
+  <meta name="twitter:description" content="Git是软件开发人员在开发中常用的一种工具,是开发之利器。
+
+Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。
+
+
+工作流图示
+
+命令
+配置
+
+
+git config --global user.na...">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://me.iblogc.com/post/Git命令使用指南/">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+ 
+  
+    <link rel="stylesheet" href="https://me.iblogc.com/media/css/prism-atom-dark.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://me.iblogc.com" class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      iblogc
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          Git 命令使用指南
+        </h1>
+        
+          <img src="https://me.iblogc.com/post-images/Git命令使用指南.jpg" alt="Git 命令使用指南" class="block w-full mb-8">
+        
+        <div class="mb-8 flex flex-wrap">
+          <div class="text-gray-400 text-sm mr-4">2015-01-16 · 8 min read</div>
+          
+            <a href="https://me.iblogc.com/tag/git/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              Git
+            </a>
+          
+            <a href="https://me.iblogc.com/tag/jiao-cheng/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              教程
+            </a>
+          
+        </div>
+        <div class="markdown mb-8" v-pre>
+          <p>Git是软件开发人员在开发中常用的一种工具,是开发之利器。</p>
+<blockquote>
+<p>Git是一个开源的分布式版本控制系统，用以有效、高速的处理从很小到非常大的项目版本管理。</p>
+</blockquote>
+<!--more-->
+<h2 id="工作流图示">工作流图示</h2>
+<figure data-type="image" tabindex="1"><img src="https://me.iblogc.com/post-images/git-reset_drbfhd.png" alt="工作流图示" loading="lazy"></figure>
+<h2 id="命令">命令</h2>
+<h3 id="配置">配置</h3>
+<ul>
+<li>
+<p><code>git config --global user.name 'Your Name'</code> 设置git提交显示的名字</p>
+</li>
+<li>
+<p><code>git config --global user.email your_email@example.com</code> 设置git提交显示的邮箱</p>
+</li>
+<li>
+<p><code>git config --global alias.unstage &quot;reset HEAD&quot;</code> 替换命令 <code>git reset HEAD</code>命令改为 <code>git unstage</code></p>
+</li>
+<li>
+<p><code>ssh-keygen -t rsa -C your_email@example.com</code> 生成SSH Key</p>
+</li>
+<li>
+<p><code>git config --global core.editor emacs</code> 设置文件编辑器</p>
+</li>
+<li>
+<p><code>git config --global merge.tool vimdiff</code> 设置差异分析工具</p>
+</li>
+<li>
+<p><code>git config --list</code> 查看配置信息</p>
+</li>
+</ul>
+<h3 id="简洁版">简洁版</h3>
+<p>初始化仓库<br>
+<code>git init</code></p>
+<p>添加远程仓库<br>
+<code>git remote add &lt;自定义名字&gt; &lt;远程仓库url&gt; </code></p>
+<p>给某个仓库名再添加另一个远程仓库url（可实现一次提交到两个远程仓库）<br>
+<code>git remote set-url --add &lt;自定义名字&gt; &lt;远程仓库url&gt;</code></p>
+<p>更新项目<br>
+<code>git pull</code></p>
+<p>合并分支到当前分支<br>
+<code>git merge &lt;分支名&gt;</code></p>
+<p>创建标签<br>
+<code>git tag &lt;标签名字&gt; &lt;提交id前10位字符&gt;</code> <em>可通过<code>git log</code>获取</em></p>
+<p>获取log<br>
+<code>git log</code></p>
+<p>切换分支<br>
+<code>git checkout &lt;分支名&gt;</code></p>
+<p>创建分支并切换过去<br>
+<code>git checkout -b &lt;分支名&gt;</code></p>
+<p>删除分支<br>
+<code>git branch -D &lt;分支名&gt;</code></p>
+<p>推送<br>
+<code>git push origin &lt;分支名/标签名&gt;</code></p>
+<p>强制推送更新<br>
+<code>git push -f origin &lt;分支名/标签名&gt;</code></p>
+<p>推送所有分支<br>
+<code>git push origin --all</code></p>
+<p>推送所有标签<br>
+<code>git push origin --tags</code></p>
+<p>撤消本地改动（新文件和提交到缓存区的改动，不受影响）<br>
+<code>git checkout -- &lt;目录&gt;&lt;文件名&gt;</code></p>
+<p>撤消本地所有提交与改动<br>
+<em><strong>假如你想要丢弃你所有的本地改动与提交，可以到服务器上获取最新的版本并将你本地主分支指向到它</strong></em><br>
+<code>git fetch origin</code><br>
+<code>git reset --hard origin/master</code></p>
+<p>其它命令</p>
+<ul>
+<li><code>gitk </code> 获取当前分支图形个界面
+<ul>
+<li>参数<code>&lt;分支名&gt;</code>: 获取某分支图形界面</li>
+<li>参数<code>=--all</code>: 获取所有分支图形个界面</li>
+<li><code>cat &lt;目录&gt;&lt;文件名&gt; </code> 查看文件内容</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="详细版">详细版</h3>
+<p>初始</p>
+<ul>
+<li>
+<p><code>git init</code> 初始化仓库</p>
+</li>
+<li>
+<p><code>ls</code> 显示目录下文件及文件夹（不包含隐藏文件即名字前带点的）</p>
+<ul>
+<li>参数<code>-a</code>显示目录下所有文件及文件夹</li>
+</ul>
+</li>
+<li>
+<p><code>git clone &lt;url&gt;</code> 克隆项目</p>
+</li>
+</ul>
+<p>提交</p>
+<ul>
+<li>
+<p><code>git add &lt;目录&gt;&lt;文件名&gt;</code> 添加文件到版本库，<em>可以多个文件一起添加，中间用空格隔开</em></p>
+</li>
+<li>
+<p><code>git add *</code> 或 <code>git add .</code> 添加所有文件到版本库</p>
+</li>
+</ul>
+<figure data-type="image" tabindex="2"><img src="http://iblogc.qiniudn.com/iblogcd60500d5-addf-4022-ae4f-c1a57d1f5dd1112.png" alt="status示例图" loading="lazy"></figure>
+<ul>
+<li>
+<p><code>git status</code> 查看项目当前状态，详细信息</p>
+<ul>
+<li>参数<code>-s</code>: 显示简洁版</li>
+</ul>
+<blockquote>
+<p>绿色表示已经提交的缓存区，红色表示在工作区未提交到缓存区的<br>
+A新增  M修改  D删除 U冲突 R重命名？<br>
+push会把绿色部分提交，红色部分不提交<br>
+已有记录文件做过改动和新文件，需要<code>git add</code></p>
+</blockquote>
+</li>
+<li>
+<p><code>git diff </code> 查看整个项目里的文件改动情况（工作区和缓存区比较）</p>
+<ul>
+<li>参数<code>&lt;目录&gt;&lt;文件名&gt;</code>: 查看单个文件改动情况（工作区和缓存区比较）<br>
+-参数<code>&lt;标签名&gt;</code>: 查看自当前标签发布之后项目的改动情况</li>
+<li>参数<code>--cached</code>: 查看整个项目里的文件改动情况（缓存区和本地仓库比较）</li>
+<li>参数 <code>HEAD</code>: 查看整个项目里的文件改动情况（工作区和本地仓库比较）</li>
+<li>参数<code>--stat</code>: 显示摘要，而非完整diff</li>
+</ul>
+</li>
+<li>
+<p><code>git commit</code>: 提交到缓存</p>
+<ul>
+<li>参数<code>-m</code>: 后面空格接提交信息</li>
+<li>参数<code>-a</code>: 为所有已有记录文件执行<code>git add</code>（新添加文件还是需要手动<code>git add</code>）</li>
+</ul>
+</li>
+<li>
+<p><code>git reset HEAD</code> 取消缓存已缓存的内容</p>
+<ul>
+<li>参数<code>&lt;目录&gt;&lt;文件名&gt;</code>: 单个文件取消缓存已缓存内容</li>
+</ul>
+</li>
+<li>
+<p><code>git rm &lt;目录&gt;&lt;文件名&gt;</code>:  将文件从缓存区和硬盘上移除</p>
+<ul>
+<li>参数<code>--cached</code>: 删除缓存中的文件，保留硬盘上的文件</li>
+</ul>
+</li>
+<li>
+<p><code>git mv</code> 不推荐用</p>
+</li>
+<li>
+<p><code>git log</code> 显示当前分支提交记录</p>
+<ul>
+<li>参数<code>--author=&lt;authorname&gt;</code>: 只寻找某个特定作者的提交</li>
+<li>参数<code>--oneline</code>: 显示简洁版
+<ul>
+<li>参数<code>--oneline -&lt;数字N&gt;</code>: 显示简洁版，显示最近N次提交的记录</li>
+</ul>
+</li>
+<li>参数<code>--graph</code>: 显示拓扑图（查看历史中什么时候出现了分支、合并）</li>
+<li>参数<code>--grep=&lt;关键字&gt;</code>: 根据提交注释关键字过滤提交记录</li>
+</ul>
+<blockquote>
+<p>Git 会对所有的 --grep 和 --author 参数作逻辑或。 如果你用 --grep 和 --author 时，想看的是某人写作的并且有某个特殊的注释内容的提交记录， 你需要加上 --all-match 选项。 在这些例子中，我会用上 --format 选项，这样我们就可以看到每个提交的作者是谁了。详细参考：<a href="http://gitref.org/zh/inspect/">Git参考手册:检查与比较</a></p>
+</blockquote>
+<ul>
+<li>参数<code>&lt;分支名&gt;</code>:显示指定分支“可及”的提交记录</li>
+<li>参数<code>&lt;分支名1&gt; ^&lt;分支名1&gt;</code>: 查看在分支1不在分支2中的提交记录</li>
+</ul>
+<blockquote>
+<p>分支可以是本地的也可以是远端的</p>
+</blockquote>
+<ul>
+<li>参数<code>--decorate</code>: 显示带tag的记录</li>
+<li>参数<code>-p</code>: 显示每个提交引入的补丁</li>
+<li>参数<code>--stat</code>: 显示每个提交引入的差值统计</li>
+<li>其它参数 <code>--since</code> <code>--before</code> <code>--until</code> <code>--after</code></li>
+</ul>
+<blockquote>
+<p>git log --since --before 根据日期过滤提交记录<br>
+如果你要指定一个你感兴趣的日期范围以过滤你的提交，可以执行几个选项 —— 我用 --since 和 --before，但是你也可以用 --until 和 --after。 例如，如果我要看 Git 项目中三周前且在四月十八日之后的所有提交，我可以执行这个（我还用了 --no-merges 选项以隐藏合并提交）<a href="http://gitref.org/zh/inspect/">Git参考手册:检查与比较</a>：</p>
+</blockquote>
+<pre><code>$ git log --oneline --before={3.weeks.ago} --after={2010-04-18} --no-merges
+5469e2d Git 1.7.1-rc2
+d43427d Documentation/remote-helpers: Fix typos and improve language
+272a36b Fixup: Second argument may be any arbitrary string
+b6c8d2d Documentation/remote-helpers: Add invocation section
+5ce4f4e Documentation/urls: Rewrite to accomodate transport::address
+00b84e9 Documentation/remote-helpers: Rewrite description
+03aa87e Documentation: Describe other situations where -z affects git diff
+77bc694 rebase-interactive: silence warning when no commits rewritten
+636db2c t3301: add tests to use --format=&quot;%N&quot;
+</code></pre>
+</li>
+</ul>
+<p>分支</p>
+<ul>
+<li>
+<p><code>git branch</code>列出当前项目的可用分支，并显示当前工作目录当前分支</p>
+</li>
+<li>
+<p>参数<code>&lt;分支名&gt;</code>: 创建分支</p>
+</li>
+<li>
+<p><code>git checkout &lt;分支名&gt;</code> 切换到对应分支</p>
+<ul>
+<li>参数<code>-b</code> 创建分支并立即切换到新分支</li>
+</ul>
+</li>
+<li>
+<p><code>git merge &lt;分支名&gt;</code> 合并指定分支到当前分支</p>
+</li>
+</ul>
+<p>标签</p>
+<ul>
+<li>
+<p><code>git tag</code> 显示当前项目的标签</p>
+<ul>
+<li>参数<code>&lt;标签名&gt;</code> 给某个历史记录打标签</li>
+<li>参数<code>-a</code>: 添加注解</li>
+<li>参数<code>&lt;SHA&gt;</code>: 提交id前n位字符，可通过<code>git log</code>获取，n位基于SHA唯一就行（建议5~7位）</li>
+</ul>
+</li>
+</ul>
+<p>远程</p>
+<ul>
+<li>
+<p><code>git remote</code> 列出远端别名<br>
+-参数<code>-v</code>: 列出远端别名及链接</p>
+<blockquote>
+<p>一般一个别名会看到两个相同的链接（fetch和push）分别是获取和推送的链接<br>
+-<code>add &lt;仓库别名&gt; &lt;仓库链接&gt;</code>: 为项目添加一个新的远端仓库</p>
+</blockquote>
+<ul>
+<li><code>rm &lt;仓库别名&gt;</code>: 为项目删除一个远端仓库</li>
+</ul>
+<blockquote>
+<p>只是本地删掉和远端仓库的链接，不会对远端仓库造成影响</p>
+</blockquote>
+</li>
+<li>
+<p><code>git fetch</code> 从远端仓库下载最新的分支与数据</p>
+</li>
+<li>
+<p><code>git pull</code> 从远端仓库下载最新数据，并尝试合并到当前分支</p>
+<ul>
+<li>参数<code>&lt;仓库别名&gt;</code>: 从哪个仓库拉取更新，默认为origin</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><code>git pull</code>实际是先<code>git fetch</code>后<code>git merge</code></p>
+</blockquote>
+<ul>
+<li><code>git push</code> 推送更新
+<ul>
+<li>参数<code>&lt;仓库别名&gt; &lt;分支名&gt;</code>: 推送新分支与数据到某个远端仓库</li>
+<li>参数<code>&lt;仓库别名&gt; --all</code>: 推送所有分支</li>
+<li>参数<code>&lt;仓库别名&gt; --tagsl</code>: 推送所有标签</li>
+</ul>
+</li>
+</ul>
+<h2 id="参考资料">参考资料</h2>
+<blockquote>
+<p><a href="http://gitref.org/zh">Git 参考手册</a><br>
+<a href="http://www.bootcss.com/p/git-guide/">git - 简易指南</a></p>
+</blockquote>
+
+        </div>
+        <!-- Share to Twitter, Weibo, Telegram -->
+        <div class="flex items-center">
+          <div class="mr-4 flex items-center">
+            <i class="ri-share-forward-line text-gray-500"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTwitter">
+            <i class="ri-twitter-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex" @click="shareToWeibo">
+            <i class="ri-weibo-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTelegram">
+            <i class="ri-telegram-line"></i>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+        <div id="vlaine-comment"></div>
+      
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> && Deployed by <a href="https://app.netlify.com/sites/iblogc/deploys"><img src="https://api.netlify.com/api/v1/badges/54ffcfc8-016f-4735-9832-8050c4b2a68d/deploy-status" alt="部署状态" style="display: inline;"></a>
+</footer>
+    </div>
+
+    <!-- TOC Container -->
+    <div class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight" @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast" :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast" @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%9B%BE%E7%A4%BA">工作流图示</a></li>
+<li><a href="#%E5%91%BD%E4%BB%A4">命令</a>
+<ul>
+<li><a href="#%E9%85%8D%E7%BD%AE">配置</a></li>
+<li><a href="#%E7%AE%80%E6%B4%81%E7%89%88">简洁版</a></li>
+<li><a href="#%E8%AF%A6%E7%BB%86%E7%89%88">详细版</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200" @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://me.iblogc.com/media/scripts/main.js"></script>
+  
+  <!-- Code Highlight -->
+  
+    <script src="https://me.iblogc.com/media/prism.js"></script>
+    <script>
+      Prism.highlightAll()
+    </script>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+  <script>
+    //拿到预览框架，也就是上面的html代码
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    //定义图片数组变量
+    var imgitems;
+    /**
+    * 用于显示预览界面
+    * @param index 图片数组下标
+    */
+    function viewImg(index) {
+      //其它选项这里不做过多阐述，详情见官网
+      var pswpoptions = {
+        index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+        bgOpacity: 0.7, // 背景透明度，0-1
+        maxSpreadZoom: 3, // 缩放级别，不要太大
+      };
+      //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+      gallery.init()
+    }
+    /**
+    * 用于添加图片点击事件
+    * @param img 图片元素
+    * @param index 所属下标（在imgitems中的位置）
+    */
+    function addImgClick(img, index) {
+      img.onclick = function() {
+        viewImg(index)
+      }
+    }
+    /**
+    * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+    * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+    * 异步加载图片可在图片元素创建完成后调用此方法
+    */
+    function initImg() {
+      //重置图片数组
+      imgitems = [];
+      //查找class:markdown 下的所有img元素并遍历
+      var imgs = document.querySelectorAll('.markdown img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        //本站相册初始为loading图片，真实图片放在data-src
+        var ds = img.getAttribute("data-src");
+        //创建image对象，用于获取图片宽高
+        var imgtemp = new Image();
+        //判断是否存在data-src
+        if (ds != null && ds.length > 0) {
+          imgtemp.src = ds
+        } else {
+          imgtemp.src = img.src
+        }
+        //判断是否存在缓存
+        if (imgtemp.complete) {
+          var imgobj = {
+            "src": imgtemp.src,
+            "w": imgtemp.width,
+            "h": imgtemp.height,
+          };
+          imgitems[i] = imgobj;
+          addImgClick(img, i);
+        } else {
+          console.log('进来了2')
+          imgtemp.index = i;
+          imgtemp.img = img;
+          imgtemp.onload = function() {
+            var imgobj = {
+              "src": this.src,
+              "w": this.width,
+              "h": this.height,
+            };
+            //不要使用push，因为onload前后顺序会不同
+            imgitems[this.index] = imgobj
+            //添加点击事件
+            addImgClick(this.img, this.index);
+          }
+        }
+      }
+    }
+    //初始化
+    initImg();
+  </script>
+  
+    <script type="application/javascript" src="https://unpkg.com/valine"></script>
+<script type="application/javascript">
+  new Valine({
+    el: '#vlaine-comment',
+    appId: '987iVPRcMd7Mr7zod45n3Lkr-gzGzoHsz',
+    appKey: 'hfMvTINJ8W5sE840u91af9K6',
+    pageSize: 10,
+    notify: true,
+    avatar: 'retro',
+    verify: true,
+    placeholder: '来都来了，不妨评论一下',
+    visitor: true,
+    highlight: true,
+    recordIP: true,
+  })
+</script>
+  
+  
+</body>
+
+</html>

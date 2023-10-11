@@ -1,0 +1,585 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Django Rest framework 入门笔记及跳坑记录 - iblogc</title>
+<link rel="shortcut icon" href="https://me.iblogc.com/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://me.iblogc.com/media/css/tailwind.css">
+<link rel="stylesheet" href="https://me.iblogc.com/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Django Rest framework 入门笔记及跳坑记录 - iblogc - Atom Feed" href="https://me.iblogc.com/atom.xml">
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54784650-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-54784650-1');
+  </script>
+    
+
+  <meta name="description" content="
+
+## 更新记录
+2016-01-26 初稿
+序列化时嵌套显示外键关联字段
+
+
+自动
+使用depth参数指定外键深度
+
+
+手动指定
+使用外键对应model的小写为属性，外键对应的model序列化程序为值
+以下例子在HospitalPic序..." />
+  <meta property="og:title" content="Django Rest framework 入门笔记及跳坑记录 - iblogc">
+  <meta property="og:description" content="
+
+## 更新记录
+2016-01-26 初稿
+序列化时嵌套显示外键关联字段
+
+
+自动
+使用depth参数指定外键深度
+
+
+手动指定
+使用外键对应model的小写为属性，外键对应的model序列化程序为值
+以下例子在HospitalPic序..." />
+  <meta property="og:type" content="articles">
+  <meta property="og:url" content="https://me.iblogc.com/post/django-rest-framework入门笔记及跳坑记录/" />
+  <meta property="og:image" content="https://me.iblogc.com/images/avatar.png">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:title" content="Django Rest framework 入门笔记及跳坑记录 - iblogc">
+  <meta name="twitter:description" content="
+
+## 更新记录
+2016-01-26 初稿
+序列化时嵌套显示外键关联字段
+
+
+自动
+使用depth参数指定外键深度
+
+
+手动指定
+使用外键对应model的小写为属性，外键对应的model序列化程序为值
+以下例子在HospitalPic序...">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://me.iblogc.com/post/django-rest-framework入门笔记及跳坑记录/">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+ 
+  
+    <link rel="stylesheet" href="https://me.iblogc.com/media/css/prism-atom-dark.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://me.iblogc.com" class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      iblogc
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          Django Rest framework 入门笔记及跳坑记录
+        </h1>
+        
+        <div class="mb-8 flex flex-wrap">
+          <div class="text-gray-400 text-sm mr-4">2016-12-17 · 7 min read</div>
+          
+            <a href="https://me.iblogc.com/tag/django/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              Django
+            </a>
+          
+            <a href="https://me.iblogc.com/tag/restful/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              restful
+            </a>
+          
+            <a href="https://me.iblogc.com/tag/api/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              api
+            </a>
+          
+            <a href="https://me.iblogc.com/tag/wen-ti/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              问题
+            </a>
+          
+        </div>
+        <div class="markdown mb-8" v-pre>
+          <br />
+<!--more-->
+## 更新记录
+2016-01-26 初稿
+<h2 id="序列化时嵌套显示外键关联字段">序列化时嵌套显示外键关联字段</h2>
+<ul>
+<li>
+<p>自动<br>
+使用<code>depth</code>参数指定外键深度</p>
+</li>
+<li>
+<p>手动指定<br>
+使用外键对应<code>model</code>的小写为属性，外键对应的<code>model</code>序列化程序为值<br>
+以下例子在<code>HospitalPic</code>序列化结果里嵌套显示<code>Hospital</code><br>
+models.py</p>
+<pre><code class="language-python">from django.db import models
+
+class Hospital(models.Model):
+    name = models.CharField()
+
+class HospitalPic(models.Model):
+    hospital = models.ForeignKey(Hospital)
+</code></pre>
+</li>
+</ul>
+<p>serializers.py</p>
+<pre><code class="language-python">from rest_framework import serializers
+
+class HospitalSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Hospital 
+        fields = '__all__'
+</code></pre>
+<p>class HospitalPicSerializer(serializers.HyperlinkedModelSerializer):<br>
+hospital = HospitalSerializer()</p>
+<pre><code>  class Meta:
+      model = HospitalPic
+      fields = '__all__'
+</code></pre>
+<pre><code>***反向关系嵌套***
+在`Hospital`序列化结果里嵌套显示`HospitalPic`
+serializers.py
+```python
+from rest_framework import serializers
+
+class HospitalPicSerializer(serializers.HyperlinkedModelSerializer): 
+    class Meta:
+        model = HospitalPic
+        fields = '__all__'
+
+
+class HospitalSerializer(serializers.HyperlinkedModelSerializer):
+    hospitalpic_set = HospitalPicSerializer(many=Ture)
+    class Meta:
+        model = Hospital
+        fields = '__all__'
+</code></pre>
+<h2 id="在序列化对象里添加关联表的字段内容">在序列化对象里添加关联表的字段内容</h2>
+<p>定义一个<code>serializer Field</code>，并添加参数<code>source</code>指向外键对对应的字段（<code>source</code>值其实是从当前序列化的实例的属性）</p>
+<pre><code class="language-python">my_address= serializers.ReadOnlyField(source='address.full_address')
+</code></pre>
+<h2 id="在序列化对象里添加自定义内容">在序列化对象里添加自定义内容</h2>
+<pre><code class="language-python">from django.contrib.auth.models import User
+from django.utils.timezone import now
+from rest_framework import serializers
+ 
+class UserSerializer(serializers.ModelSerializer):
+    days_since_joined = serializers.SerializerMethodField()
+ 
+    class Meta:
+        model = User
+ 
+    def get_days_since_joined(self, obj):
+        return (now() - obj.date_joined).days
+</code></pre>
+<h2 id="使用viewset并不有设置queryset而是重写了get_queryset时需要在router里增加base_name参数base_name为router为viewset注册url时自动添加的name前缀如果未设置则从viewset的queryset里取使用viewset自动生成的url-name为base_name-list-base_name-detail-等">使用<code>ViewSet</code>，并不有设置<code>queryset</code>，而是重写了<code>get_queryset</code>时，需要在<code>router</code>里增加<code>base_name</code>参数（<code>base_name</code>为<code>router</code>为<code>ViewSet</code>注册url时自动添加的name前缀，如果未设置则从<code>ViewSet</code>的<code>queryset</code>里取，使用<code>ViewSet</code>自动生成的url name为&lt;base_name&gt;-list &lt;base_name&gt;-detail 等）</h2>
+<p>views.py</p>
+<pre><code class="language-python">class ContactViewSet(viewsets.ModelViewSet):
+    serializer_class = ContactSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+ 
+    def get_queryset(self):
+        return self.request.user.contact_set.all()
+</code></pre>
+<p>urls.py</p>
+<pre><code class="language-python">router.register(r'contact', ContactViewSet, base_name='contact')
+</code></pre>
+<p>未设置<code>base_name</code>会报下面错误</p>
+<pre><code>'base_name' argument not specified, and could not automatically determine the name from the viewset, as it does not have a '.queryset' attribute.
+</code></pre>
+<h2 id="给api接口的url添加了命名空间namespace">给api接口的url添加了命名空间<code>namespace</code></h2>
+<p>urls.py</p>
+<pre><code class="language-python">url(r'^api/', include(router.urls, namespace='api')),
+</code></pre>
+<p>需要对<code>HyperlinkedRelatedField</code>字段的参数进行修改<br>
+serializers.py</p>
+<pre><code class="language-python">class HospitalPicSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = HospitalPic
+        fields = '__all__'
+        extra_kwargs = {
+            'url': {'view_name': 'api:hospitalpic-detail'},
+            'hospital': {'view_name': 'api:hospital-detail'}
+        }
+</code></pre>
+<p>不然会出现以下错误</p>
+<pre><code class="language-python">Could not resolve URL for hyperlinked relationship using view name &quot;user-detail&quot;. You may have failed to include the related model in your API, or incorrectly configured the `lookup_field` attribute on this field.
+</code></pre>
+<p>不过话说我们全api的url加<code>namespace</code>一般是为了版本控制，所以有一种简单的方法,只要在settings.py添加基于<code>namespace</code>的版本控制，这样就不需要修改<code>HyperlinkedRelatedField</code>字段的<code>view_name</code>了<br>
+urls.py</p>
+<pre><code class="language-python">url(r'^api/v1/', include(router.urls, namespace='v1')),
+url(r'^api/v2/', include(router.urls, namespace='v2')),
+</code></pre>
+<p>settings.py</p>
+<pre><code class="language-python">REST_FRAMEWORK = {
+    ……
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
+    ……
+}
+</code></pre>
+<h2 id="要drf的错误提示为中文需要设置">要drf的错误提示为中文，需要设置</h2>
+<pre><code class="language-python">LANGUAGE_CODE = 'zh-CN'
+</code></pre>
+<p>如果设置为</p>
+<pre><code class="language-python">LANGUAGE_CODE = 'zh-Hans'
+</code></pre>
+<p>虽然django默认表单错误会输出中文，但drf还是输出英文</p>
+<h2 id="django的validators可以直接在drf中使用不需要做任何修改">django的<code>validators</code>可以直接在drf中使用，不需要做任何修改</h2>
+<h2 id="当字段里的属性editablefalse时modelserializer里该字段会抛弃model里显式和隐式unique的所有validators">当字段里的属性<code>editable=False</code>时，<code>ModelSerializer</code>里该字段会抛弃<code>model</code>里显式和隐式（unique）的所有<code>validators</code></h2>
+<h2 id="serializer里write_only写在field里和写在extra_kwargs里是有区别的"><code>Serializer</code>里<code>write_only</code>写在<code>field</code>里和写在<code>extra_kwargs</code>里是有区别的，</h2>
+<pre><code class="language-python">class UserRegisterSerializer(serializers.ModelSerializer):
+    &quot;&quot;&quot;用户注册Serializer&quot;&quot;&quot;
+ 
+    code = serializers.CharField(min_length=4, max_length=6, label=_('验证码'),
+                                 help_text=_('验证码'), write_only=True)
+    re_password = serializers.CharField(label=_('重复密码'), help_text=_('重复密码'),
+                                        validators=validators.password_validators(),
+                                        write_only=True)
+ 
+    class Meta:
+        model = User
+        fields = ('mobile_phone', 'code', 'password', 're_password')
+        extra_kwargs = {'password':
+                            {'write_only': True}
+                        }
+ 
+    def validate(self, attrs):
+        &quot;&quot;&quot;
+        Check that the start is before the stop.
+        &quot;&quot;&quot;
+        if attrs['password'] != attrs['re_password']:
+            raise serializers.ValidationError(_('密码不一致'))
+ 
+        # 校验验证码
+        verify_result = Sms(attrs['mobile_phone']).verify_sms_code(
+            attrs.pop('code'))
+        if not verify_result:
+            error = verify_result.get('error')
+            raise ParseError(error)
+        return attrs
+ 
+    def create(self, validated_data):
+        user = User(
+            username=validated_data['mobile_phone'],
+            mobile_phone=validated_data['mobile_phone'],
+        )
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
+</code></pre>
+<p>因为<code>create()</code>这个方法return了一个<code>user</code>实例，<code>User</code>里没有的字段<code>code</code>和<code>re_password</code>需要将<code>write_only </code>写在<code>field</code>参数里，不然会报以下错误</p>
+<pre><code>AttributeError: Got AttributeError when attempting to get a value for field `code` on serializer `UserRegisterSerializer`.
+The serializer field might be named incorrectly and not match any attribute or key on the `User` instance.
+Original exception text was: 'User' object has no attribute 'code'.
+</code></pre>
+<h2 id="如果使用django-rest-swagger报以下错误">如果使用<code>django-rest-swagger</code>报以下错误</h2>
+<pre><code>Can't read from server. It may not have the appropriate access-control-origin settings.
+</code></pre>
+<p>注释掉设置里的</p>
+<pre><code class="language-python">    # 'base_path': '127.0.0.1:8000/docs',
+</code></pre>
+<h2 id="serializerdata和serializervalidated_data"><code>serializer.data</code>和<code>serializer.validated_data</code></h2>
+<p>在<code>serializer</code>只使用<code>data</code>参数实例化的时：</p>
+<ul>
+<li><code>serializer.data</code>是原始数据（字符串），<code>serializer.validated_data</code>是进行数据验证并转换成对应数据类型的数据。</li>
+<li>两者者必须在<code>serializer</code>调用<code>is_valid</code>方法后才能调用<br>
+在<code>serializer</code>只使用<code>instance</code>参数实例化时：</li>
+<li>只有<code>serializer.data</code>没有<code>serializer.validated_data</code>，并且<code>serializer.data</code>里的数据也是字符串；</li>
+<li>没有方法<code>is_valid</code>；</li>
+<li>即<code>is_valid</code>和<code>validated_data</code>只在有data参数实例化时才可调用；</li>
+</ul>
+<h2 id="在serializer里获取原始请求信息">在<code>serializer</code>里获取原始请求信息</h2>
+<p>默认的，上下文信息会被传递到<code>serializer</code>里，所以在<code>serializer</code>可以直接使用<code>self.context['request']</code>来获取请求信息。（在要继承自<code>viewsets.GenericViewSet</code>的类里使用的<code>serializer</code>才能取到，如果是继承<code>APIView</code>的，自己传入即可<code>serializer = self.serializer_class(data=request.data, context={'request': request})</code>）</p>
+<h2 id="自定义serializer字段">自定义<code>serializer</code>字段</h2>
+<p>自定义字段继承<code>serializers.Field</code>，<code>to_representation</code>方法处理出来的数据用来序列化显示，<code>to_internal_value</code>处理接收到的数据，<code>get_attribute</code>方法指定这个字段访问的实例属性，<code>get_value</code>方法指定</p>
+<pre><code class="language-python">class QiNiuField(serializers.Field):
+    def get_attribute(self, instance):
+        # （序列化时）从模型实例中取一个值给这个字段处理,也可以使用`source`参数指定
+        return instance.key
+    
+    def get_value(self, dictionary):
+        # （反序列化时）从传入数据中提取一个值给这个字段处理
+        return super(QiNiuField, self).get_value(dictionary)
+
+    def to_representation(self, value):
+        # （序列化时）处理出来的数据用来序列化显示
+        return value.url
+
+    def to_internal_value(self, data):
+        # （反序列化时）处理接收到的数据
+        return data['key']
+</code></pre>
+<h2 id="嵌套序列化传参问题">嵌套序列化，传参问题</h2>
+<p>官方文档中有这么一个例子<a href="http://www.django-rest-framework.org/api-guide/serializers/#dealing-with-nested-objects">Dealing with nested objects</a><br>
+如果是以<code>Content-Type:application/json</code>形式传数据格式传数据，直接嵌套传就可以了<code>{'user': {'email': 'foobar', 'username': 'doe'}, 'content': 'baz'}</code>，但如果是以,<br>
+但是如果以<code>Content-Type:form-data</code>或<code>Content-Type:x-www-form-urlencoded</code>上传，则上传<code>user</code>信息进不是嵌套，而是就<code>.</code>连接了，<code>&quot;user.email&quot;:&quot;foobar&quot;</code>.</p>
+
+        </div>
+        <!-- Share to Twitter, Weibo, Telegram -->
+        <div class="flex items-center">
+          <div class="mr-4 flex items-center">
+            <i class="ri-share-forward-line text-gray-500"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTwitter">
+            <i class="ri-twitter-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex" @click="shareToWeibo">
+            <i class="ri-weibo-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTelegram">
+            <i class="ri-telegram-line"></i>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+        <div id="vlaine-comment"></div>
+      
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> && Deployed by <a href="https://app.netlify.com/sites/iblogc/deploys"><img src="https://api.netlify.com/api/v1/badges/54ffcfc8-016f-4735-9832-8050c4b2a68d/deploy-status" alt="部署状态" style="display: inline;"></a>
+</footer>
+    </div>
+
+    <!-- TOC Container -->
+    <div class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight" @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast" :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast" @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%BA%8F%E5%88%97%E5%8C%96%E6%97%B6%E5%B5%8C%E5%A5%97%E6%98%BE%E7%A4%BA%E5%A4%96%E9%94%AE%E5%85%B3%E8%81%94%E5%AD%97%E6%AE%B5">序列化时嵌套显示外键关联字段</a></li>
+<li><a href="#%E5%9C%A8%E5%BA%8F%E5%88%97%E5%8C%96%E5%AF%B9%E8%B1%A1%E9%87%8C%E6%B7%BB%E5%8A%A0%E5%85%B3%E8%81%94%E8%A1%A8%E7%9A%84%E5%AD%97%E6%AE%B5%E5%86%85%E5%AE%B9">在序列化对象里添加关联表的字段内容</a></li>
+<li><a href="#%E5%9C%A8%E5%BA%8F%E5%88%97%E5%8C%96%E5%AF%B9%E8%B1%A1%E9%87%8C%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E5%86%85%E5%AE%B9">在序列化对象里添加自定义内容</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8viewset%E5%B9%B6%E4%B8%8D%E6%9C%89%E8%AE%BE%E7%BD%AEqueryset%E8%80%8C%E6%98%AF%E9%87%8D%E5%86%99%E4%BA%86get_queryset%E6%97%B6%E9%9C%80%E8%A6%81%E5%9C%A8router%E9%87%8C%E5%A2%9E%E5%8A%A0base_name%E5%8F%82%E6%95%B0base_name%E4%B8%BArouter%E4%B8%BAviewset%E6%B3%A8%E5%86%8Curl%E6%97%B6%E8%87%AA%E5%8A%A8%E6%B7%BB%E5%8A%A0%E7%9A%84name%E5%89%8D%E7%BC%80%E5%A6%82%E6%9E%9C%E6%9C%AA%E8%AE%BE%E7%BD%AE%E5%88%99%E4%BB%8Eviewset%E7%9A%84queryset%E9%87%8C%E5%8F%96%E4%BD%BF%E7%94%A8viewset%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E7%9A%84url-name%E4%B8%BAbase_name-list-base_name-detail-%E7%AD%89">使用<code>ViewSet</code>，并不有设置<code>queryset</code>，而是重写了<code>get_queryset</code>时，需要在<code>router</code>里增加<code>base_name</code>参数（<code>base_name</code>为<code>router</code>为<code>ViewSet</code>注册url时自动添加的name前缀，如果未设置则从<code>ViewSet</code>的<code>queryset</code>里取，使用<code>ViewSet</code>自动生成的url name为&lt;base_name&gt;-list &lt;base_name&gt;-detail 等）</a></li>
+<li><a href="#%E7%BB%99api%E6%8E%A5%E5%8F%A3%E7%9A%84url%E6%B7%BB%E5%8A%A0%E4%BA%86%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4namespace">给api接口的url添加了命名空间<code>namespace</code></a></li>
+<li><a href="#%E8%A6%81drf%E7%9A%84%E9%94%99%E8%AF%AF%E6%8F%90%E7%A4%BA%E4%B8%BA%E4%B8%AD%E6%96%87%E9%9C%80%E8%A6%81%E8%AE%BE%E7%BD%AE">要drf的错误提示为中文，需要设置</a></li>
+<li><a href="#django%E7%9A%84validators%E5%8F%AF%E4%BB%A5%E7%9B%B4%E6%8E%A5%E5%9C%A8drf%E4%B8%AD%E4%BD%BF%E7%94%A8%E4%B8%8D%E9%9C%80%E8%A6%81%E5%81%9A%E4%BB%BB%E4%BD%95%E4%BF%AE%E6%94%B9">django的<code>validators</code>可以直接在drf中使用，不需要做任何修改</a></li>
+<li><a href="#%E5%BD%93%E5%AD%97%E6%AE%B5%E9%87%8C%E7%9A%84%E5%B1%9E%E6%80%A7editablefalse%E6%97%B6modelserializer%E9%87%8C%E8%AF%A5%E5%AD%97%E6%AE%B5%E4%BC%9A%E6%8A%9B%E5%BC%83model%E9%87%8C%E6%98%BE%E5%BC%8F%E5%92%8C%E9%9A%90%E5%BC%8Funique%E7%9A%84%E6%89%80%E6%9C%89validators">当字段里的属性<code>editable=False</code>时，<code>ModelSerializer</code>里该字段会抛弃<code>model</code>里显式和隐式（unique）的所有<code>validators</code></a></li>
+<li><a href="#serializer%E9%87%8Cwrite_only%E5%86%99%E5%9C%A8field%E9%87%8C%E5%92%8C%E5%86%99%E5%9C%A8extra_kwargs%E9%87%8C%E6%98%AF%E6%9C%89%E5%8C%BA%E5%88%AB%E7%9A%84"><code>Serializer</code>里<code>write_only</code>写在<code>field</code>里和写在<code>extra_kwargs</code>里是有区别的，</a></li>
+<li><a href="#%E5%A6%82%E6%9E%9C%E4%BD%BF%E7%94%A8django-rest-swagger%E6%8A%A5%E4%BB%A5%E4%B8%8B%E9%94%99%E8%AF%AF">如果使用<code>django-rest-swagger</code>报以下错误</a></li>
+<li><a href="#serializerdata%E5%92%8Cserializervalidated_data"><code>serializer.data</code>和<code>serializer.validated_data</code></a></li>
+<li><a href="#%E5%9C%A8serializer%E9%87%8C%E8%8E%B7%E5%8F%96%E5%8E%9F%E5%A7%8B%E8%AF%B7%E6%B1%82%E4%BF%A1%E6%81%AF">在<code>serializer</code>里获取原始请求信息</a></li>
+<li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89serializer%E5%AD%97%E6%AE%B5">自定义<code>serializer</code>字段</a></li>
+<li><a href="#%E5%B5%8C%E5%A5%97%E5%BA%8F%E5%88%97%E5%8C%96%E4%BC%A0%E5%8F%82%E9%97%AE%E9%A2%98">嵌套序列化，传参问题</a></li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200" @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://me.iblogc.com/media/scripts/main.js"></script>
+  
+  <!-- Code Highlight -->
+  
+    <script src="https://me.iblogc.com/media/prism.js"></script>
+    <script>
+      Prism.highlightAll()
+    </script>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+  <script>
+    //拿到预览框架，也就是上面的html代码
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    //定义图片数组变量
+    var imgitems;
+    /**
+    * 用于显示预览界面
+    * @param index 图片数组下标
+    */
+    function viewImg(index) {
+      //其它选项这里不做过多阐述，详情见官网
+      var pswpoptions = {
+        index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+        bgOpacity: 0.7, // 背景透明度，0-1
+        maxSpreadZoom: 3, // 缩放级别，不要太大
+      };
+      //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+      gallery.init()
+    }
+    /**
+    * 用于添加图片点击事件
+    * @param img 图片元素
+    * @param index 所属下标（在imgitems中的位置）
+    */
+    function addImgClick(img, index) {
+      img.onclick = function() {
+        viewImg(index)
+      }
+    }
+    /**
+    * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+    * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+    * 异步加载图片可在图片元素创建完成后调用此方法
+    */
+    function initImg() {
+      //重置图片数组
+      imgitems = [];
+      //查找class:markdown 下的所有img元素并遍历
+      var imgs = document.querySelectorAll('.markdown img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        //本站相册初始为loading图片，真实图片放在data-src
+        var ds = img.getAttribute("data-src");
+        //创建image对象，用于获取图片宽高
+        var imgtemp = new Image();
+        //判断是否存在data-src
+        if (ds != null && ds.length > 0) {
+          imgtemp.src = ds
+        } else {
+          imgtemp.src = img.src
+        }
+        //判断是否存在缓存
+        if (imgtemp.complete) {
+          var imgobj = {
+            "src": imgtemp.src,
+            "w": imgtemp.width,
+            "h": imgtemp.height,
+          };
+          imgitems[i] = imgobj;
+          addImgClick(img, i);
+        } else {
+          console.log('进来了2')
+          imgtemp.index = i;
+          imgtemp.img = img;
+          imgtemp.onload = function() {
+            var imgobj = {
+              "src": this.src,
+              "w": this.width,
+              "h": this.height,
+            };
+            //不要使用push，因为onload前后顺序会不同
+            imgitems[this.index] = imgobj
+            //添加点击事件
+            addImgClick(this.img, this.index);
+          }
+        }
+      }
+    }
+    //初始化
+    initImg();
+  </script>
+  
+    <script type="application/javascript" src="https://unpkg.com/valine"></script>
+<script type="application/javascript">
+  new Valine({
+    el: '#vlaine-comment',
+    appId: '987iVPRcMd7Mr7zod45n3Lkr-gzGzoHsz',
+    appKey: 'hfMvTINJ8W5sE840u91af9K6',
+    pageSize: 10,
+    notify: true,
+    avatar: 'retro',
+    verify: true,
+    placeholder: '来都来了，不妨评论一下',
+    visitor: true,
+    highlight: true,
+    recordIP: true,
+  })
+</script>
+  
+  
+</body>
+
+</html>

@@ -1,0 +1,331 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>iblogc</title>
+<link rel="shortcut icon" href="https://me.iblogc.com/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://me.iblogc.com/media/css/tailwind.css">
+<link rel="stylesheet" href="https://me.iblogc.com/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="iblogc - Atom Feed" href="https://me.iblogc.com/atom.xml">
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54784650-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-54784650-1');
+  </script>
+    
+
+  <meta name="description" content="Just do it~" />
+</head>
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+
+    <div class="nav py-3 md:py-8 fixed w-full z-10 bg-gray-50 dark:bg-gray-700 transition-all duration-300" :class="{ 'scroll': scrolled }">
+  <div class="flex justify-end px-4">
+    <div class="w-8 h-8 flex justify-center items-center rounded-full md:hidden" @click="showMenu = !showMenu">
+      <i class="ri-close-line" v-show="showMenu"></i>
+      <i class="ri-menu-3-line" v-show="!showMenu"></i>
+    </div>
+  </div>
+  <nav class="max-w-4xl w-full mx-auto text-center flex flex-col md:flex-row justify-center md:block" :class="`${ showMenu ? 'block' : 'hidden' }`">
+    
+      <a href="/" target="" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+        首页
+      </a>
+    
+      <a href="/archives" target="" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+        归档
+      </a>
+    
+      <a href="/tags" target="" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+        标签
+      </a>
+    
+      <a href="/post/about" target="" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+        关于
+      </a>
+    
+      <a href="https://olb.iblogc.com" target="_blank" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+        OLB
+      </a>
+    
+      <a href="https://read.iblogc.com" target="_blank" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+        READ
+      </a>
+    
+    <a href="https://me.iblogc.com/atom.xml" target="_blank" class="py-2 md:py-1 px-4 mx-4 inline-flex transition font-semibold rounded dark:hover:bg-gray-600 hover:bg-gray-200">
+      RSS
+    </a>
+  </nav>
+</div>
+
+    <div class="max-w-4xl w-full mx-auto pt-32">
+      
+
+      <div class="shadow-box bg-white dark:bg-gray-600 border-gray-300 rounded-none md:rounded-lg -mx-1 md:mx-0 md:px-0">
+        
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/django-rest-framework之版本号version/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          Django REST framework 之版本号 version
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2016-01-28</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        <br />
+      </div>
+      <a href="https://me.iblogc.com/post/django-rest-framework之版本号version/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/curl常用命令/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          curl 常用命令
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2015-12-17</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        <p>curl是利用URL语法在命令行方式下工作的开源文件传输工具。它被广泛应用在Unix、多种Linux发行版中，并且有DOS和Win32、Win64下的移植版本。</p>
+
+      </div>
+      <a href="https://me.iblogc.com/post/curl常用命令/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/django-guan-lian-dui-xiang-zi-duan/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          Django 关联对象字段
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2015-12-10</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        关联字段
+ForeignKey多对一关系
+class ForeignKey(othermodel[, **options])
+
+如果关联模型还没有创建，可以使用该模型的名字而不是模型本身来指定
+
+options
+limit_chices_t...
+      </div>
+      <a href="https://me.iblogc.com/post/django-guan-lian-dui-xiang-zi-duan/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/duoshuo-comments-ua/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          多说评论 UA 显示测试
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2015-11-15</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        <br/>
+      </div>
+      <a href="https://me.iblogc.com/post/duoshuo-comments-ua/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/django字段选项related-name和related-query-name/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          Django 字段选项 related_name 和 related_query_name
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2015-10-20</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        <p><code>data</code></p>
+<pre><code class="language-sqlite3">sqlite&gt; select * from author;
+id      name    age
+1       jim     12
+2       tom     11
+sqlite&gt; select * from book;
+id      name    author_id
+1       learn java      1
+2       learn python    1
+3       learn c++       2
+</code></pre>
+
+      </div>
+      <a href="https://me.iblogc.com/post/django字段选项related-name和related-query-name/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/git-stash的简单运用/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          Git stash 的简单运用
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2015-10-20</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        <p>当我们在分支上改代码改到一半时，突然项目发现了一个bug需要修复，这时需要切换到另一个分支进行修改，以前的做法可能是把工作区改到一半的代码先commit，然后切换分支修复bug，再切换回来继续写代码，但这样会生成很多不必要的提交，这时你就需要使用<code>git stash</code>命令。</p>
+
+      </div>
+      <a href="https://me.iblogc.com/post/git-stash的简单运用/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/git-patch的简单运用/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          Git patch 的简单运用
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2015-10-15</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        <h2 id="生成patch">生成PATCH</h2>
+<p>往前n个提前内容的patch</p>
+<pre><code>git format-patch -n
+</code></pre>
+<p>某个commit（含）的及之前的n-1次提交的patch</p>
+<pre><code>git format-patch -n SHA
+</code></pre>
+
+      </div>
+      <a href="https://me.iblogc.com/post/git-patch的简单运用/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/material-design资源/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          Material Design 资源
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2015-10-15</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        <p>Material Design是谷歌在Google I/O 2014推出了全新的设计语言，并荣获2014年的用户体验最佳贡献金奖。</p>
+
+      </div>
+      <a href="https://me.iblogc.com/post/material-design资源/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+      <img class="flex-shrink-0 self-start md:ml-4 mb-4 md:mb-0 rounded-sm object-cover featured-img order-1 md:order-2 w-full h-40 md:w-56 md:h-32" loading="lazy" src="https://me.iblogc.com/post-images/material-design资源.png" alt="Material Design 资源">
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/git常用命令/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          Git 常用命令
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2015-09-11</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        <p>之前写过一篇<a href="/post/git%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">Git命令使用指南</a>，但感觉那个写的太乱，不接地气，有时我自己找一个命令都难找，所以今天写一篇文章整理一些比较基础的，但又不常用的一些命令，后面会慢慢更新。</p>
+
+      </div>
+      <a href="https://me.iblogc.com/post/git常用命令/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+      <img class="flex-shrink-0 self-start md:ml-4 mb-4 md:mb-0 rounded-sm object-cover featured-img order-1 md:order-2 w-full h-40 md:w-56 md:h-32" loading="lazy" src="https://me.iblogc.com/post-images/git常用命令.jpg" alt="Git 常用命令">
+    
+  </div>
+
+  <div class="p-8 border-b border-gray-200 dark:border-gray-700 flex relative overflow-hidden flex-col md:flex-row animated fadeIn">
+    
+    <div class="flex-1 order-2 md:order-1">
+      <h2 class="text-2xl font-semibold mb-4">
+        <a href="https://me.iblogc.com/post/django内置的flatpages应用/" class="text-gray-700 dark:text-gray-200 border-b-2 border-dotted border-gray-200 dark:border-gray-400 dark:hover:border-gray-200 hover:border-gray-600 transition-all duration-100">
+          Django 内置的 flatpages 应用
+        </a>
+      </h2>
+      <div class="mb-4 text-xs text-gray-500">2015-09-08</div>
+      <div class="mb-4 text-gray-500 dark:text-gray-300">
+        <p>不知道大家平时写网站时类似「关于页面」，「用户协议」这类页面是如何处理的。这里列出了这类页面的两个特点：</p>
+<ol>
+<li>页面数据简单（不会有很多动态数据展示）;</li>
+<li>有更新但频率不高;</li>
+</ol>
+<p>如果要为这类页面展示建立多个数据表，显然是很浪费的行为，但如果直接写成静态页面文件，更新又比较很麻烦，这时候就可以使用<code>flatpages </code>来解决这类问题了。</p>
+
+      </div>
+      <a href="https://me.iblogc.com/post/django内置的flatpages应用/" class="btn">
+        Read more
+      </a>
+    </div>
+    
+  </div>
+  
+      </div>
+
+      
+  <div class="my-4 flex justify-between px-4 md:px-0">
+    
+      <a href="https://me.iblogc.com/page/3/" class="btn btn-white">
+        <i class="ri-arrow-left-line mr-4"></i>
+        上一页
+      </a>
+    
+    
+      <a href="https://me.iblogc.com/page/5/" class="btn btn-white">
+        下一页
+        <i class="ri-arrow-right-line ml-4"></i>
+      </a>
+    
+  </div>
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> && Deployed by <a href="https://app.netlify.com/sites/iblogc/deploys"><img src="https://api.netlify.com/api/v1/badges/54ffcfc8-016f-4735-9832-8050c4b2a68d/deploy-status" alt="部署状态" style="display: inline;"></a>
+</footer>
+
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://me.iblogc.com/media/scripts/main.js"></script>
+</body>
+
+</html>

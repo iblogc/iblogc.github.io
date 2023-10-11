@@ -1,0 +1,457 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>curl 常用命令 - iblogc</title>
+<link rel="shortcut icon" href="https://me.iblogc.com/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://me.iblogc.com/media/css/tailwind.css">
+<link rel="stylesheet" href="https://me.iblogc.com/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="curl 常用命令 - iblogc - Atom Feed" href="https://me.iblogc.com/atom.xml">
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54784650-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-54784650-1');
+  </script>
+    
+
+  <meta name="description" content="curl是利用URL语法在命令行方式下工作的开源文件传输工具。它被广泛应用在Unix、多种Linux发行版中，并且有DOS和Win32、Win64下的移植版本。
+
+访问url并输出结果
+curl http://www.example.com..." />
+  <meta property="og:title" content="curl 常用命令 - iblogc">
+  <meta property="og:description" content="curl是利用URL语法在命令行方式下工作的开源文件传输工具。它被广泛应用在Unix、多种Linux发行版中，并且有DOS和Win32、Win64下的移植版本。
+
+访问url并输出结果
+curl http://www.example.com..." />
+  <meta property="og:type" content="articles">
+  <meta property="og:url" content="https://me.iblogc.com/post/curl常用命令/" />
+  <meta property="og:image" content="https://me.iblogc.com/images/avatar.png">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:title" content="curl 常用命令 - iblogc">
+  <meta name="twitter:description" content="curl是利用URL语法在命令行方式下工作的开源文件传输工具。它被广泛应用在Unix、多种Linux发行版中，并且有DOS和Win32、Win64下的移植版本。
+
+访问url并输出结果
+curl http://www.example.com...">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://me.iblogc.com/post/curl常用命令/">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+ 
+  
+    <link rel="stylesheet" href="https://me.iblogc.com/media/css/prism-atom-dark.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://me.iblogc.com" class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      iblogc
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          curl 常用命令
+        </h1>
+        
+        <div class="mb-8 flex flex-wrap">
+          <div class="text-gray-400 text-sm mr-4">2015-12-17 · 6 min read</div>
+          
+            <a href="https://me.iblogc.com/tag/jiao-cheng/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              教程
+            </a>
+          
+            <a href="https://me.iblogc.com/tag/curl/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              curl
+            </a>
+          
+        </div>
+        <div class="markdown mb-8" v-pre>
+          <p>curl是利用URL语法在命令行方式下工作的开源文件传输工具。它被广泛应用在Unix、多种Linux发行版中，并且有DOS和Win32、Win64下的移植版本。</p>
+<!--more-->
+<h3 id="访问url并输出结果">访问url并输出结果</h3>
+<pre><code>curl http://www.example.com
+</code></pre>
+<h3 id="传递参数">传递参数</h3>
+<p>默认curl使用GET方式请求数据，这种方式下直接通过URL传递数据<br>
+可以通过 --data/-d 方式指定使用POST方式传递数据</p>
+<pre><code># GET
+curl -u username https://api.github.com/user?access_token=XXXXXXXXXX
+
+# POST
+curl -u username -d &quot;param1=value1&amp;param2=value&quot; https://api.github.com
+
+# 也可以指定一个文件，将该文件中的内容当作数据传递给服务器端
+curl -d @filename https://github.api.com/authorizations
+</code></pre>
+<p>注：默认情况下，通过POST方式传递过去的数据中若有特殊字符，首先需要将特殊字符转义在传递给服务器端，如value值中包含有空格，则需要先将空格转换成%20，如：</p>
+<pre><code>curl -d &quot;value%201&quot; http://hostname.com
+</code></pre>
+<p>在新版本的CURL中，提供了新的选项 --data-urlencode，通过该选项提供的参数会自动转义特殊字符。</p>
+<pre><code>curl --data-urlencode &quot;value 1&quot; http://hostname.com
+</code></pre>
+<h3 id="指定请求方式">指定请求方式</h3>
+<p>除了使用GET和POST协议外，还可以通过 -X 选项指定其它协议，如：</p>
+<pre><code>curl -I -X DELETE https://api.github.com
+</code></pre>
+<h3 id="设置请求头信息">设置请求头信息</h3>
+<pre><code>curl -H 'Accept-Language: zh' http://cnn.com
+</code></pre>
+<p><code>-H</code>或被多次指定</p>
+<pre><code>curl -H 'Host: 157.166.226.25'-H 'Accept-Language: zh'-H 'Cookie: ID=1234' http://cnn.com
+</code></pre>
+<p>对于&quot;User-Agent&quot;, &quot;Cookie&quot;, &quot;Host&quot;这类标准的HTTP头部字段，通常会有另外一种设置方法。curl命令提供了特定的选项来对这些头部字段进行设置：<br>
+-A (or --user-agent): 设置 &quot;User-Agent&quot; 字段.<br>
+-b (or --cookie): 设置 &quot;Cookie&quot; 字段.<br>
+-e (or --referer): 设置 &quot;Referer&quot; 字段.</p>
+<pre><code>curl -H &quot;User-Agent: my browser&quot; http://cnn.com
+curl -A &quot;my browser&quot; http://cnn.com
+</code></pre>
+<h3 id="查看响应头信息">查看响应头信息</h3>
+<pre><code>curl -I http://www.baidu.com
+</code></pre>
+<h3 id="提交表单">提交表单</h3>
+<pre><code>curl --form &quot;fileupload=@filename.txt&quot; http://hostname/resource
+</code></pre>
+<h3 id="访问url并奖结果保存到本地文件中">访问url并奖结果保存到本地文件中</h3>
+<p><code>-o</code>: 将文件保存为命令行中指定的文件名到本地<br>
+<code>-O</code>: 使用url中默认的文件名保存文件到本地</p>
+<pre><code>curl -o index.html http://www.example.com
+# 或
+curl  http://www.baidu.com &gt; index.html
+# 在windows上没成功
+curl -O http://www.example.com
+</code></pre>
+<h3 id="忽略证书错误">忽略证书错误</h3>
+<p>工作中，经常需要用自签的假证书搭建开发环境。cURL在遇到证书错误时罢工，使用 -k 参数就可以让它不做证书校验。</p>
+<pre><code>curl -k https://www.example.com
+</code></pre>
+<h3 id="获取重定向后的页面">获取重定向后的页面</h3>
+<p>如果url重定向的话，curl默认是不会去获取重定向后的url页面的，使用<code>-L</code>可进行强制重定向</p>
+<pre><code>curl -L http://www.example.com
+</code></pre>
+<h3 id="发送压缩的请求">发送压缩的请求</h3>
+<p>cURL提供了一个 –compress 参数，可以用来发送支持压缩的请求。但使用了–compress之后，虽然传输过程是压缩的，cURL的输出还是解压之后的，难以看到效果。</p>
+<p>自己写一个 Accept-Encoding 字段在头信息中。</p>
+<pre><code>curl -H &quot;Accept-Encoding: gzip&quot; http://www.kuqin.com/
+</code></pre>
+<p>如果直接运行上面的命令，会得到一堆乱码，因为cURL输出的内容，是压缩后的数据。不妨在后面接一个gunzip试试。</p>
+<pre><code># 使用gunzip解压
+curl -H &quot;Accept-Encoding: gzip&quot; http://www.kuqin.com/ | gunzip
+</code></pre>
+<p>使用gunzip解压之后，信息又被还原了。</p>
+<h3 id="断点续传">断点续传</h3>
+<p>通过使用-C选项可对大文件使用断点续传功能</p>
+<pre><code># 未下载完成即中断该进程
+curl -o a.zip http://www.example.com/bigfile.zip
+
+# 后面可以通过-C来继续下载
+curl -C -o a.html http://www.example.com/bigfile.zip
+</code></pre>
+<h3 id="下载限速">下载限速</h3>
+<p>使用-limit-rate进行限速</p>
+<pre><code># 限速为100k/s
+curl --limit-rate 1000k -o a.zip http://www.example.com/bigfile.zip
+</code></pre>
+<h3 id="根据文件修改时间来判断是否进行下载">根据文件修改时间来判断是否进行下载</h3>
+<pre><code># 若文件的修改时间在2011/12/11之后，则下载
+curl -z 21-Dec-11 http://www.example.com/bigfile.zip
+</code></pre>
+<h3 id="授权">授权</h3>
+<p>在访问需要授权的页面时，可通过<code>-u</code>来提供用户名和密码进行授权</p>
+<pre><code>curl -u username:password http://www.example.com
+</code></pre>
+<h3 id="ftp操作">ftp操作</h3>
+<pre><code># 列出指定目录下的所有文件
+curl -u ftpuser:ftppw -O ftp://ftp_server/public_html/
+
+# 下载文件
+curl -u ftpuser:ftppw -O
+ftp://ftp_server/public_hmtl/bigfile.zip
+
+# 上传文件
+curl -u ftpuser:ftppw -T myfile.txt ftp://ftp_server/public_html/
+
+# 上传多个文件
+curl -u ftpuser:ftppw -T &quot;{myfile1.txt, myfile2.txt}&quot; ftp://ftp_server/public_html/
+
+# 从标准输入获取内容保存到服务器的指定文件中
+curl -u ftpuser:ftppw -T - ftp://ftp_server/public_html/1.txt
+</code></pre>
+<h3 id="设置代理">设置代理</h3>
+<pre><code>curl -x proxyserver.com:1080 http://www.example.com
+</code></pre>
+<h3 id="保存与使用网站的cookie信息">保存与使用网站的cookie信息</h3>
+<pre><code># 将网站的cookies信息保存到example_cookies文件中
+curl -D example_cookies http://www.example.com
+
+# 使用cookies信息访问url
+curl -b example_cookies http://www.example.com/user/
+</code></pre>
+
+        </div>
+        <!-- Share to Twitter, Weibo, Telegram -->
+        <div class="flex items-center">
+          <div class="mr-4 flex items-center">
+            <i class="ri-share-forward-line text-gray-500"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTwitter">
+            <i class="ri-twitter-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex" @click="shareToWeibo">
+            <i class="ri-weibo-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTelegram">
+            <i class="ri-telegram-line"></i>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+        <div id="vlaine-comment"></div>
+      
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> && Deployed by <a href="https://app.netlify.com/sites/iblogc/deploys"><img src="https://api.netlify.com/api/v1/badges/54ffcfc8-016f-4735-9832-8050c4b2a68d/deploy-status" alt="部署状态" style="display: inline;"></a>
+</footer>
+    </div>
+
+    <!-- TOC Container -->
+    <div class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight" @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast" :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast" @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E8%AE%BF%E9%97%AEurl%E5%B9%B6%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C">访问url并输出结果</a></li>
+<li><a href="#%E4%BC%A0%E9%80%92%E5%8F%82%E6%95%B0">传递参数</a></li>
+<li><a href="#%E6%8C%87%E5%AE%9A%E8%AF%B7%E6%B1%82%E6%96%B9%E5%BC%8F">指定请求方式</a></li>
+<li><a href="#%E8%AE%BE%E7%BD%AE%E8%AF%B7%E6%B1%82%E5%A4%B4%E4%BF%A1%E6%81%AF">设置请求头信息</a></li>
+<li><a href="#%E6%9F%A5%E7%9C%8B%E5%93%8D%E5%BA%94%E5%A4%B4%E4%BF%A1%E6%81%AF">查看响应头信息</a></li>
+<li><a href="#%E6%8F%90%E4%BA%A4%E8%A1%A8%E5%8D%95">提交表单</a></li>
+<li><a href="#%E8%AE%BF%E9%97%AEurl%E5%B9%B6%E5%A5%96%E7%BB%93%E6%9E%9C%E4%BF%9D%E5%AD%98%E5%88%B0%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E4%B8%AD">访问url并奖结果保存到本地文件中</a></li>
+<li><a href="#%E5%BF%BD%E7%95%A5%E8%AF%81%E4%B9%A6%E9%94%99%E8%AF%AF">忽略证书错误</a></li>
+<li><a href="#%E8%8E%B7%E5%8F%96%E9%87%8D%E5%AE%9A%E5%90%91%E5%90%8E%E7%9A%84%E9%A1%B5%E9%9D%A2">获取重定向后的页面</a></li>
+<li><a href="#%E5%8F%91%E9%80%81%E5%8E%8B%E7%BC%A9%E7%9A%84%E8%AF%B7%E6%B1%82">发送压缩的请求</a></li>
+<li><a href="#%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0">断点续传</a></li>
+<li><a href="#%E4%B8%8B%E8%BD%BD%E9%99%90%E9%80%9F">下载限速</a></li>
+<li><a href="#%E6%A0%B9%E6%8D%AE%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9%E6%97%B6%E9%97%B4%E6%9D%A5%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E8%BF%9B%E8%A1%8C%E4%B8%8B%E8%BD%BD">根据文件修改时间来判断是否进行下载</a></li>
+<li><a href="#%E6%8E%88%E6%9D%83">授权</a></li>
+<li><a href="#ftp%E6%93%8D%E4%BD%9C">ftp操作</a></li>
+<li><a href="#%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86">设置代理</a></li>
+<li><a href="#%E4%BF%9D%E5%AD%98%E4%B8%8E%E4%BD%BF%E7%94%A8%E7%BD%91%E7%AB%99%E7%9A%84cookie%E4%BF%A1%E6%81%AF">保存与使用网站的cookie信息</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200" @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://me.iblogc.com/media/scripts/main.js"></script>
+  
+  <!-- Code Highlight -->
+  
+    <script src="https://me.iblogc.com/media/prism.js"></script>
+    <script>
+      Prism.highlightAll()
+    </script>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+  <script>
+    //拿到预览框架，也就是上面的html代码
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    //定义图片数组变量
+    var imgitems;
+    /**
+    * 用于显示预览界面
+    * @param index 图片数组下标
+    */
+    function viewImg(index) {
+      //其它选项这里不做过多阐述，详情见官网
+      var pswpoptions = {
+        index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+        bgOpacity: 0.7, // 背景透明度，0-1
+        maxSpreadZoom: 3, // 缩放级别，不要太大
+      };
+      //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+      gallery.init()
+    }
+    /**
+    * 用于添加图片点击事件
+    * @param img 图片元素
+    * @param index 所属下标（在imgitems中的位置）
+    */
+    function addImgClick(img, index) {
+      img.onclick = function() {
+        viewImg(index)
+      }
+    }
+    /**
+    * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+    * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+    * 异步加载图片可在图片元素创建完成后调用此方法
+    */
+    function initImg() {
+      //重置图片数组
+      imgitems = [];
+      //查找class:markdown 下的所有img元素并遍历
+      var imgs = document.querySelectorAll('.markdown img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        //本站相册初始为loading图片，真实图片放在data-src
+        var ds = img.getAttribute("data-src");
+        //创建image对象，用于获取图片宽高
+        var imgtemp = new Image();
+        //判断是否存在data-src
+        if (ds != null && ds.length > 0) {
+          imgtemp.src = ds
+        } else {
+          imgtemp.src = img.src
+        }
+        //判断是否存在缓存
+        if (imgtemp.complete) {
+          var imgobj = {
+            "src": imgtemp.src,
+            "w": imgtemp.width,
+            "h": imgtemp.height,
+          };
+          imgitems[i] = imgobj;
+          addImgClick(img, i);
+        } else {
+          console.log('进来了2')
+          imgtemp.index = i;
+          imgtemp.img = img;
+          imgtemp.onload = function() {
+            var imgobj = {
+              "src": this.src,
+              "w": this.width,
+              "h": this.height,
+            };
+            //不要使用push，因为onload前后顺序会不同
+            imgitems[this.index] = imgobj
+            //添加点击事件
+            addImgClick(this.img, this.index);
+          }
+        }
+      }
+    }
+    //初始化
+    initImg();
+  </script>
+  
+    <script type="application/javascript" src="https://unpkg.com/valine"></script>
+<script type="application/javascript">
+  new Valine({
+    el: '#vlaine-comment',
+    appId: '987iVPRcMd7Mr7zod45n3Lkr-gzGzoHsz',
+    appKey: 'hfMvTINJ8W5sE840u91af9K6',
+    pageSize: 10,
+    notify: true,
+    avatar: 'retro',
+    verify: true,
+    placeholder: '来都来了，不妨评论一下',
+    visitor: true,
+    highlight: true,
+    recordIP: true,
+  })
+</script>
+  
+  
+</body>
+
+</html>

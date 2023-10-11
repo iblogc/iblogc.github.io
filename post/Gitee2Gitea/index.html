@@ -1,0 +1,556 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>代码托管平台码云(Gitee)到 Gitea 迁移记 - iblogc</title>
+<link rel="shortcut icon" href="https://me.iblogc.com/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://me.iblogc.com/media/css/tailwind.css">
+<link rel="stylesheet" href="https://me.iblogc.com/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="代码托管平台码云(Gitee)到 Gitea 迁移记 - iblogc - Atom Feed" href="https://me.iblogc.com/atom.xml">
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54784650-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-54784650-1');
+  </script>
+    
+
+  <meta name="description" content="团队的代码托管管理平台之前一直用Gitee的企业版本，但除了代码pull/push操作外，基本不用平台上其它功能，除了要新建一个仓库要打开下网页版，其它时间基本不会访问网页版本，所以经过半天的调研，从GitLab/Gogs/Gitea中选择..." />
+  <meta property="og:title" content="代码托管平台码云(Gitee)到 Gitea 迁移记 - iblogc">
+  <meta property="og:description" content="团队的代码托管管理平台之前一直用Gitee的企业版本，但除了代码pull/push操作外，基本不用平台上其它功能，除了要新建一个仓库要打开下网页版，其它时间基本不会访问网页版本，所以经过半天的调研，从GitLab/Gogs/Gitea中选择..." />
+  <meta property="og:type" content="articles">
+  <meta property="og:url" content="https://me.iblogc.com/post/Gitee2Gitea/" />
+  <meta property="og:image" content="https://me.iblogc.com/images/avatar.png">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:title" content="代码托管平台码云(Gitee)到 Gitea 迁移记 - iblogc">
+  <meta name="twitter:description" content="团队的代码托管管理平台之前一直用Gitee的企业版本，但除了代码pull/push操作外，基本不用平台上其它功能，除了要新建一个仓库要打开下网页版，其它时间基本不会访问网页版本，所以经过半天的调研，从GitLab/Gogs/Gitea中选择...">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://me.iblogc.com/post/Gitee2Gitea/">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+ 
+  
+    <link rel="stylesheet" href="https://me.iblogc.com/media/css/prism-atom-dark.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://me.iblogc.com" class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      iblogc
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          代码托管平台码云(Gitee)到 Gitea 迁移记
+        </h1>
+        
+        <div class="mb-8 flex flex-wrap">
+          <div class="text-gray-400 text-sm mr-4">2020-03-01 · 10 min read</div>
+          
+            <a href="https://me.iblogc.com/tag/git/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              Git
+            </a>
+          
+            <a href="https://me.iblogc.com/tag/gitee/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              Gitee
+            </a>
+          
+            <a href="https://me.iblogc.com/tag/gitlab/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              GitLab
+            </a>
+          
+            <a href="https://me.iblogc.com/tag/gite/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              Gite
+            </a>
+          
+            <a href="https://me.iblogc.com/tag/gogs/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              Gogs
+            </a>
+          
+            <a href="https://me.iblogc.com/tag/qian-yi/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              迁移
+            </a>
+          
+            <a href="https://me.iblogc.com/tag/dai-ma/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              代码
+            </a>
+          
+            <a href="https://me.iblogc.com/tag/python/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              Python
+            </a>
+          
+        </div>
+        <div class="markdown mb-8" v-pre>
+          <p>团队的代码托管管理平台之前一直用Gitee的企业版本，但除了代码pull/push操作外，基本不用平台上其它功能，除了要新建一个仓库要打开下网页版，其它时间基本不会访问网页版本，所以经过半天的调研，从GitLab/Gogs/Gitea中选择了Gitea，把迁移过程记录如下。</p>
+<!--more-->
+<h3 id="安装gitea">安装Gitea</h3>
+<p>因为服务器上刚好装有docker，按照<a href="https://docs.gitea.io/zh-cn/install-with-docker/">官方文档</a>选择了最简单的docker安装。</p>
+<pre><code class="language-shell">docker pull gitea/gitea:latest
+sudo mkdir -p /data/gitea
+docker run -d --name=gitea -p 10022:22 -p 10080:3000 -v /data/gitea:/data gitea/gitea:latest
+// 重启gitea
+docker restart gitea
+</code></pre>
+<p>安装完成后遇到了页面有三个静态文件（css/js）加载不成功，导致页面排版混乱，F12查看控制台报错net::ERR_CONTENT_LENGTH_MISMATCH，google之，找到这篇文章</p>
+<p><a href="https://github.com/xhlwill/blog/issues/17">Nginx 做代理时浏览器报错 net::ERR_CONTENT_LENGTH_MISMATCH</a>，按照此方法解决。</p>
+<h3 id="配置nginx">配置Nginx</h3>
+<p>在服务器Nginx上配置反向代理</p>
+<p>vi /etc/nginx/conf.d/gitea.conf</p>
+<pre><code class="language-ini">upstream gitea {
+    server 127.0.0.1:10080;
+    keepalive 2000;
+}
+server {
+    listen       80;
+    server_name  git.i.example.com;
+    client_max_body_size 1024M;
+
+    location / {
+        proxy_pass http://gitea/;
+        proxy_set_header Host $host:$server_port;
+    }
+}
+</code></pre>
+<p>重新加载配置</p>
+<pre><code class="language-shell">sudo nginx -s reload
+</code></pre>
+<h3 id="域名解析">域名解析</h3>
+<p>git.i.example.com解析到当前服务器ip，并把服务器防火墙入方向的10022 tcp端口打开，以便使用ssh方式clone仓库时使用。</p>
+<h3 id="gitea初始化">Gitea初始化</h3>
+<p>打开http://.i.example.com，进入初始化界面（如果没进随便点注册或登录就会进），除了数据库根据需要配置，几个域名和网址要修改下，邮箱和其它选项按需配置。以后如果想修改配置，可以直接修改/data/gitea/gitea/conf/app.ini文件<a href="https://docs.gitea.io/zh-cn/config-cheat-sheet/">配置说明</a>，修改完成后重启下gitea即可生效。</p>
+<h3 id="仓库迁移">仓库迁移</h3>
+<p>因为我迁移的是团队项目，所以先通过Gitea提供的API把所有仓库以镜像方式（镜像方式同步过来仓库对成员为只读，并且可以设置间隔时间，默认8小时，定时从原始地址Gitee同步最新代码）同步过来**[操作1]<strong>，然后为每个项目配置好协作者/团队/权限等设置，在这期间，团队成员还是往Gitee上提交代码，待全部设置完成后取消告知团队成员不要往Gitee提交代码，并调用Giea api把所有仓库从Gitee上同步一下最新代码</strong>[操作2]<strong>，然后每个仓库从镜像仓库转为普通仓库，并让团队的所有在自己仓库根目录执行修改本地仓库Git远程仓库地址替换操作</strong>[操作3]**</p>
+<p><strong>[操作1]</strong>：登录Gitea后，界面右上角有一个加号，点开了后有一个迁移外部仓库的功能，只要填入外部仓库URL，授权验证信息等信息就可以一键把外部仓库的所有代码（包括所有branch和commit）迁移到Gitea，如果要迁移的仓库比较多，可以使用Gitea提供的Api来操作。对应此迁移操作的api是</p>
+<pre><code>POST /repos/migrate?access_token=&lt;your gitea admin access token&gt;
+
+Request body
+{
+    description: MigrateRepoForm form for migrating repository
+    auth_password: string
+    auth_username: string
+    clone_addr*: string
+    description: string
+    issues: boolean
+    labels: boolean
+    milestones: boolean
+    mirror: boolean
+    private: boolean
+    pull_requests: boolean
+    releases: boolean
+    repo_name*: string
+    uid*: integer($int64)
+    wiki: boolean
+}
+</code></pre>
+<p><em><strong>注：</strong></em></p>
+<ol>
+<li>
+<p>access_token 请在有管理员权限的账号的设置&gt;应用中创建；</p>
+</li>
+<li>
+<p>Request body 中的uid即管理后台&gt;账户管理/组织管理中的ID列值；</p>
+</li>
+</ol>
+<p>找了Gitee没找到可以获取账户下所有仓库信息的API，所以只好手写了一个Gitee仓库地址的文件，类似</p>
+<p>vi gitee-url.txt</p>
+<pre><code>https://gitee.com/example/project_a.git
+https://gitee.com/example/project_b.git
+</code></pre>
+<p>使用shell脚本逐行读取url，并调用Gitea api迁移仓库。</p>
+<pre><code class="language-shell">#!/bin/bash
+
+for line in $(&lt;gitee-url.txt);
+do
+		# Windows注释下面这行
+    line=$(echo $line | sed -e 's/\r//g');
+    tmp=${line#https://gitee.com/xxx/};
+    project_name=${tmp%.git};
+    curl -X POST &quot;http://git.i.example.com/api/v1/repos/migrate?access_token=&lt;your gitea admin access token&gt;&quot; -H &quot;accept: application/json&quot; -H &quot;Content-Type: application/json&quot; -d &quot;{ \&quot;auth_password\&quot;: \&quot;NDY2&amp;F*K!hL75y*z\&quot;, \&quot;auth_username\&quot;: \&quot;korvin101@gmail.com\&quot;, \&quot;clone_addr\&quot;: \&quot;$line\&quot;, \&quot;issues\&quot;: true, \&quot;labels\&quot;: true, \&quot;milestones\&quot;: true, \&quot;mirror\&quot;: true, \&quot;private\&quot;: true, \&quot;pull_requests\&quot;: true, \&quot;releases\&quot;: true, \&quot;repo_name\&quot;: \&quot;$project_name\&quot;, \&quot;uid\&quot;: 2, \&quot;wiki\&quot;: true}&quot;;
+done
+</code></pre>
+<p><strong>[操作2]</strong>：从Gitee上同步最新代码</p>
+<pre><code class="language-shell">for line in $(&lt;gitee-url.txt);
+do
+    line=$(echo $line | sed -e 's/\r//g');
+    tmp=${line#https://gitee.com/xxx/};
+    project_name=${tmp%.git};
+    curl -X POST &quot;http://git.i.example.com/api/v1/repos/{owner}/$project_name/mirror-sync?access_token=&lt;your gitea admin access token&gt;&quot; -H &quot;accept: application/json&quot;
+done
+</code></pre>
+<p>***注：***owner为项目拥有者用户名/组织名</p>
+<p><strong>[操作3]</strong>：原本地仓库Git远程仓库地址替换</p>
+<pre><code class="language-shell">// http地址
+// 原代码仓库http地址：https://gitee.com/example/project_a.git
+// 新代码仓库http地址：http://git.i.example.com/JIANSU/project_a.git
+// https://gitee.com/example &gt; http://git.i.example.com/JIANSU
+// 本地仓库使用此命令替换，可在包含所有项目的外层文件夹路径下执行批量替换
+// Windows删除'.bak'
+sed -i '.bak' 's/https:\/\/gitee\.com\/example/http:\/\/git\.i\.example.com\/JIANSU/g' */.git/config
+
+// ssh地址
+// 原代码仓库ssh地址：git@gitee.com:example/project_a.git
+// 新代码仓库地址：ssh://git@git.i.example.com:10022/JIANSU/project_a.git
+// git@gitee.com:example &gt; ssh://git@git.i.example.com:10022/JIANSU
+// 本地仓库使用此命令替换，可在包含所有项目的外层文件夹路径下执行批量替换
+// Windows删除'.bak'
+sed -i '.bak' 's/git@gitee\.com:example/ssh:\/\/git@git\.i\.example\.com:10022\/JIANSU/g' */.git/config
+</code></pre>
+<ol>
+<li>
+<p>如果之前是用http地址进行克隆的仓库的话，现在就是在进行pull和push操作时，把账户密码换成Gitea的就可以了；</p>
+</li>
+<li>
+<p>如果以前是用ssh克隆的仓库的话，现在在Gitea的设置&gt;SSH / GPG 密钥里添加一下公钥就可以进行git pull/git push等操作了；</p>
+</li>
+</ol>
+<h3 id="仓库备份">仓库备份</h3>
+<p>Gitea有自己的备份与恢复功能<a href="https://docs.gitea.io/zh-cn/backup-and-restore/#%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D">备份与恢复</a>，这个备份比较全面，数据/代码/日志都可以备份，正是因为这样，如果仓库比较多这个备份的文件肯定会有点大，而且每次都是全量备份，所以频率肯定不能太高，而我只是想对仓库代码做一个高频率备份，所以写了一个Python3脚本调用Gitea api和 Git命令来进行所有仓库的所有分支代码备份，因为这个备份基于Git机制，所以虽然频率高，但备份始终只有一份。脚本如下：</p>
+<p>backup.py</p>
+<blockquote>
+<p>如果使用python2运行，分支名里有中文的话，请自行处理字符编码问题。</p>
+</blockquote>
+<p>** python</p>
+<pre><code class="language-python">#!/usr/bin/python3
+import os
+import platform
+import requests
+
+
+current_dir = os.path.abspath(os.path.dirname(__file__))
+access_token = &quot;&lt;your access token&gt;&quot;
+repos_url = 'http://git.i.example.com/api/v1/repos/search?access_token={}&amp;page={}&amp;limit={}'
+branches_url = 'http://git.i.example.com/api/v1/repos/{}/branches?access_token={}'
+repo_key_url = 'http://git.i.example.com/api/v1/repos/{}/{}/keys?access_token={}'
+
+
+def repos():
+    page = 1
+    limit = 50
+    has_next = True
+    while has_next:
+        r = requests.get(repos_url.format(access_token, page, limit))
+        for repo in r.json()['data']:
+            yield repo
+        page += 1
+        has_next = len(r.json()['data']) == limit
+
+
+&quot;&quot;&quot;拉取项目所有分支代码到本地&quot;&quot;&quot;
+
+
+def sync_repo():
+    repo_index = 0
+    for repo in repos():
+        repo_index += 1
+        # 克隆仓库
+        os.chdir(current_dir)
+        print('克隆第 {} 个仓库 {} '.format(repo_index, repo['name']))
+        os.system(&quot;git clone {}&quot;.format(repo['ssh_url']))
+        os.chdir(os.path.join(current_dir, repo['name']))
+        # 更新仓库
+        print('同步 {} 仓库所有分支'.format(repo['name']))
+        os.system('git fetch --all')
+        # if platform.system() == 'Windows':
+        # Windows
+        branches = requests.get(branches_url.format(
+            repo['full_name'], access_token)).json()
+        for branch in branches:
+            branch_name = branch['name']
+            os.system('git branch --track {} origin/{}'.format(branch_name, branch_name))
+            # 用reset而不用pull是因为如果分支被强推了pull下来会有合并冲突，用rest就不会有冲突问题
+            os.system('git checkout {} &amp;&amp; git reset --hard origin/{}'.format(branch_name, branch_name))
+        # else:
+        #     # Linux/macOS
+        #     # git branch -r | grep -v '\-&gt;' | while read remote; do git branch --track ${remote#origin/} $remote; done &amp;&amp; git fetch --all &amp;&amp; git pull --all
+        #     # os.system(&quot;git branch -r | grep -v '\-&gt;' | while read remote; do git branch --track ${remote#origin/} $remote; done &amp;&amp; git fetch --all &amp;&amp; git pull --all&quot;)
+        #     # # 用reset而不用pull是因为如果分支被强推了pull下来会有合并冲突，用rest就不会有冲突问题
+        #     os.system(&quot;git branch -r | grep -v '\-&gt;' | while read remote; do git branch --track ${remote#origin/} $remote; git checkout ${remote#origin/}; git reset --hard $remote; done&quot;)
+
+
+&quot;&quot;&quot;设置项目部署公钥&quot;&quot;&quot;
+
+
+def set_pub_key():
+    repo_index = 0
+    body = {
+        &quot;key&quot;: &quot;ssh-rsa aabbcc&quot;,
+        &quot;read_only&quot;: True,
+        &quot;title&quot;: &quot;SandBox&quot;
+    }
+    for repo in repos():
+        repo_index += 1
+        print('==={}. {}==='.format(repo_index, repo['name']))
+        r = requests.post(repo_key_url.format(
+            repo['owner']['username'], repo['name'], access_token), data=body)
+        print(r.json())
+
+
+if __name__ == '__main__':
+    sync_repo()
+    # set_pub_key()
+</code></pre>
+<p>可以把脚本放在本地，使用cron(Linux/macOS)/计划任务(Windows)定时运行<code>python backup.py</code></p>
+<p><em><a href="https://blog.csdn.net/flydragon0815/article/details/46006473">Windows计划任务运行cmd命令时，可使用非当前登录用户运行，这样就不会弹出小黑窗。</a></em></p>
+
+        </div>
+        <!-- Share to Twitter, Weibo, Telegram -->
+        <div class="flex items-center">
+          <div class="mr-4 flex items-center">
+            <i class="ri-share-forward-line text-gray-500"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTwitter">
+            <i class="ri-twitter-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex" @click="shareToWeibo">
+            <i class="ri-weibo-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTelegram">
+            <i class="ri-telegram-line"></i>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+        <div id="vlaine-comment"></div>
+      
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> && Deployed by <a href="https://app.netlify.com/sites/iblogc/deploys"><img src="https://api.netlify.com/api/v1/badges/54ffcfc8-016f-4735-9832-8050c4b2a68d/deploy-status" alt="部署状态" style="display: inline;"></a>
+</footer>
+    </div>
+
+    <!-- TOC Container -->
+    <div class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight" @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast" :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast" @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85gitea">安装Gitea</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AEnginx">配置Nginx</a></li>
+<li><a href="#%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90">域名解析</a></li>
+<li><a href="#gitea%E5%88%9D%E5%A7%8B%E5%8C%96">Gitea初始化</a></li>
+<li><a href="#%E4%BB%93%E5%BA%93%E8%BF%81%E7%A7%BB">仓库迁移</a></li>
+<li><a href="#%E4%BB%93%E5%BA%93%E5%A4%87%E4%BB%BD">仓库备份</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200" @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://me.iblogc.com/media/scripts/main.js"></script>
+  
+  <!-- Code Highlight -->
+  
+    <script src="https://me.iblogc.com/media/prism.js"></script>
+    <script>
+      Prism.highlightAll()
+    </script>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+  <script>
+    //拿到预览框架，也就是上面的html代码
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    //定义图片数组变量
+    var imgitems;
+    /**
+    * 用于显示预览界面
+    * @param index 图片数组下标
+    */
+    function viewImg(index) {
+      //其它选项这里不做过多阐述，详情见官网
+      var pswpoptions = {
+        index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+        bgOpacity: 0.7, // 背景透明度，0-1
+        maxSpreadZoom: 3, // 缩放级别，不要太大
+      };
+      //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+      gallery.init()
+    }
+    /**
+    * 用于添加图片点击事件
+    * @param img 图片元素
+    * @param index 所属下标（在imgitems中的位置）
+    */
+    function addImgClick(img, index) {
+      img.onclick = function() {
+        viewImg(index)
+      }
+    }
+    /**
+    * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+    * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+    * 异步加载图片可在图片元素创建完成后调用此方法
+    */
+    function initImg() {
+      //重置图片数组
+      imgitems = [];
+      //查找class:markdown 下的所有img元素并遍历
+      var imgs = document.querySelectorAll('.markdown img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        //本站相册初始为loading图片，真实图片放在data-src
+        var ds = img.getAttribute("data-src");
+        //创建image对象，用于获取图片宽高
+        var imgtemp = new Image();
+        //判断是否存在data-src
+        if (ds != null && ds.length > 0) {
+          imgtemp.src = ds
+        } else {
+          imgtemp.src = img.src
+        }
+        //判断是否存在缓存
+        if (imgtemp.complete) {
+          var imgobj = {
+            "src": imgtemp.src,
+            "w": imgtemp.width,
+            "h": imgtemp.height,
+          };
+          imgitems[i] = imgobj;
+          addImgClick(img, i);
+        } else {
+          console.log('进来了2')
+          imgtemp.index = i;
+          imgtemp.img = img;
+          imgtemp.onload = function() {
+            var imgobj = {
+              "src": this.src,
+              "w": this.width,
+              "h": this.height,
+            };
+            //不要使用push，因为onload前后顺序会不同
+            imgitems[this.index] = imgobj
+            //添加点击事件
+            addImgClick(this.img, this.index);
+          }
+        }
+      }
+    }
+    //初始化
+    initImg();
+  </script>
+  
+    <script type="application/javascript" src="https://unpkg.com/valine"></script>
+<script type="application/javascript">
+  new Valine({
+    el: '#vlaine-comment',
+    appId: '987iVPRcMd7Mr7zod45n3Lkr-gzGzoHsz',
+    appKey: 'hfMvTINJ8W5sE840u91af9K6',
+    pageSize: 10,
+    notify: true,
+    avatar: 'retro',
+    verify: true,
+    placeholder: '来都来了，不妨评论一下',
+    visitor: true,
+    highlight: true,
+    recordIP: true,
+  })
+</script>
+  
+  
+</body>
+
+</html>

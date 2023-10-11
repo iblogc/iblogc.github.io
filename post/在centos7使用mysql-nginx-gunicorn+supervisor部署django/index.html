@@ -1,0 +1,606 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>在 CentOS7 上用 MySQL+Nginx+Gunicorn+Supervisor 部署 Django - iblogc</title>
+<link rel="shortcut icon" href="https://me.iblogc.com/favicon.ico">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
+<link rel="stylesheet" href="https://me.iblogc.com/media/css/tailwind.css">
+<link rel="stylesheet" href="https://me.iblogc.com/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="在 CentOS7 上用 MySQL+Nginx+Gunicorn+Supervisor 部署 Django - iblogc - Atom Feed" href="https://me.iblogc.com/atom.xml">
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54784650-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-54784650-1');
+  </script>
+    
+
+  <meta name="description" content="本文记录下在CentOS下部署Django项目的步骤。
+
+MySQL
+安装mysql和mysql-devel
+yum install mysql
+yum install mysql-devel
+
+安装mysql-server
+wget ht..." />
+  <meta property="og:title" content="在 CentOS7 上用 MySQL+Nginx+Gunicorn+Supervisor 部署 Django - iblogc">
+  <meta property="og:description" content="本文记录下在CentOS下部署Django项目的步骤。
+
+MySQL
+安装mysql和mysql-devel
+yum install mysql
+yum install mysql-devel
+
+安装mysql-server
+wget ht..." />
+  <meta property="og:type" content="articles">
+  <meta property="og:url" content="https://me.iblogc.com/post/在centos7使用mysql-nginx-gunicorn+supervisor部署django/" />
+  <meta property="og:image" content="https://me.iblogc.com/images/avatar.png">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="1200">
+  <meta name="twitter:title" content="在 CentOS7 上用 MySQL+Nginx+Gunicorn+Supervisor 部署 Django - iblogc">
+  <meta name="twitter:description" content="本文记录下在CentOS下部署Django项目的步骤。
+
+MySQL
+安装mysql和mysql-devel
+yum install mysql
+yum install mysql-devel
+
+安装mysql-server
+wget ht...">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://me.iblogc.com/post/在centos7使用mysql-nginx-gunicorn+supervisor部署django/">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+ 
+  
+    <link rel="stylesheet" href="https://me.iblogc.com/media/css/prism-atom-dark.css">
+  
+
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+  
+</head>
+
+<body>
+  <div class="antialiased flex flex-col min-h-screen" id="app">
+    <a href="https://me.iblogc.com" class="fixed top-0 left-0 mt-4 bg-black text-white dark:text-gray-700 dark:bg-yellow-50 dark:hover:bg-black dark:hover:text-white inline-flex p-2 pl-8 hover:text-gray-700 hover:bg-yellow-50 font-bold z-10 transition-fast animated fadeInLeft">
+      iblogc
+    </a>
+    <div class="max-w-4xl w-full mx-auto">
+      <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
+        <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
+          在 CentOS7 上用 MySQL+Nginx+Gunicorn+Supervisor 部署 Django
+        </h1>
+        
+        <div class="mb-8 flex flex-wrap">
+          <div class="text-gray-400 text-sm mr-4">2016-12-08 · 7 min read</div>
+          
+            <a href="https://me.iblogc.com/tag/django/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              Django
+            </a>
+          
+            <a href="https://me.iblogc.com/tag/centos/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              centOS
+            </a>
+          
+            <a href="https://me.iblogc.com/tag/nginx/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              Nginx
+            </a>
+          
+            <a href="https://me.iblogc.com/tag/gunicorn/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              Gunicorn
+            </a>
+          
+            <a href="https://me.iblogc.com/tag/mysql/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              MySQL
+            </a>
+          
+            <a href="https://me.iblogc.com/tag/supervisor/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              Supervisor
+            </a>
+          
+        </div>
+        <div class="markdown mb-8" v-pre>
+          <p>本文记录下在CentOS下部署Django项目的步骤。</p>
+<!--more-->
+<h2 id="mysql">MySQL</h2>
+<h3 id="安装mysql和mysql-devel">安装mysql和mysql-devel</h3>
+<pre><code>yum install mysql
+yum install mysql-devel
+</code></pre>
+<h3 id="安装mysql-server">安装mysql-server</h3>
+<pre><code>wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm
+rpm -ivh mysql-community-release-el7-5.noarch.rpm
+yum install mysql-community-server
+</code></pre>
+<h3 id="重启mysql服务">重启mysql服务</h3>
+<pre><code>service mysqld restart
+</code></pre>
+<h3 id="设置root密码">设置root密码</h3>
+<p>初次安装mysql需要设置root密码</p>
+<pre><code>mysql -uroot
+set password for 'root'@'localhost' =password('password');
+</code></pre>
+<h3 id="配置mysql">配置mysql</h3>
+<p>在<code>/etc/my.cnf</code>文件中[mysql]和[mysql]中添加以下内容</p>
+<pre><code>[mysql]
+default-character-set=utf8
+
+[mysqld]
+character-set-server=utf8
+</code></pre>
+<p>字符编码保持和<code>/usr/share/mysql/charsets/Index.xml</code>中的一致。</p>
+<h3 id="远程连接设置">远程连接设置</h3>
+<p>把在所有数据库的所有表的所有权限赋值给位于所有IP地址的root用户。</p>
+<pre><code>mysql&gt; grant all privileges on *.* to root@'%'identified by 'password';
+</code></pre>
+<p>如果是新用户而不是root，则要先新建用户</p>
+<pre><code>mysql&gt;create user 'username'@'%' identified by 'password';
+</code></pre>
+<p>此时就可以进行远程连接了。</p>
+<h2 id="virtualenv">Virtualenv</h2>
+<p>安装epel扩展源</p>
+<pre><code>yum install epel-release
+</code></pre>
+<p>安装pip</p>
+<pre><code>yum install python-pip
+</code></pre>
+<p>安装virtualenv和virtualenvwrapper</p>
+<pre><code>pip install virtualenv virtualenvwrapper
+</code></pre>
+<p>编辑<code>~/.bashrc</code>文件，结尾添加以下内容</p>
+<pre><code>export WORKON_HOME=~/.virtualenvs
+source /usr/bin/virtualenvwrapper.sh
+</code></pre>
+<p>然后执行以下命令使配置生效</p>
+<pre><code>source ~/.bashrc
+</code></pre>
+<p>创建env</p>
+<pre><code>mkvirtualenv explame
+</code></pre>
+<p>使用pip安装项目需要的包</p>
+<h2 id="wsgi">WSGI</h2>
+<p>在项目目录下新建<code>nginx_wsgi.py</code>文件</p>
+<pre><code>touch nginx_wsgi.py
+</code></pre>
+<p>添加如下内容</p>
+<pre><code>import sys
+import site
+import os
+ 
+# site-packages
+site.addsitedir('/home/nginxuser/.virtualenvs/example/lib/python2.7/site-packages')
+# Add the  project  directory
+# sys.path.append('/home/nginxuser/nginxuser')
+PROJECT_DIR = '/home/nginxuser/projects/example'
+sys.path.insert(0, PROJECT_DIR)
+os.environ['DJANGO_SETTINGS_MODULE'] = 'example.settings.prod'
+# Activate your virtual env
+activate_env = os.path.expanduser(&quot;/home/nginxuser/.virtualenvs/example/bin/activate_this.py&quot;)
+execfile(activate_env, dict(__file__=activate_env))
+ 
+# after activite env
+from django.core.wsgi import get_wsgi_application
+ 
+application = get_wsgi_application()
+</code></pre>
+<h2 id="nginx">Nginx</h2>
+<h3 id="安装">安装</h3>
+<pre><code>yum install nginx
+</code></pre>
+<h3 id="检查配置是否有错">检查配置是否有错</h3>
+<pre><code>nginx -t -c /etc/nginx/nginx.conf
+</code></pre>
+<h3 id="启动nginx">启动nginx</h3>
+<pre><code>service nginx start
+</code></pre>
+<h3 id="设置开机自启">设置开机自启</h3>
+<pre><code>systemctl enable nginx
+</code></pre>
+<h3 id="创建用户">创建用户</h3>
+<pre><code>useradd nginxuser
+passwd nginxuser
+</code></pre>
+<h3 id="修改nginx主配置">修改nginx主配置</h3>
+<pre><code>vim /etc/nginx/nginx.conf
+</code></pre>
+<p>非注释首行</p>
+<pre><code>user nginx
+</code></pre>
+<p>改为</p>
+<pre><code>user nginxuser
+</code></pre>
+<p>不然可能会出现网站静态文件访问报403问题。</p>
+<h3 id="新建网站运行配置">新建网站运行配置</h3>
+<pre><code>vim /etc/nginx/conf.d/example.conf
+</code></pre>
+<pre><code>server {                                                               
+    listen      80;                                                    
+    server_name example.com;                            
+    charset     utf-8;                                                 
+    client_max_body_size 75M;                                          
+    access_log /home/nginxuser/projects/example/nginxlogs/access.log;
+    error_log /home/nginxuser/projects/example/nginxlogs/error.log;          
+ 
+    location /static {                                                 
+        alias /home/nginxuser/projects/explame/static;                
+    }                                                                  
+ 
+    location / {                                                       
+        proxy_pass http://127.0.0.1:8000;                              
+        proxy_set_header Host $host;                                   
+        proxy_set_header X-Real-IP $remote_addr;                       
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;   
+    }                                                                  
+}                                                                       jk
+</code></pre>
+<h2 id="gunicorn">Gunicorn</h2>
+<h3 id="安装-2">安装</h3>
+<pre><code>pip install gunicorn
+</code></pre>
+<p>项目根目录下添加gunicorn运行配置文件gunicorn.conf.py</p>
+<pre><code>import multiprocessing
+bind = &quot;127.0.0.1:8000&quot;
+workers = 2
+errorlog = &quot;/home/nginxuser/example/gunicorn.error.log&quot;
+#loglevel = &quot;debug&quot;
+proc_name = &quot;gunicorn_example&quot;
+</code></pre>
+<h3 id="启动">启动</h3>
+<pre><code>sudo gunicorn example.nginx_wsgi:application -c /home/nginxuser/projects/example/gunicorn.conf.py
+</code></pre>
+<p>后台运行</p>
+<pre><code>sudo nohup gunicorn example.nginx_wsgi:application -c /home/nginxuser/projects/example/gunicorn.conf.py&amp;
+</code></pre>
+<p>如果运行报错先使用以下命令检查下nginx配置是否有错</p>
+<pre><code>nginx -t -c /etc/nginx/nginx.conf
+</code></pre>
+<h2 id="supervisor">Supervisor</h2>
+<h3 id="安装-3">安装</h3>
+<pre><code>pip install supervisor
+</code></pre>
+<h3 id="创建管理进程配置文件">创建管理进程配置文件</h3>
+<pre><code>vim /etc/supervisord.d/example.ini
+</code></pre>
+<p>（需要注意：用 supervisord 管理时，gunicorn 的 daemon 选项需要设置为 False）</p>
+<pre><code>[program:example]
+directory = /home/nginxuser/projects/example ; 程序的启动目录
+command = gunicorn example.nginx_wsgi:application -c /home/nginxuser/projects/example/gunicorn.conf.py  ; 启动命令，可以看出与手动在命令行启动的命令是一样的
+autostart = true     ; 在 supervisord 启动的时候也自动启动
+startsecs = 5        ; 启动 5 秒后没有异常退出，就当作已经正常启动了
+autorestart = true   ; 程序异常退出后自动重启
+startretries = 3     ; 启动失败自动重试次数，默认是 3
+user = nginx         ; 用哪个用户启动
+redirect_stderr = true  ; 把 stderr 重定向到 stdout，默认 false
+stdout_logfile_maxbytes = 20MB  ; stdout 日志文件大小，默认 50MB
+stdout_logfile_backups = 20     ; stdout 日志文件备份数
+; stdout 日志文件，需要注意当指定目录不存在时无法正常启动，所以需要手动创建目录（supervisord 会自动创建日志文件）
+stdout_logfile = /data/logs/usercenter_stdout.log
+
+; 可以通过 environment 来添加需要的环境变量，一种常见的用法是修改 PYTHONPATH
+; environment=PYTHONPATH=$PYTHONPATH:/path/to/somewhere
+</code></pre>
+<p><strong>冒号后面要有空格</strong></p>
+<h3 id="启动-2">启动</h3>
+<p>使用<code>-c</code>指定配置文件。</p>
+<pre><code>supervisord -c /etc/supervisord.conf
+</code></pre>
+<p>如果启动时遇到以下报错信息</p>
+<pre><code>Error: Another program is already listening on a port that one of our HTTP servers is configured to use. Shut this program down first before starting supervisord.
+For help, use /use/bin/supervisord -h
+</code></pre>
+<p>可以使用以下命令解决</p>
+<pre><code>sudo unlink /var/run/supervisor/supervisor.sock
+</code></pre>
+<h3 id="命令行客户端工具supervisorctl">命令行客户端工具supervisorctl</h3>
+<p>启动时需要使用和<code>supervisorctl</code>使用一样的配置文件。</p>
+<pre><code>supervisorctl -c /etc/supervisord.conf
+</code></pre>
+<p>启动后进入<code>supervisorctl</code>的shell，在此shell里可以执行以下命令</p>
+<pre><code>status # 查看程序状态
+start example # 启动example程序
+stop example # 关闭example程序
+restart example # 重启example程序
+reread # 读取有更新（增加）的配置文件，不会启动新添加的程序
+update # 重启配置文件修改过的程序
+</code></pre>
+<p>也可以不进shell执行以上命令</p>
+<pre><code>supervisorctl status # 查看程序状态
+supervisorctl start example # 启动example程序
+supervisorctl stop example # 关闭example程序
+supervisorctl restart example # 重启example程序
+supervisorctl reread # 读取有更新（增加）的配置文件，不会启动新添加的程序
+supervisorctl update # 重启配置文件修改过的程序
+</code></pre>
+<h3 id="开启web管理界面">开启web管理界面</h3>
+<p>如果要开启web管理界面，打开<code>/etc/supervisord.conf</code>把下面几行取消注释即可</p>
+<pre><code>:[inet_http_server]         ; inet (TCP) server disabled by default
+:port=127.0.0.1:9001        ; (ip_address:port specifier, *:port for all iface)
+:username=user              ; (default is no username (open server))
+:password=123               ; (default is no password (open server))
+</code></pre>
+
+        </div>
+        <!-- Share to Twitter, Weibo, Telegram -->
+        <div class="flex items-center">
+          <div class="mr-4 flex items-center">
+            <i class="ri-share-forward-line text-gray-500"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-blue-500 hover:bg-blue-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTwitter">
+            <i class="ri-twitter-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-red-500 hover:bg-red-100 dark:hover:bg-gray-600 inline-flex" @click="shareToWeibo">
+            <i class="ri-weibo-line"></i>
+          </div>
+          <div class="px-4 cursor-pointer text-indigo-500 hover:bg-indigo-100 dark:hover:bg-gray-600 inline-flex" @click="shareToTelegram">
+            <i class="ri-telegram-line"></i>
+          </div>
+        </div>
+      </div>
+
+      
+
+      
+        <div id="vlaine-comment"></div>
+      
+
+      <footer class="py-12 text-center px-4 md:px-0" v-pre>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> && Deployed by <a href="https://app.netlify.com/sites/iblogc/deploys"><img src="https://api.netlify.com/api/v1/badges/54ffcfc8-016f-4735-9832-8050c4b2a68d/deploy-status" alt="部署状态" style="display: inline;"></a>
+</footer>
+    </div>
+
+    <!-- TOC Container -->
+    <div class="fixed right-0 bottom-0 mb-16 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white dark:bg-gray-500 dark:text-gray-200 hover:shadow-lg transition-all animated fadeInRight" @click="showToc = true">
+      <i class="ri-file-list-line"></i>
+    </div>
+
+    <div class="fixed right-0 top-0 bottom-0 overflow-y-auto w-64 bg-white dark:bg-gray-800 p-4 border-l border-gray-100 dark:border-gray-600 z-10 transition-fast" :class="{ '-mr-64': !showToc }">
+      <div class="flex mb-4 justify-end">
+        <div class="w-8 h-8 inline-flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-fast" @click="showToc = false">
+          <i class="ri-close-line text-lg"></i>
+        </div>
+      </div>
+      <div class="post-toc-container">
+        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#mysql">MySQL</a>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85mysql%E5%92%8Cmysql-devel">安装mysql和mysql-devel</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85mysql-server">安装mysql-server</a></li>
+<li><a href="#%E9%87%8D%E5%90%AFmysql%E6%9C%8D%E5%8A%A1">重启mysql服务</a></li>
+<li><a href="#%E8%AE%BE%E7%BD%AEroot%E5%AF%86%E7%A0%81">设置root密码</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AEmysql">配置mysql</a></li>
+<li><a href="#%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%AE%BE%E7%BD%AE">远程连接设置</a></li>
+</ul>
+</li>
+<li><a href="#virtualenv">Virtualenv</a></li>
+<li><a href="#wsgi">WSGI</a></li>
+<li><a href="#nginx">Nginx</a>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85">安装</a></li>
+<li><a href="#%E6%A3%80%E6%9F%A5%E9%85%8D%E7%BD%AE%E6%98%AF%E5%90%A6%E6%9C%89%E9%94%99">检查配置是否有错</a></li>
+<li><a href="#%E5%90%AF%E5%8A%A8nginx">启动nginx</a></li>
+<li><a href="#%E8%AE%BE%E7%BD%AE%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF">设置开机自启</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7">创建用户</a></li>
+<li><a href="#%E4%BF%AE%E6%94%B9nginx%E4%B8%BB%E9%85%8D%E7%BD%AE">修改nginx主配置</a></li>
+<li><a href="#%E6%96%B0%E5%BB%BA%E7%BD%91%E7%AB%99%E8%BF%90%E8%A1%8C%E9%85%8D%E7%BD%AE">新建网站运行配置</a></li>
+</ul>
+</li>
+<li><a href="#gunicorn">Gunicorn</a>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85-2">安装</a></li>
+<li><a href="#%E5%90%AF%E5%8A%A8">启动</a></li>
+</ul>
+</li>
+<li><a href="#supervisor">Supervisor</a>
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85-3">安装</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E7%AE%A1%E7%90%86%E8%BF%9B%E7%A8%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">创建管理进程配置文件</a></li>
+<li><a href="#%E5%90%AF%E5%8A%A8-2">启动</a></li>
+<li><a href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%B7%A5%E5%85%B7supervisorctl">命令行客户端工具supervisorctl</a></li>
+<li><a href="#%E5%BC%80%E5%90%AFweb%E7%AE%A1%E7%90%86%E7%95%8C%E9%9D%A2">开启web管理界面</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      </div>
+    </div>
+
+    <!-- Back to top -->
+    <div class="fixed right-0 bottom-0 mb-4 mr-4 shadow w-8 h-8 rounded-full flex justify-center items-center z-10 cursor-pointer bg-white hover:shadow-lg transition-all dark:bg-gray-500 dark:text-gray-200" @click="backToUp" v-show="scrolled">
+      <i class="ri-arrow-up-line"></i>
+    </div>
+  </div>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe. 
+        It's a separate element as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg">
+  </div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+      <div class="pswp__item">
+      </div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter">
+        </div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip">
+        </div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://me.iblogc.com/media/scripts/main.js"></script>
+  
+  <!-- Code Highlight -->
+  
+    <script src="https://me.iblogc.com/media/prism.js"></script>
+    <script>
+      Prism.highlightAll()
+    </script>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+  <script>
+    //拿到预览框架，也就是上面的html代码
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+    //定义图片数组变量
+    var imgitems;
+    /**
+    * 用于显示预览界面
+    * @param index 图片数组下标
+    */
+    function viewImg(index) {
+      //其它选项这里不做过多阐述，详情见官网
+      var pswpoptions = {
+        index: parseInt(index, 10), // 开始幻灯片索引。0是第一张幻灯片。必须是整数，而不是字符串。
+        bgOpacity: 0.7, // 背景透明度，0-1
+        maxSpreadZoom: 3, // 缩放级别，不要太大
+      };
+      //初始化并打开PhotoSwipe，pswpElement对应上面预览框架，PhotoSwipeUI_Default为皮肤，imgitems为图片数组，pswpoptions为选项
+      var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, imgitems, pswpoptions);
+      gallery.init()
+    }
+    /**
+    * 用于添加图片点击事件
+    * @param img 图片元素
+    * @param index 所属下标（在imgitems中的位置）
+    */
+    function addImgClick(img, index) {
+      img.onclick = function() {
+        viewImg(index)
+      }
+    }
+    /**
+    * 轮询所有图片，获取src、width、height等数据，加入imgitems，并给图片元素添加事件
+    * 最好在onload中执行该方法，本站因放在最底部，所以直接初始化
+    * 异步加载图片可在图片元素创建完成后调用此方法
+    */
+    function initImg() {
+      //重置图片数组
+      imgitems = [];
+      //查找class:markdown 下的所有img元素并遍历
+      var imgs = document.querySelectorAll('.markdown img');
+      for (var i = 0; i < imgs.length; i++) {
+        var img = imgs[i];
+        //本站相册初始为loading图片，真实图片放在data-src
+        var ds = img.getAttribute("data-src");
+        //创建image对象，用于获取图片宽高
+        var imgtemp = new Image();
+        //判断是否存在data-src
+        if (ds != null && ds.length > 0) {
+          imgtemp.src = ds
+        } else {
+          imgtemp.src = img.src
+        }
+        //判断是否存在缓存
+        if (imgtemp.complete) {
+          var imgobj = {
+            "src": imgtemp.src,
+            "w": imgtemp.width,
+            "h": imgtemp.height,
+          };
+          imgitems[i] = imgobj;
+          addImgClick(img, i);
+        } else {
+          console.log('进来了2')
+          imgtemp.index = i;
+          imgtemp.img = img;
+          imgtemp.onload = function() {
+            var imgobj = {
+              "src": this.src,
+              "w": this.width,
+              "h": this.height,
+            };
+            //不要使用push，因为onload前后顺序会不同
+            imgitems[this.index] = imgobj
+            //添加点击事件
+            addImgClick(this.img, this.index);
+          }
+        }
+      }
+    }
+    //初始化
+    initImg();
+  </script>
+  
+    <script type="application/javascript" src="https://unpkg.com/valine"></script>
+<script type="application/javascript">
+  new Valine({
+    el: '#vlaine-comment',
+    appId: '987iVPRcMd7Mr7zod45n3Lkr-gzGzoHsz',
+    appKey: 'hfMvTINJ8W5sE840u91af9K6',
+    pageSize: 10,
+    notify: true,
+    avatar: 'retro',
+    verify: true,
+    placeholder: '来都来了，不妨评论一下',
+    visitor: true,
+    highlight: true,
+    recordIP: true,
+  })
+</script>
+  
+  
+</body>
+
+</html>
