@@ -1,0 +1,822 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://me.iblogc.com/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/archives/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tags/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/about/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/bu-jian-duan-kong-ge-c2-a0-non-breaking-space/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/gitee2gitea/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/webflux%E4%B8%ADmongo%E6%93%8D%E4%BD%9C-transaction/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/webflux%E4%B8%ADmongo%E6%93%8D%E4%BD%9C-aggregation/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/awesome-software/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/adoption-cat-hua-mulan/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/git-reset/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/git-alias/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/android%E7%9C%9F%E6%9C%BA%E8%B0%83%E8%AF%95%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/js%E7%AC%94%E8%AE%B0/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/page/2/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/springwebflux/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/hello-gridea/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/%E4%BD%BF%E7%94%A8alembic%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/django-rest-framework%E6%8E%A5%E5%8F%A3%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/%E5%9C%A8macos%E4%B8%8A%E6%9B%B4%E6%94%B9jenkins%E9%BB%98%E8%AE%A4%E7%94%A8%E6%88%B7%E8%A7%A3%E5%86%B3%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%B7%A5%E5%85%B7frp%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AD%90%E5%9F%9F%E5%90%8D%E8%AE%BF%E9%97%AE%E9%85%8D%E7%BD%AE/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/mac%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5windows/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/django-biao-dan-zi-ding-yi-yan-zheng/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/django-rest-framework%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0%E5%8F%8A%E8%B7%B3%E5%9D%91%E8%AE%B0%E5%BD%95/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/django-rest-framework%E4%BD%BF%E7%94%A8%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/django-rest-framework%E9%87%8C%E7%9A%84api%E8%AF%B7%E6%B1%82%E9%A2%91%E7%8E%87%E6%8E%A7%E5%88%B6/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/%E5%9C%A8centos7%E4%BD%BF%E7%94%A8mysql-nginx-gunicorn+supervisor%E9%83%A8%E7%BD%B2django/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/hang-dian-ji-yi/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/django-18-shi-wu/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/npm%E5%85%A5%E9%97%A8%E5%91%BD%E4%BB%A4/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/chrome%E6%89%A9%E5%B1%95-%E6%8F%92%E4%BB%B6-%E5%BA%94%E7%94%A8%E6%8E%A8%E8%8D%90/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/django-admin-bi-ji/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/django1-9%E6%96%87%E6%A1%A3%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/django-filter/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/django-rest-framework%E4%B9%8B%E7%89%88%E6%9C%AC%E5%8F%B7version/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/curl%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/django-guan-lian-dui-xiang-zi-duan/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/duoshuo-comments-ua/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/django%E5%AD%97%E6%AE%B5%E9%80%89%E9%A1%B9related-name%E5%92%8Crelated-query-name/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/git-stash%E7%9A%84%E7%AE%80%E5%8D%95%E8%BF%90%E7%94%A8/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/git-patch%E7%9A%84%E7%AE%80%E5%8D%95%E8%BF%90%E7%94%A8/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/material-design%E8%B5%84%E6%BA%90/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/django%E5%86%85%E7%BD%AE%E7%9A%84flatpages%E5%BA%94%E7%94%A8/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/%E4%BD%BF%E7%94%A8synergy%E5%AE%9E%E7%8E%B0%E5%A4%9A%E5%8F%B0%E7%94%B5%E8%84%91%E5%85%B1%E4%BA%AB%E4%B8%80%E5%A5%97%E9%94%AE%E9%BC%A0/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/ubuntu%E4%BB%8E14-10%E5%8D%87%E7%BA%A7%E5%88%B015-04/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/xy-problem/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/python%E4%B8%AD%E7%9A%84uuid/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/apache-rewrite/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/chrome-add-to-homescreen/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/uc%E5%92%8Cqq%E6%B5%8F%E8%A7%88%E5%99%A8%E7%A7%81%E6%9C%89meta/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/ubuntu%E5%AE%89%E8%A3%85android-studio%E5%87%BA%E7%8E%B0%E9%94%99unable-to-run-mksdcard-sdk-tool/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/ubuntu%E5%AE%89%E8%A3%85jdk8/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/ubuntu%E8%BF%90%E8%A1%8Cshadowsocks%E5%AE%A2%E6%88%B7%E7%AB%AF/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/ubuntu%E6%9B%B4%E6%96%B0nv%E6%98%BE%E5%8D%A1%E9%A9%B1%E5%8A%A8/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/archives/page/2/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/git/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/gitee/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/gitlab/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/gite/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/gogs/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/qian-yi/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/dai-ma/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/python/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/java/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/reactive/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/shi-wu/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/mongo/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/shu-ju-ku/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/flux/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/aggregation/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/ruan-jian/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/tui-jian/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/xiao-lu/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/mao/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/cat/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/reset/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/hui-fu/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/hou-hui/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/jiao-cheng/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/android/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/macos/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/ming-ling/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/wu-xian/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/diao-shi/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/adb/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/usb/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/js/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/gridea/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/aa/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/restful-api/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/jie-kou/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/dan-yuan-ce-shi/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/ce-shi/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/django/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/jenkins/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/quan-xian/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/yong-hu/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/nei-wang-chuan-tou/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/yuan-cheng/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/restful/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/api/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/wen-ti/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/api-version/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/centos/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/nginx/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/gunicorn/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/mysql/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/supervisor/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/npm/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/nodejs/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/gong-ju/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/chrome/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/kuo-zhan/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/cha-jian/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/wen-dang/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/bi-ji/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/version/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/curl/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/material-design/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/wang-ye-kuang-jia/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/synergy/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/gong-xiang/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/jian-pan/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/ubuntu/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/za-tan/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/uuid/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/apache/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/chong-ding-xiang/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/meta/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/liu-lan-qi/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/qian-duan/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/jdk/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/shadowsocks/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/qu-dong/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/wei-xin-gong-zhong-hao/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/duan-kou/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/ngrok/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/pip/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/virtualenv/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/virtualenvwrapper/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/du-li/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/xu-ni-huan-jing/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/requirements/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/dian-ying/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/xiao-huang-ren/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/yu-gao-pian/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/yu-ming/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/github/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/gitcafe/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/page/3/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/git%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/%E4%BD%BF%E7%94%A8ngrok%E9%85%8D%E7%BD%AE%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E6%9C%AC%E5%9C%B0%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%EF%BC%88adsl%E5%B1%8F%E8%94%BD80%E7%AB%AF%E5%8F%A3%E9%97%AE%E9%A2%98%EF%BC%89/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/pip%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/%E4%BD%BF%E7%94%A8virtualenv%E5%88%9B%E5%BB%BA%E7%8B%AC%E7%AB%8B%E7%9A%84python%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/%E7%94%B5%E5%BD%B1%E3%80%8A%E5%B0%8F%E9%BB%84%E4%BA%BA%E3%80%8B%E4%B8%AD%E6%96%87%E9%A2%84%E5%91%8A%E7%89%87/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/github-pages-gitcafe-pages%E7%BB%91%E5%AE%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/post/hello-world/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/tag/django/page/2/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/page/4/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/page/5/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+<url>
+  <loc>https://me.iblogc.com/page/6/</loc>
+  <lastmod>2022-11-21T02:31:03+00:00</lastmod>
+  <priority>0.33</priority>
+</url>
+
+
+</urlset>
